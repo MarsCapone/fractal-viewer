@@ -9,7 +9,7 @@ public class FractalViewer extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new FractalViewerPanel());
 
-        setMinimumSize(new Dimension(400, 400));
+        pack();
         setResizable(true);
         setVisible(true);
 
