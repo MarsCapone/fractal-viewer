@@ -21,8 +21,6 @@ public class FractalViewerPanel extends JPanel {
         this.add(infoPane, BorderLayout.EAST);
         this.add(graphics, BorderLayout.CENTER);
 
-        // create and add to instruction and settings panels
-
     }
     
     private Container createInstructionPanel() {

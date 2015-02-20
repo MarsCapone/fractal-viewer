@@ -18,4 +18,14 @@ public class GraphCalc {
         return new Complex(realPart, imaginaryPart);
     }
     
+    
+    public static Complex mandelbrot(int n, Complex c) {
+        if (n==0) {
+            return c;
+        } else {
+            return ( mandelbrot( n-1, c ).square() ).add(c);
+        }
+        
+    }
+    
 }

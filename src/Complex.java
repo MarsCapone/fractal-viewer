@@ -31,7 +31,8 @@ public class Complex {
     }
     
     public double modulusSquared() {
-        return (realPart*realPart) + (imaginaryPart*imaginaryPart);
+        // actual modulus is square root of this
+        return (realPart*realPart) + (imaginaryPart*imaginaryPart); 
     }
     
     public Complex add(Complex d) {
