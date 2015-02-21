@@ -54,23 +54,15 @@ public class FractalViewerGraphics extends JPanel {
             }
         }
     }
-    //TODO find out how to display this, instead of painting.
 
     /**
      * Paint the scene. Not sure this is the ideal way of doing things.
      * @param g
      */
-    public void paint(Graphics g) {
-        for (int w=0; w<getWidth(); w++) {
-            for (int h=0; h<getHeight(); h++) {
-                Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getMandelbrotColour(complexPoint);
-                g.setColor(pointColour);
-                g.drawRect(w, h, 1, 1);
-            }
-        }
+    public void paintComponent(Graphics g) {
+        paintImage();
+        g.drawImage(image, 0, 0, null);
     }
-    //TODO find out if this is a good way of doing things. Suspect not.
 
     /**
      * Get the complex number corresponding to a point on a JPanel axis.
