@@ -4,7 +4,7 @@ public class GraphCalc {
      * Get the complex number that describes and point in a panel.
      * @param x The X value of the point
      * @param y The Y value of the point
-     * @param maxX The width of teh panel
+     * @param maxX The width of the panel
      * @param maxY The height of the panel
      * @param abstractRangeX The range of the X axis of real values
      * @param abstractMinX The minimum X value on the abstract real axis
@@ -17,15 +17,4 @@ public class GraphCalc {
         double imaginaryPart = -(abstractMinY + (y * abstractRangeY)/maxY);
         return new Complex(realPart, imaginaryPart);
     }
-    
-    
-    public static Complex mandelbrot(int n, Complex c) {
-        if (n==0) {
-            return c;
-        } else {
-            return ( mandelbrot( n-1, c ).square() ).add(c);
-        }
-        
-    }
-    
 }

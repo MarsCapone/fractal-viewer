@@ -1,14 +1,15 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class FractalViewer extends JFrame {
 
+    /**
+     * Create a new fractal viewer
+     */
     public FractalViewer() {
 
         setTitle("Fractal Viewer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new FractalViewerPanel());
-
         pack();
         setResizable(true);
         setVisible(true);
