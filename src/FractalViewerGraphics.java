@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class FractalViewerGraphics extends JPanel {
@@ -103,7 +106,6 @@ public class FractalViewerGraphics extends JPanel {
      */
     private Color getMandelbrotColour(Complex c) {
         int divergence = getMandelbrotDivergence(c);
-        System.out.println(divergence);
         return new Color(0, 0, 255 - divergence);
         /*if (divergence >= 100) {
             return Color.BLACK;
@@ -135,5 +137,6 @@ public class FractalViewerGraphics extends JPanel {
         Complex zsquared = z.square();
         return zsquared.add(c);
     }
+
 
 }
