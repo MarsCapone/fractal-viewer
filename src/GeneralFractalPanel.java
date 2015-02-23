@@ -8,10 +8,10 @@ public class GeneralFractalPanel extends JPanel {
     protected double COUNT_LIMIT = 255;
 
     // create abstract axis values
-    private double abstractRangeY;
-    private double abstractRangeX;
-    private double abstractMinY;
-    private double abstractMinX;
+    protected double abstractRangeY;
+    protected double abstractRangeX;
+    protected double abstractMinY;
+    protected double abstractMinX;
 
     public GeneralFractalPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         this.abstractMinX = abstractMinX;
@@ -20,6 +20,7 @@ public class GeneralFractalPanel extends JPanel {
         this.abstractRangeY = abstractRangeY;
 
         this.setPreferredSize(new Dimension(300, 300));
+        this.setDoubleBuffered(true);
     }
     
     public GeneralFractalPanel() {
@@ -35,6 +36,10 @@ public class GeneralFractalPanel extends JPanel {
      */
     public Complex getComplexPoint(int x, int y) {
         return GraphCalc.getComplexPoint(x, y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
+    }
+    
+    public Complex getComplexPoint(Point p) {
+        return GraphCalc.getComplexPoint(p.x, p.y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
     }
 
     /**

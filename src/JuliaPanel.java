@@ -1,24 +1,31 @@
 import java.awt.*;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
-public class JuliaPanel extends GeneralFractalPanel {
+public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListener {
 
-    private BufferedImage juliaImage;
+    private static BufferedImage juliaImage;
+    
+    private Complex constant;
 
     public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
+        addMouseWheelListener(this);
     }
     
     public JuliaPanel() {
         super();
+        addMouseWheelListener(this);
     }
 
     /**
      * Draw the Julia Set with the given constant, onto a Buffered Image. 
      * @param d The constant for the Julia Set
      */
-    private void paintJuliaImage(Complex d) {
+    public void paintJuliaImage(Complex d) {
         juliaImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        constant = d;
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
@@ -52,7 +59,11 @@ public class JuliaPanel extends GeneralFractalPanel {
      * @param g Graphics object
      */
     public void paintComponent(Graphics g) {
-        paintJuliaImage(new Complex(-0.15, -0.8));
+        //paintJuliaImage(new Complex(0, 0));
+        g.drawImage(juliaImage, 0, 0, null);
+    }
+    
+    public void repaint(Graphics g) {
         g.drawImage(juliaImage, 0, 0, null);
     }
 
@@ -79,5 +90,8 @@ public class JuliaPanel extends GeneralFractalPanel {
     }
 
 
-
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+        
+    }
 }

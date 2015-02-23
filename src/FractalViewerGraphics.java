@@ -7,22 +7,26 @@ import java.awt.image.BufferedImage;
 
 public class FractalViewerGraphics extends JPanel {
 
+    public static MandelbrotPanel mandelbrotPanel;
+    public static JuliaPanel juliaPanel;
+    
     public FractalViewerGraphics() {
 
         // set important settings
         setLayout(new FlowLayout());
 
         // create panels to show different fractals
-        MandelbrotPanel mandelbrotPanel = new MandelbrotPanel();
-        JuliaPanel juliaPanel = new JuliaPanel();
+        mandelbrotPanel = new MandelbrotPanel();
+        juliaPanel = new JuliaPanel();
         
         // create the tabbed panel
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Mandelbrot Set", null, mandelbrotPanel, "View Mandelbrot Set");
-        tabbedPane.addTab("Julia Set", null, juliaPanel, "View Julia Set");
+        //JTabbedPane tabbedPane = new JTabbedPane();
+        //tabbedPane.addTab("Mandelbrot Set", null, mandelbrotPanel, "View Mandelbrot Set");
+        //tabbedPane.addTab("Julia Set", null, juliaPanel, "View Julia Set");
         
         // add panels
-        this.add(tabbedPane);
+        this.add(mandelbrotPanel);
+        this.add(juliaPanel);
     }
 
 }

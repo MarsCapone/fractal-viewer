@@ -1,16 +1,23 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-public class MandelbrotPanel extends GeneralFractalPanel {
+public class MandelbrotPanel extends GeneralFractalPanel implements MouseListener, MouseWheelListener, MouseMotionListener {
 
     private BufferedImage mandelbrotImage;
+    private Point startDrag, endDrag;
 
     public MandelbrotPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
+        addMouseListener(this);
+        addMouseWheelListener(this);
     }
 
     public MandelbrotPanel() {
         super();
+        addMouseListener(this);
+        addMouseWheelListener(this);
     }
 
     /**
@@ -35,6 +42,19 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         paintMandelbrotImage();
         g.drawImage(mandelbrotImage, 0, 0, null);
     }
+    
+    /*
+    public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        if (startDrag != null && endDrag != null) {
+            g2.setPaint(Color.LIGHT_GRAY);
+            Shape r = new Rectangle2D.Float(Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y, endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y));
+            g2.draw(r);
+        }
+    }
+    */
     
 
     /**
@@ -66,4 +86,67 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         return zsquared.add(c);
     }
     
+    private void zoomIn(int minReal, int minImaginary, int maxReal, int maxImaginary) {
+        MandelbrotPanel mp = new MandelbrotPanel(minReal, maxReal-minReal, minImaginary, maxImaginary-minImaginary);
+        mp.paintMandelbrotImage();
+        mandelbrotImage = mp.getImage();
+        this.repaint();
+    }
+    
+    public BufferedImage getImage() {
+        return mandelbrotImage;
+    }
+
+
+    /**
+     * When the mouse is clicked on a pixel, generate the correct Julia Set with the constant at the clicked point
+     * @param mouseEvent Mouse clicked.
+     */
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        int x = mouseEvent.getX();
+        int y = mouseEvent.getY();
+        Complex point = getComplexPoint(x, y);
+        //System.out.println(point);
+        FractalViewerGraphics.juliaPanel.paintJuliaImage(point);
+        FractalViewerGraphics.juliaPanel.repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        startDrag = new Point(mouseEvent.getX(), mouseEvent.getY());
+        System.out.println(startDrag);
+        repaint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+        endDrag = new Point(mouseEvent.getX(), mouseEvent.getY());
+        System.out.println(endDrag);
+        repaint();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {}
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {}
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+        System.out.printf("X: %d | Y: %d | M: %d \n", mouseWheelEvent.getX(), mouseWheelEvent.getY(), mouseWheelEvent.getWheelRotation()*mouseWheelEvent.getScrollAmount());
+        //zoomIn(-1, 0, 1, 1);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+        endDrag = new Point(mouseEvent.getX(), mouseEvent.getY());
+        System.out.println(endDrag);
+        repaint();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+
+    }
 }
