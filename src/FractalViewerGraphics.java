@@ -98,6 +98,27 @@ public class FractalViewerGraphics extends JPanel {
         return count;
     }
 
+    // getJuliaDivergence(juliaGraphPoint, clickedMandelbrotPoint)
+    private int getJuliaDivergence(Complex z, Complex d) {
+        int count = 0; // recursions before divergence
+        Complex previousComplex = z;
+        double modulus = 0.0;
+        while (modulus < MODULUS_LIMIT) {
+            previousComplex = getNextJulia(previousComplex, d);
+            modulus = Math.sqrt(previousComplex.modulusSquared());
+            if (count > 99) {
+                break;
+            }
+            count++;
+        }
+        return count;
+    }
+
+    private Color getJuliaColour(Complex z, Complex d) {
+        int divergence = getJuliaDivergence(z, d);
+        return new Color(0, 255-divergence, 0);
+    }
+
     /**
      * A colour depending on the integer value of divergence for a complex number in the
      * Mandelbrot set.
@@ -134,6 +155,11 @@ public class FractalViewerGraphics extends JPanel {
      * @return The next Mandelbrot value.
      */
     private Complex getNextMandelbrot(Complex z, Complex c) {
+        Complex zsquared = z.square();
+        return zsquared.add(c);
+    }
+
+    private Complex getNextJulia(Complex z, Complex c) {
         Complex zsquared = z.square();
         return zsquared.add(c);
     }
