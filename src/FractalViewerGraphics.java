@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class FractalViewerGraphics extends JPanel {
 
-    public double MODULUS_LIMIT = 2;
+    public final double MODULUS_LIMIT = 2;
+    public final double COUNT_LIMIT = 255;
     private BufferedImage image;
 
     // settings for the abstract axes
@@ -87,12 +88,9 @@ public class FractalViewerGraphics extends JPanel {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT) {
+        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
             previousComplex = getNextMandelbrot(previousComplex, c);
             modulus = Math.sqrt(previousComplex.modulusSquared());
-            if (count > 99) {
-                break;
-            }
             count++;
         }
         return count;
@@ -103,12 +101,9 @@ public class FractalViewerGraphics extends JPanel {
         int count = 0; // recursions before divergence
         Complex previousComplex = z;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT) {
+        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
             previousComplex = getNextJulia(previousComplex, d);
             modulus = Math.sqrt(previousComplex.modulusSquared());
-            if (count > 99) {
-                break;
-            }
             count++;
         }
         return count;
@@ -116,7 +111,7 @@ public class FractalViewerGraphics extends JPanel {
 
     private Color getJuliaColour(Complex z, Complex d) {
         int divergence = getJuliaDivergence(z, d);
-        return new Color(0, 255-divergence, 0);
+        return count2colour(divergence);
     }
 
     /**
@@ -127,7 +122,7 @@ public class FractalViewerGraphics extends JPanel {
      */
     private Color getMandelbrotColour(Complex c) {
         int divergence = getMandelbrotDivergence(c);
-        return new Color(0, 0, 255 - divergence);
+        return count2colour(divergence);
         /*if (divergence >= 100) {
             return Color.BLACK;
         } else if (divergence > 49) {
@@ -164,5 +159,17 @@ public class FractalViewerGraphics extends JPanel {
         return zsquared.add(c);
     }
 
+    private Color count2colour(int count) {
+        double step = count/COUNT_LIMIT;
+        int totalSteps = 255*3;
+        int calculatedColour = (int) step * totalSteps;
+        if (calculatedColour > 255*2) {
+            return new Color(255, 255, calculatedColour%255);
+        } else if (calculatedColour > 255) {
+            return new Color(255, calculatedColour%255, 0);
+        } else {
+            return new Color(calculatedColour%255, 0, 0);
+        }
+    }
 
 }
