@@ -49,7 +49,7 @@ public class JuliaPanel extends GeneralFractalPanel {
 
     /**
      * Paint the scene. Not sure this is the ideal way of doing things.
-     * @param g
+     * @param g Graphics object
      */
     public void paintComponent(Graphics g) {
         paintJuliaImage(new Complex(-0.15, -0.8));

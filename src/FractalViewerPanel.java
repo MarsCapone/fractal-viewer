@@ -4,9 +4,9 @@ import java.awt.*;
 public class FractalViewerPanel extends JPanel {
 
     // preset some different font sizes
-    private Font _bigFont = new Font(null, Font.BOLD, 20);
-    private Font _medFont = new Font(null, Font.BOLD, 15);
-    private Font _smallFont = new Font(null, Font.BOLD, 10);
+    private final Font _bigFont = new Font(null, Font.BOLD, 20);
+    private final Font _medFont = new Font(null, Font.BOLD, 15);
+    private final Font _smallFont = new Font(null, Font.BOLD, 10);
 
     /**
      * Everything for the Fractal Viewer is stored in the Fractal Viewer Panel

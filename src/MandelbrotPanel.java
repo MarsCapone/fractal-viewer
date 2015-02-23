@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -30,7 +29,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
 
     /**
      * Paint the scene. Not sure this is the ideal way of doing things.
-     * @param g
+     * @param g Graphics object
      */
     public void paintComponent(Graphics g) {
         paintMandelbrotImage();
