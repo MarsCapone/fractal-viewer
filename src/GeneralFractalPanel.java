@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 
 public class GeneralFractalPanel extends JPanel {
 
-    public final double MODULUS_LIMIT = 2;
-    public final double COUNT_LIMIT = 255;
+    // set limits for easy changing
+    protected double MODULUS_LIMIT = 2;
+    protected double COUNT_LIMIT = 255;
 
+    // create abstract axis values
     private double abstractRangeY;
     private double abstractRangeX;
     private double abstractMinY;
@@ -36,8 +38,13 @@ public class GeneralFractalPanel extends JPanel {
         return GraphCalc.getComplexPoint(x, y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
     }
 
-    public Color getColour(int count) {
-        double step = count/COUNT_LIMIT;
+    /**
+     * Convert a divergence count to a colour. 
+     * @param divergenceCount The count before divergence.
+     * @return The colour that this divergence corresponds to.
+     */
+    public Color getColour(int divergenceCount) {
+        double step = divergenceCount/COUNT_LIMIT;
         int totalSteps = 255*3;
         int calculatedColour = (int) step * totalSteps;
         if (calculatedColour > 255*2) {
@@ -49,5 +56,19 @@ public class GeneralFractalPanel extends JPanel {
         }
     }
 
+    public double getModulusLimit() {
+        return MODULUS_LIMIT;
+    }
+
+    public double getCountLimit() {
+        return COUNT_LIMIT;
+    }
     
+    public void setModulusLimit(double limit) {
+        MODULUS_LIMIT = limit;
+    }
+    
+    public void setCountLimit(int limit) {
+        COUNT_LIMIT = limit;
+    }
 }

@@ -12,15 +12,16 @@ public class FractalViewerGraphics extends JPanel {
         // set important settings
         setLayout(new FlowLayout());
 
-        //this.setDoubleBuffered(true);
-
+        // create panels to show different fractals
         MandelbrotPanel mandelbrotPanel = new MandelbrotPanel();
         JuliaPanel juliaPanel = new JuliaPanel();
         
+        // create the tabbed panel
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Mandelbrot Set", null, mandelbrotPanel, "View Mandelbrot Set");
         tabbedPane.addTab("Julia Set", null, juliaPanel, "View Julia Set");
         
+        // add panels
         this.add(tabbedPane);
     }
 
