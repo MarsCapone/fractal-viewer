@@ -29,7 +29,8 @@ public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListene
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getJuliaColour(complexPoint, d);
+                int divergence = getJuliaDivergence(complexPoint, d);
+                Color pointColour = getColourT1(w, h, divergence); //getJuliaColour(complexPoint, d);
                 juliaImage.setRGB(w, h, pointColour.getRGB());
             }
         }

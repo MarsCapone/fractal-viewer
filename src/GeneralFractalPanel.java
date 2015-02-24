@@ -48,10 +48,13 @@ public class GeneralFractalPanel extends JPanel {
      * @return The colour that this divergence corresponds to.
      */
     public Color getColour(int divergenceCount) {
-        double d = divergenceCount/COUNT_LIMIT;
-        int greyness = (int) (255 - d*255);
-
-        return new Color(greyness, greyness, greyness);
+        if (divergenceCount > 0 ) {
+            double d = Math.pow(divergenceCount / COUNT_LIMIT, 3);
+            int greyness = (int) (d * 255);
+            return new Color(greyness, greyness, greyness);
+        } else {
+            return Color.white;
+        }
 
     }
 
@@ -69,5 +72,12 @@ public class GeneralFractalPanel extends JPanel {
     
     public void setCountLimit(int limit) {
         COUNT_LIMIT = limit;
+    }
+
+    public Color getColourT1(int x, int y, int iterations) {
+        x = 255 * x / getWidth();
+        y = 255 * y / getHeight();
+        iterations = (int) (iterations * 255 / COUNT_LIMIT);
+        return new Color(x, y, iterations);
     }
 }

@@ -28,7 +28,7 @@ public class MandelbrotPanel extends GeneralFractalPanel implements MouseListene
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getColour(getMandelbrotDivergence(complexPoint));
+                Color pointColour = getColourT1(w, h, getMandelbrotDivergence(complexPoint));
                 mandelbrotImage.setRGB(w, h, pointColour.getRGB());
             }
         }
@@ -86,13 +86,6 @@ public class MandelbrotPanel extends GeneralFractalPanel implements MouseListene
         return zsquared.add(c);
     }
     
-    private void zoomIn(int minReal, int minImaginary, int maxReal, int maxImaginary) {
-        MandelbrotPanel mp = new MandelbrotPanel(minReal, maxReal-minReal, minImaginary, maxImaginary-minImaginary);
-        mp.paintMandelbrotImage();
-        mandelbrotImage = mp.getImage();
-        this.repaint();
-    }
-    
     public BufferedImage getImage() {
         return mandelbrotImage;
     }
@@ -115,15 +108,15 @@ public class MandelbrotPanel extends GeneralFractalPanel implements MouseListene
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         startDrag = new Point(mouseEvent.getX(), mouseEvent.getY());
-        System.out.println(startDrag);
-        repaint();
+        //System.out.println(startDrag);
+        //repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         endDrag = new Point(mouseEvent.getX(), mouseEvent.getY());
-        System.out.println(endDrag);
-        repaint();
+        //System.out.println(endDrag);
+        //repaint();
     }
 
     @Override
