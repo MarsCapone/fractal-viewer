@@ -20,13 +20,17 @@ public class FractalViewerGraphics extends JPanel {
         juliaPanel = new JuliaPanel();
         
         // create the tabbed panel
-        //JTabbedPane tabbedPane = new JTabbedPane();
-        //tabbedPane.addTab("Mandelbrot Set", null, mandelbrotPanel, "View Mandelbrot Set");
-        //tabbedPane.addTab("Julia Set", null, juliaPanel, "View Julia Set");
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Mandelbrot Set", null, mandelbrotPanel, "View Mandelbrot Set");
+        tabbedPane.addTab("Julia Set", null, juliaPanel, "View Julia Set");
+        this.add(tabbedPane);
+
+        // paint initial julia image
+        //juliaPanel.paintJuliaImage(new Complex(0,0));
         
         // add panels
-        this.add(mandelbrotPanel);
-        this.add(juliaPanel);
+        //this.add(mandelbrotPanel);
+        //this.add(juliaPanel);
     }
 
 }

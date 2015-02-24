@@ -19,7 +19,7 @@ public class GeneralFractalPanel extends JPanel {
         this.abstractRangeX = abstractRangeX;
         this.abstractRangeY = abstractRangeY;
 
-        this.setPreferredSize(new Dimension(300, 300));
+        this.setPreferredSize(new Dimension(600, 600));
         this.setDoubleBuffered(true);
     }
     
@@ -48,16 +48,10 @@ public class GeneralFractalPanel extends JPanel {
      * @return The colour that this divergence corresponds to.
      */
     public Color getColour(int divergenceCount) {
-        double step = divergenceCount/COUNT_LIMIT;
-        int totalSteps = 255*3;
-        int calculatedColour = (int) step * totalSteps;
-        if (calculatedColour > 255*2) {
-            return new Color(255, 255, calculatedColour%255);
-        } else if (calculatedColour > 255) {
-            return new Color(255, calculatedColour%255, 0);
-        } else {
-            return new Color(calculatedColour%255, 0, 0);
-        }
+        double d = divergenceCount/COUNT_LIMIT;
+
+        return new Color((int) (d *255), (int) (d * 255), (int) (d * 255));
+
     }
 
     public double getModulusLimit() {
