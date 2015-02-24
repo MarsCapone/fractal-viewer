@@ -39,7 +39,7 @@ public class GeneralFractalPanel extends JPanel {
     }
     
     public Complex getComplexPoint(Point p) {
-        return GraphCalc.getComplexPoint(p.x, p.y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
+        return getComplexPoint(p.x, p.y);
     }
 
     /**
@@ -49,8 +49,9 @@ public class GeneralFractalPanel extends JPanel {
      */
     public Color getColour(int divergenceCount) {
         double d = divergenceCount/COUNT_LIMIT;
+        int greyness = (int) (255 - d*255);
 
-        return new Color((int) (d *255), (int) (d * 255), (int) (d * 255));
+        return new Color(greyness, greyness, greyness);
 
     }
 
