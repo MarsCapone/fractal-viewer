@@ -91,7 +91,7 @@ public class FractalViewerGraphics extends JPanel {
                 juliaPanel.removeAll();
                 juliaPanel.add(new JuliaPanel());
                 juliaPanel.setConstant(point);
-                juliaPanel.paintJuliaImage();
+                juliaPanel.paintImage();
                 juliaPanel.repaint();
                 revalidate();
             } catch (InvalidParameterException e) {
