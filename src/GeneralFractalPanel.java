@@ -5,7 +5,9 @@ public class GeneralFractalPanel extends JPanel {
 
     // set limits for easy changing
     protected double MODULUS_LIMIT = 2;
-    protected double COUNT_LIMIT = 255;
+    protected double COUNT_LIMIT = 100;
+    protected int WIDTH = 600;
+    protected int HEIGHT = 600;
 
     // create abstract axis values
     protected double abstractRangeY;
@@ -19,7 +21,7 @@ public class GeneralFractalPanel extends JPanel {
         this.abstractRangeX = abstractRangeX;
         this.abstractRangeY = abstractRangeY;
 
-        this.setPreferredSize(new Dimension(600, 600));
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setDoubleBuffered(true);
     }
     
@@ -74,9 +76,9 @@ public class GeneralFractalPanel extends JPanel {
         COUNT_LIMIT = limit;
     }
 
-    public Color getColourT1(int x, int y, int iterations) {
-        x = 255 * x / getWidth();
-        y = 255 * y / getHeight();
+    public Color getColourT1(Complex startingComplex, int iterations) {
+        int x = (int) ((startingComplex.pow(4).getReal() * abstractRangeX) / getWidth());
+        int y = (int) ((startingComplex.pow(4).getImaginary() * abstractRangeY) / getHeight());
         iterations = (int) (iterations * 255 / COUNT_LIMIT);
         return new Color(x, y, iterations);
     }

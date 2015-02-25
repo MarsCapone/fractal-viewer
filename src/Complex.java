@@ -70,4 +70,14 @@ public class Complex {
         double newImaginaryPart = imaginaryPart + d.getImaginary();
         return new Complex(newRealPart, newImaginaryPart);
     }
+    
+    public Complex pow(int index) {
+        Complex base = this;
+        for (int i=0; i<index; i++) {
+            double newReal = (this.realPart * base.realPart) - (this.imaginaryPart * base.imaginaryPart);
+            double newImaginary = (this.realPart * base.imaginaryPart) + (this.imaginaryPart * base.realPart);
+            base = new Complex(newReal, newImaginary);
+        }
+        return base;
+    }
 }

@@ -3,7 +3,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
-public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListener {
+public class JuliaPanel extends GeneralFractalPanel {
 
     private static BufferedImage juliaImage;
     
@@ -11,12 +11,10 @@ public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListene
 
     public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
-        addMouseWheelListener(this);
     }
     
     public JuliaPanel() {
         super();
-        addMouseWheelListener(this);
     }
 
     /**
@@ -24,16 +22,20 @@ public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListene
      * @param d The constant for the Julia Set
      */
     public void paintJuliaImage(Complex d) {
-        juliaImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        juliaImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         constant = d;
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 int divergence = getJuliaDivergence(complexPoint, d);
-                Color pointColour = getColourT1(w, h, divergence); //getJuliaColour(complexPoint, d);
+                Color pointColour = getColourT1(complexPoint, divergence); //getJuliaColour(complexPoint, d);
                 juliaImage.setRGB(w, h, pointColour.getRGB());
             }
         }
+    }
+    
+    public void paintJuliaImage() {
+        paintJuliaImage(constant);
     }
     
     /**
@@ -68,16 +70,6 @@ public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListene
         g.drawImage(juliaImage, 0, 0, null);
     }
 
-    /**
-     * Get a colour for a point in the Julia Set. 
-     * @param z The z value.
-     * @param d The constant value.
-     * @return A color to display.
-     */
-    private Color getJuliaColour(Complex z, Complex d) {
-        int divergence = getJuliaDivergence(z, d);
-        return getColour(divergence);
-    }
 
     /**
      * Get the next complex number for a Julia Set equation.
@@ -89,10 +81,8 @@ public class JuliaPanel extends GeneralFractalPanel implements MouseWheelListene
         Complex zsquared = z.square();
         return zsquared.add(c);
     }
-
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-        
+    
+    public void setConstant(Complex d) {
+        constant = d;
     }
 }
