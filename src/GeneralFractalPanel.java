@@ -77,8 +77,8 @@ public class GeneralFractalPanel extends JPanel {
     }
 
     public Color getColourT1(Complex startingComplex, int iterations) {
-        int x = (int) ((startingComplex.pow(4).getReal() * abstractRangeX) / getWidth());
-        int y = (int) ((startingComplex.pow(4).getImaginary() * abstractRangeY) / getHeight());
+        int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / getWidth());
+        int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / getHeight());
         iterations = (int) (iterations * 255 / COUNT_LIMIT);
         return new Color(x, y, iterations);
     }
