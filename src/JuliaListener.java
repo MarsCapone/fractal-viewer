@@ -1,14 +1,9 @@
-import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.security.InvalidParameterException;
 
-public class MandelbrotListener extends FractalPanelListener {
-    
-
+public class JuliaListener extends FractalPanelListener{
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        
+
     }
 
     @Override
@@ -22,17 +17,9 @@ public class MandelbrotListener extends FractalPanelListener {
         boolean xok = Math.abs(startDrag.x - endDrag.x) >= 10;
         boolean yok = Math.abs(startDrag.y - endDrag.y) >= 10;
         if (xok && yok) {
-            MainPanel.mandelbrotPanel.zoom(startDrag, endDrag);
-            MainPanel.mandelbrotPanel.repaint();
-            
-        } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {
-            Point click = mouseEvent.getPoint();
-            Complex juliaConstant = MainPanel.mandelbrotPanel.getComplexPoint(click);
-            System.out.printf("Generating Julia Set for constant: %s \n", juliaConstant); //
-            MainPanel.juliaPanel.setConstant(juliaConstant);
+            MainPanel.juliaPanel.zoom(startDrag, endDrag);
             MainPanel.juliaPanel.repaint();
         }
-
     }
 
     @Override

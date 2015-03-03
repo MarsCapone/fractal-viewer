@@ -15,6 +15,6 @@ public class GraphCalc {
     public static Complex getComplexPoint(int x, int y, int maxX, int maxY, double abstractRangeX, double abstractMinX, double abstractRangeY, double abstractMinY) {
         double realPart = abstractMinX + (x * abstractRangeX)/maxX;
         double imaginaryPart = (abstractMinY + (y * abstractRangeY)/maxY);
-        return new Complex(realPart, -imaginaryPart);
+        return new Complex(realPart, imaginaryPart);
     }
 }

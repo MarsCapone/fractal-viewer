@@ -52,25 +52,13 @@ public abstract class GeneralFractalPanel extends JPanel {
         return getComplexPoint(p.x, p.y);
     }
 
-    public Color getColourT1(Complex startingComplex, int iterations) {
-        int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / this.getWidth());
-        int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / this.getHeight());
-        iterations = (int) (iterations * 255 / COUNT_LIMIT);
-        return new Color(x, y, iterations);
-    }
-
-    /**
-     * Convert a divergence count to a colour.
-     * @param divergenceCount The count before divergence.
-     * @return The colour that this divergence corresponds to.
-     */
-    public Color getColour(int divergenceCount) {
-        if (divergenceCount > 0 ) {
-            double d = Math.pow(divergenceCount / COUNT_LIMIT, 3);
-            int greyness = (int) (d * 255);
-            return new Color(greyness, greyness, greyness);
-        } else {
-            return Color.white;
+    public Color getColour(Complex startingComplex, int iterations, int colouringType) {
+        switch (colouringType) {
+            default:
+                int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / this.getWidth());
+                int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / this.getHeight());
+                iterations = (int) (iterations * 255 / COUNT_LIMIT);
+                return new Color(x, y, iterations);
         }
 
     }
@@ -79,9 +67,44 @@ public abstract class GeneralFractalPanel extends JPanel {
         paintImage();
         g.drawImage(image, 0, 0, null);
     }
+    
+    public void resetAxes(double aMX, double aRX, double aMY, double aRY) {
+        this.abstractMinX = aMX;
+        this.abstractMinY = aMY;
+        this.abstractRangeX = aRX;
+        this.abstractRangeY = aRY;
+        repaint();
+    }
+    
+    public void resetAxes() {
+        resetAxes(-2.0, 4.0, -1.6, 3.2);
+    }
 
-    public void repaint(Graphics g) {
-        paint(g);
+    /**
+     * Zoom to these new axes
+     */
+    public void zoom(Point startDrag, Point endDrag) {
+        
+        Complex startClick = getComplexPoint(startDrag);
+        Complex endClick = getComplexPoint(endDrag);
+        
+        double minX = Math.min(startClick.getReal(), endClick.getReal());
+        double maxX = Math.max(startClick.getReal(), endClick.getReal());
+        double minY = Math.min(startClick.getImaginary(), endClick.getImaginary());
+        double maxY = Math.max(startClick.getImaginary(), endClick.getImaginary());
+        
+        double w = maxX - minX;
+        double h = maxY - minY;
+        
+        this.abstractMinX = minX;
+        this.abstractMinY = minY;
+        
+        if (w >= h ) {
+            resetAxes(minX, w, minY, w);
+        } else {
+            resetAxes(minX, h, minY, h);
+        }
+        System.out.printf("Zooming to: (%f, %f) to (%f, %f) \n", minX, maxY, maxX, minY);
     }
 
     public double getModulusLimit() {
@@ -105,7 +128,7 @@ public abstract class GeneralFractalPanel extends JPanel {
     }
 
     public void setImage(BufferedImage newImage) {
-        this.image = image;
+        this.image = newImage;
     }
 
     public abstract void paintImage();

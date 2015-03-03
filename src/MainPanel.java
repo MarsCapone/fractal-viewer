@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class MainPanel extends JPanel {
@@ -11,16 +10,17 @@ public class MainPanel extends JPanel {
 
     protected static JuliaPanel juliaPanel;
     protected static MandelbrotPanel mandelbrotPanel;
-    
+
     
     public MainPanel() {
         setLayout(new BorderLayout());
         
         mandelbrotPanel = new MandelbrotPanel();
-        Container additionalPanel = new AdditionalRightPanel();
+        Container additionalPanel = new AdditionalPanel();
         this.add(mandelbrotPanel, BorderLayout.CENTER);
         this.add(additionalPanel, BorderLayout.EAST);
         
         mandelbrotPanel.addMouseListener(new MandelbrotListener());
+        juliaPanel.addMouseListener(new JuliaListener());
     }
 }

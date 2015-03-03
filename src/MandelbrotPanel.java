@@ -20,7 +20,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getColourT1(complexPoint, getMandelbrotDivergence(complexPoint));
+                Color pointColour = getColour(complexPoint, getMandelbrotDivergence(complexPoint), AdditionalPanel.COLOURING_TYPE);
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }

@@ -1,11 +1,9 @@
 import java.awt.*;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
 public class JuliaPanel extends GeneralFractalPanel {
 
-    private Complex constant = new Complex(0, 0);
+    private Complex constant = new Complex(-0.4, 0.6);
 
     public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
@@ -21,12 +19,12 @@ public class JuliaPanel extends GeneralFractalPanel {
      */
     public void paintJuliaImage(Complex d) {
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        constant = d;
+        //constant = d;
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 int divergence = getJuliaDivergence(complexPoint, d);
-                Color pointColour = getColourT1(complexPoint, divergence); //getJuliaColour(complexPoint, d);
+                Color pointColour = getColour(complexPoint, divergence, AdditionalPanel.COLOURING_TYPE);
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }
