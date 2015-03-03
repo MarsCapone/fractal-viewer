@@ -1,12 +1,8 @@
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
+
 import java.awt.image.BufferedImage;
 
 public class MandelbrotPanel extends GeneralFractalPanel {
-
-    private BufferedImage mandelbrotImage;
-    private Point startDrag, endDrag;
 
     public MandelbrotPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
@@ -19,39 +15,16 @@ public class MandelbrotPanel extends GeneralFractalPanel {
     /**
      * Create mandelbrot set on Buffered Image. Pretty sure this is a good way o do things, but unsure how to display.
      */
-    private void paintMandelbrotImage() {
-        mandelbrotImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+    public void paintImage() {
+        image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getColourT1(complexPoint, getMandelbrotDivergence(complexPoint));
-                mandelbrotImage.setRGB(w, h, pointColour.getRGB());
+                Color pointColour = getColour(complexPoint, getMandelbrotDivergence(complexPoint), AdditionalPanel.COLOURING_TYPE);
+                image.setRGB(w, h, pointColour.getRGB());
             }
         }
     }
-
-    /**
-     * Paint the scene. Not sure this is the ideal way of doing things.
-     * @param g Graphics object
-     */
-    public void paintComponent(Graphics g) {
-        paintMandelbrotImage();
-        g.drawImage(mandelbrotImage, 0, 0, null);
-    }
-    
-    /*
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2 = (Graphics2D) g;
-
-        if (startDrag != null && endDrag != null) {
-            g2.setPaint(Color.LIGHT_GRAY);
-            Shape r = new Rectangle2D.Float(Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y, endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y));
-            g2.draw(r);
-        }
-    }
-    */
-    
 
     /**
      * Get an integer value for the divergence of a complex number when passed to the paintMandelbrotImage equation.
@@ -64,7 +37,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         Complex previousComplex = c;
         double modulus = 0.0;
         while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
-            previousComplex = getNextMandelbrot(previousComplex, c);
+            previousComplex = getNext(previousComplex, c);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;
         }
@@ -77,13 +50,9 @@ public class MandelbrotPanel extends GeneralFractalPanel {
      * @param c The complex c value.
      * @return The next paintMandelbrotImage value.
      */
-    private Complex getNextMandelbrot(Complex z, Complex c) {
+    public Complex getNext(Complex z, Complex c) {
         Complex zsquared = z.square();
         return zsquared.add(c);
-    }
-    
-    public BufferedImage getImage() {
-        return mandelbrotImage;
     }
 
 }
