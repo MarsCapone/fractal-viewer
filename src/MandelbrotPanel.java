@@ -28,18 +28,6 @@ public class MandelbrotPanel extends GeneralFractalPanel {
     }
 
     /**
-     * Paint the scene. Not sure this is the ideal way of doing things.
-     * @param g Graphics object
-     */
-    public void paintComponent(Graphics g) {
-        paintImage();
-        g.drawImage(image, 0, 0, null);
-    }
-    
-
-    
-
-    /**
      * Get an integer value for the divergence of a complex number when passed to the paintMandelbrotImage equation.
      * The series diverges when the modulus of the number is greater than MODULUS_LIMIT.
      * @param c The starting value to calculate the paintMandelbrotImage set from.
@@ -66,10 +54,6 @@ public class MandelbrotPanel extends GeneralFractalPanel {
     public Complex getNext(Complex z, Complex c) {
         Complex zsquared = z.square();
         return zsquared.add(c);
-    }
-    
-    public BufferedImage getImage() {
-        return image;
     }
 
 }

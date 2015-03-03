@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.security.InvalidParameterException;
 
-public class FractalViewerGraphics extends JPanel {
+/*public class FractalViewerPanel extends JPanel {
 
     public static MandelbrotPanel mandelbrotPanel;
     public static JuliaPanel juliaPanel;
@@ -34,14 +34,8 @@ public class FractalViewerGraphics extends JPanel {
         // add listeners
         mandelbrotPanel.addMouseListener(new MandelbrotPanelListener());
         juliaPanel.addMouseListener(new JuliaPanelListener());
+
     }
 
-
-
-
-
-
-
-
-}
+}*/
 //TODO fix zoom, currently zooms to negative y coordinate.

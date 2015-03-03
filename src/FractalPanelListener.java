@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.security.InvalidParameterException;
 
 /**
@@ -10,13 +11,11 @@ public abstract class FractalPanelListener implements MouseListener {
 
     Point startDrag, endDrag;
 
-    public void changePanel(JPanel oldPanel, JPanel newPanel) {
-        oldPanel.removeAll();
-        oldPanel.add(newPanel);
-        oldPanel.revalidate();
+    public void changePanelImage(GeneralFractalPanel oldPanel, BufferedImage newImage) {
+        oldPanel.setImage(newImage);
     }
 
-    public abstract JPanel getNewPanel(Point p1, Point p2) throws InvalidParameterException ;
+    public abstract BufferedImage getNewPanelImage(Point p1, Point p2) throws InvalidParameterException ;
 
 
 }

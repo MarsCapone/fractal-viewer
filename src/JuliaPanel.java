@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class JuliaPanel extends GeneralFractalPanel {
 
-    private Complex constant;
+    private Complex constant = new Complex(0, 0);
 
     public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
@@ -53,19 +53,6 @@ public class JuliaPanel extends GeneralFractalPanel {
             count++;
         }
         return count;
-    }
-
-    /**
-     * Paint the scene. Not sure this is the ideal way of doing things.
-     * @param g Graphics object
-     */
-    public void paintComponent(Graphics g) {
-        //paintJuliaImage(new Complex(0, 0));
-        g.drawImage(image, 0, 0, null);
-    }
-    
-    public void repaint(Graphics g) {
-        g.drawImage(image, 0, 0, null);
     }
 
 

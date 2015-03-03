@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.security.InvalidParameterException;
 
 /**
@@ -9,7 +9,7 @@ import java.security.InvalidParameterException;
 public class JuliaPanelListener extends FractalPanelListener {
 
     @Override
-    public JPanel getNewPanel(Point p1, Point p2) throws InvalidParameterException {
+    public BufferedImage getNewPanelImage(Point p1, Point p2) throws InvalidParameterException {
         int minX = Math.min(p1.x, p2.x);
         int maxX = Math.max(p1.x, p2.x);
         int minY = Math.min(p1.y, p2.y);
@@ -17,11 +17,12 @@ public class JuliaPanelListener extends FractalPanelListener {
 
         // don't create a new panel unless the size of the rectangle is legitimate
         if (Math.abs(maxX - minX) >= 10 && Math.abs(maxY - minY) >= 10) {
-            Complex topLeft = FractalViewerGraphics.juliaPanel.getComplexPoint(minX, minY);
-            Complex bottomRight = FractalViewerGraphics.juliaPanel.getComplexPoint(maxX, maxY);
-            return new JuliaPanel(topLeft.getReal(), bottomRight.getReal() - topLeft.getReal(), topLeft.getImaginary(), topLeft.getImaginary() - bottomRight.getImaginary());
+            Complex topLeft = FractalViewerPanel.juliaPanel.getComplexPoint(minX, minY);
+            Complex bottomRight = FractalViewerPanel.juliaPanel.getComplexPoint(maxX, maxY);
+            JuliaPanel newJulia =  new JuliaPanel(topLeft.getReal(), bottomRight.getReal() - topLeft.getReal(), topLeft.getImaginary(), topLeft.getImaginary() - bottomRight.getImaginary());
+            return newJulia.getImage();
         }
-        return new JuliaPanel();
+        return FractalViewerPanel.juliaPanel.getImage();
     }
 
     @Override
@@ -37,7 +38,9 @@ public class JuliaPanelListener extends FractalPanelListener {
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         endDrag = new Point(mouseEvent.getX(), mouseEvent.getY());
-        changePanel(FractalViewerGraphics.juliaPanel, getNewPanel(startDrag, endDrag));
+        changePanelImage(FractalViewerPanel.juliaPanel, getNewPanelImage(startDrag, endDrag));
+        FractalViewerPanel.juliaPanel.repaint();
+        FractalViewerPanel.mandelbrotPanel.repaint();
     }
 
     @Override
