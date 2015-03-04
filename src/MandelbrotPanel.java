@@ -36,7 +36,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
         double modulus = 0.0;
-        while (modulus < MainPanel.MODULUS_LIMIT && count < MainPanel.COUNT_LIMIT) {
+        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
             previousComplex = getNext(previousComplex, c);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;

@@ -8,8 +8,9 @@ import java.awt.event.ActionListener;
 
 public class AdditionalPanel extends JPanel {
 
-    protected static int COLOURING_TYPE = 0;
-
+    /**
+     * Additional Pane contains Julia set and settings.
+     */
     public AdditionalPanel() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));

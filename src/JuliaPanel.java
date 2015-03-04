@@ -1,12 +1,9 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class JuliaPanel extends GeneralFractalPanel {
 
-    private Complex constant = new Complex(0, 0);
+    private Complex CONSTANT = new Complex(0, 0);
 
     public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
@@ -22,7 +19,6 @@ public class JuliaPanel extends GeneralFractalPanel {
      */
     public void paintJuliaImage(Complex d) {
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        //constant = d;
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
@@ -32,9 +28,12 @@ public class JuliaPanel extends GeneralFractalPanel {
             }
         }
     }
-    
+
+    /**
+     * Paint the image using the value of the CONSTANT variable as constant.
+     */
     public void paintImage() {
-        paintJuliaImage(constant);
+        paintJuliaImage(CONSTANT);
     }
     
     /**
@@ -48,7 +47,7 @@ public class JuliaPanel extends GeneralFractalPanel {
         int count = 0; // recursions before divergence
         Complex previousComplex = z;
         double modulus = 0.0;
-        while (modulus < MainPanel.MODULUS_LIMIT && count < MainPanel.COUNT_LIMIT) {
+        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
             previousComplex = getNext(previousComplex, d);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;
@@ -67,12 +66,20 @@ public class JuliaPanel extends GeneralFractalPanel {
         Complex zsquared = z.square();
         return zsquared.add(c);
     }
-    
+
+    /**
+     * Set anew value for constant.
+     * @param d The new constant value.
+     */
     public void setConstant(Complex d) {
-        constant = d;
+        CONSTANT = d;
     }
-    
+
+    /**
+     * Get the current constant value.
+     * @return The current constant value.
+     */
     public Complex getConstant() {
-        return constant;
+        return CONSTANT;
     }
 }

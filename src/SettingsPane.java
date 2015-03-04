@@ -2,25 +2,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 
 public class SettingsPane extends JPanel {
     
     public SettingsPane() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+        JPanel reaxing = new JPanel(new GridLayout(3, 1));
+        reaxing.add(createJuliaConstantJumper());
+        reaxing.add(createFractalJumper(MainPanel.mandelbrotPanel, "Mandelbrot Jump: "));
+        reaxing.add(createFractalJumper(MainPanel.juliaPanel, "Julia Jump: "));
+
         add(new JLabel("Settings"));
         add(createSetResetPane());
         add(createGenerationSettings());
         add(createColouringPane());
-        add(createJuliaConstantJumper());
-        //add(createMandelbrotReAxing());
+        add(reaxing);
         
     }
 
+    /**
+     * Create a panel that allows the jumping of a Julia Set to the Julia Set of a specific constant.
+     * @return A panel to change settings regarding the jumping to a specific Julia set.
+     */
     private JPanel createJuliaConstantJumper() {
         JPanel jumper = new JPanel(new FlowLayout());
-        JLabel label = new JLabel("Julia Set Constant: ");
+        JLabel label = new JLabel("Julia Jump: ");
         final JTextField constantField = new JTextField(20);
 
         jumper.add(label);
@@ -42,7 +49,11 @@ public class SettingsPane extends JPanel {
 
         return jumper;
     }
-    
+
+    /**
+     * Create a panel to reset the the mandelbrot and/or julia panels to their initial view.
+     * @return A panel containing reset buttons.
+     */
     private JPanel createSetResetPane() {
         JPanel resetPane = new JPanel();
         resetPane.setLayout(new BoxLayout(resetPane, BoxLayout.LINE_AXIS));
@@ -70,45 +81,54 @@ public class SettingsPane extends JPanel {
         
         return resetPane;
     }
-    
-    private JPanel createMandelbrotReAxing() {
+
+    /**
+     * Create a panel to jump to a specific location on a panel.
+     * @param jumpingPanel The panel to create the jumper for.
+     * @param title The title of the panel.
+     * @return A panel with jump fields.
+     */
+    private JPanel createFractalJumper(final GeneralFractalPanel jumpingPanel, String title) {
         JPanel reaxing = new JPanel(new GridLayout(2, 1));
-        JPanel inputBoxes = new JPanel(new GridLayout(2, 2));
-        reaxing.add(new JLabel("Mandelbrot Axes:"), LEFT_ALIGNMENT);
+        JPanel inputBoxes = new JPanel(new FlowLayout());
+        reaxing.add(new JLabel(title));
         reaxing.add(inputBoxes);
-        
-        ActionListener mandelbrotAxisChange = new ActionListener() {
+
+        final JTextField xCenter = new JTextField(5);
+        final JTextField yCenter = new JTextField(5);
+        final JTextField R = new JTextField(5);
+
+        ActionListener FractalAxisChange = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JTextField source = (JTextField) actionEvent.getSource();
-                double sourceValue = Double.valueOf(source.getText());
-                String sourceType = source.getToolTipText();
+                double xC = Double.parseDouble(xCenter.getText());
+                double yC = Double.parseDouble(yCenter.getText());
+                double r = Double.parseDouble(R.getText());
 
-                HashMap<String, Double> axes = MainPanel.mandelbrotPanel.getAxes();
-                axes.put(sourceType, sourceValue);
-                
-                MainPanel.mandelbrotPanel.resetAxes(axes);
+                jumpingPanel.resetAxes(xC, yC, r);
             }
         };
-        
-        String[] types = {"minX", "maxX", "minY", "maxY"};
-        HashMap<String, Double> mandelbrotAxes = MainPanel.mandelbrotPanel.getAxes();
-        for (int i=0; i<4; i++) {
-            JPanel p = new JPanel(new FlowLayout());
-            String text = types[i];
-            JTextField tf = new JTextField(5);
-            tf.setToolTipText(text);
-            tf.setText(String.valueOf(mandelbrotAxes.get(text)));
-            tf.addActionListener(mandelbrotAxisChange);
-            
-            p.add(new JLabel(text));
-            p.add(tf);  
-            inputBoxes.add(p);
-        }
-        
+
+        inputBoxes.add(new JLabel("X: "));
+        inputBoxes.add(xCenter);
+
+        inputBoxes.add(new JLabel("Y: "));
+        inputBoxes.add(yCenter);
+
+        inputBoxes.add(new JLabel("R: "));
+        inputBoxes.add(R);
+
+        xCenter.addActionListener(FractalAxisChange);
+        yCenter.addActionListener(FractalAxisChange);
+        R.addActionListener(FractalAxisChange);
+
         return reaxing;
     }
-    
+
+    /**
+     * Create a panel to configure set colouring settings.
+     * @return A panel with colour settings.
+     */
     private JPanel createColouringPane() {
         JPanel colouringPane = new JPanel();
         colouringPane.setLayout(new BoxLayout(colouringPane, BoxLayout.PAGE_AXIS));
@@ -133,7 +153,11 @@ public class SettingsPane extends JPanel {
 
         return colouringPane;
     }
-    
+
+    /**
+     * Create a panel with settings to change how the sets are generated.
+     * @return A panel with generation settings.
+     */
     private JPanel createGenerationSettings() {
         JPanel generationSettings = new JPanel(new FlowLayout());
         
@@ -142,16 +166,16 @@ public class SettingsPane extends JPanel {
         
         final JTextField iterationField = new JTextField(5);
         iterationField.setToolTipText("Maximum number of iterations to attempt before a pixel counts as never diverging.");
-        iterationField.setText(String.valueOf(MainPanel.COUNT_LIMIT));
+        iterationField.setText(String.valueOf(GeneralFractalPanel.getIterationLimit()));
         
         final JTextField modulusField = new JTextField(5);
         modulusField.setToolTipText("The value the modulus of the complex number must be under in order to count as not having diverged.");
-        modulusField.setText(String.valueOf(MainPanel.MODULUS_LIMIT));
+        modulusField.setText(String.valueOf(GeneralFractalPanel.getModulusLimit()));
         
         iterationField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                MainPanel.COUNT_LIMIT = Integer.parseInt(iterationField.getText());
+                GeneralFractalPanel.setIterationLimit(Integer.parseInt(iterationField.getText()));
                 MainPanel.mandelbrotPanel.repaint();
                 MainPanel.juliaPanel.repaint();
             }
@@ -160,7 +184,7 @@ public class SettingsPane extends JPanel {
         modulusField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                MainPanel.MODULUS_LIMIT = Double.parseDouble(modulusField.getText());
+                GeneralFractalPanel.setModulusLimit(Double.parseDouble(modulusField.getText()));
                 MainPanel.mandelbrotPanel.repaint();
                 MainPanel.juliaPanel.repaint();
             }

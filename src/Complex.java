@@ -15,15 +15,19 @@ public class Complex {
         this.realPart = realPart;
         this.imaginaryPart = imaginaryPart;
     }
-    
+
+    /**
+     * Create a new Complex number from a string that looks like a complex number.
+     * @param stringValue To be matched it must look like " a.b + c.di "
+     */
     public Complex(String stringValue) {
-        Pattern p = Pattern.compile("((\\+?|-)\\s*\\d*\\.?\\d+)\\s*(\\+|-)\\s*(\\d*\\.?\\d+)\\s*(i|I)?");
+        Pattern p = Pattern.compile("\\s*((\\+?|-)\\s*\\d*\\.?\\d+)\\s*(\\+|-)\\s*(\\d*\\.?\\d+)\\s*(i|I)?\\s*");
         Matcher m = p.matcher(stringValue);
         if (m.matches()) {
             this.realPart = Double.valueOf(m.group(1));
             this.imaginaryPart = Double.valueOf(m.group(4));
         } else {
-            throw new InvalidParameterException();
+            throw new InvalidParameterException("Complex number not recognised. Must be in the form \"a.b + c.di\"");
         }
         
     }

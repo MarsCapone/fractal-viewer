@@ -4,7 +4,7 @@ import java.awt.*;
 public class FractalViewer extends JFrame {
 
     /**
-     * Create a new fractal viewer
+     * Create a new Fractal Viewer. This is what is called to start the program.
      */
     public FractalViewer() {
 
@@ -16,15 +16,16 @@ public class FractalViewer extends JFrame {
         pack();
         setResizable(true);
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
+        // Make program look better depending on OS.
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         new FractalViewer();
     }
 

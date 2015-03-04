@@ -5,9 +5,10 @@ public class MainPanel extends JPanel {
 
     protected static JuliaPanel juliaPanel;
     protected static MandelbrotPanel mandelbrotPanel;
-    protected static double MODULUS_LIMIT = 2;
-    protected static int COUNT_LIMIT = 100;
-    
+
+    /**
+     * The panel containing everything required for the program.
+     */
     public MainPanel() {
         setLayout(new BorderLayout());
 
