@@ -1,14 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 public abstract class GeneralFractalPanel extends JPanel {
 
     protected BufferedImage image;
+    protected static int COLOUR_TYPE = 0;
+    
+    private boolean rectangleMode = false;
 
     // set limits for easy changing
-    protected double MODULUS_LIMIT = 2;
-    protected double COUNT_LIMIT = 100;
+
     protected int WIDTH = 600;
     protected int HEIGHT = 600;
 
@@ -52,12 +55,18 @@ public abstract class GeneralFractalPanel extends JPanel {
         return getComplexPoint(p.x, p.y);
     }
 
-    public Color getColour(Complex startingComplex, int iterations, int colouringType) {
-        switch (colouringType) {
+    public Color getColour(Complex startingComplex, int iterations) {
+        switch (COLOUR_TYPE) {
+            case 0:
+                if (iterations == MainPanel.COUNT_LIMIT) {
+                    return Color.BLACK;
+                } else {
+                    return Color.WHITE;
+                }
             default:
                 int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / this.getWidth());
                 int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / this.getHeight());
-                iterations = (int) (iterations * 255 / COUNT_LIMIT);
+                iterations = (int) (iterations * 255 / MainPanel.COUNT_LIMIT);
                 return new Color(x, y, iterations);
         }
 
@@ -66,6 +75,18 @@ public abstract class GeneralFractalPanel extends JPanel {
     public void paint(Graphics g) {
         paintImage();
         g.drawImage(image, 0, 0, null);
+        
+        if (rectangleMode) {
+            Point start = FractalPanelListener.startDrag;
+            Point end = FractalPanelListener.endDrag;
+            
+            int minX = Math.min(start.x, end.x);
+            int minY = Math.min(start.y, end.y);
+            int w = Math.abs(start.x - end.x);
+            int h = Math.abs(start.y - end.y);
+            
+            g.drawRect(minX, minY, w, h);
+        }
     }
     
     public void resetAxes(double aMX, double aRX, double aMY, double aRY) {
@@ -74,6 +95,14 @@ public abstract class GeneralFractalPanel extends JPanel {
         this.abstractRangeX = aRX;
         this.abstractRangeY = aRY;
         repaint();
+    }
+    
+    public void resetAxes(HashMap<String, Double> axisConstraints) {
+        resetAxes(axisConstraints.get("minX"),
+                axisConstraints.get("maxX") - axisConstraints.get("minX"),
+                axisConstraints.get("minY"),
+                axisConstraints.get("maxY") - axisConstraints.get("minY"));
+        
     }
     
     public void resetAxes() {
@@ -108,19 +137,19 @@ public abstract class GeneralFractalPanel extends JPanel {
     }
 
     public double getModulusLimit() {
-        return MODULUS_LIMIT;
+        return MainPanel.MODULUS_LIMIT;
     }
 
     public double getCountLimit() {
-        return COUNT_LIMIT;
+        return MainPanel.COUNT_LIMIT;
     }
     
     public void setModulusLimit(double limit) {
-        MODULUS_LIMIT = limit;
+        MainPanel.MODULUS_LIMIT = limit;
     }
     
     public void setCountLimit(int limit) {
-        COUNT_LIMIT = limit;
+        MainPanel.COUNT_LIMIT = limit;
     }
 
     public BufferedImage getImage() {
@@ -135,5 +164,17 @@ public abstract class GeneralFractalPanel extends JPanel {
 
     public abstract Complex getNext(Complex z, Complex c);
 
-
+    public HashMap<String, Double> getAxes() {
+        HashMap<String, Double> axes = new HashMap<String, Double>();
+        axes.put("minX", abstractMinX);
+        axes.put("minY", abstractMinY);
+        axes.put("maxX", abstractMinX+abstractRangeX);
+        axes.put("maxY", abstractMinY+abstractRangeY);
+        return axes;
+    }
+    
+    public void setDrawMode(boolean m) {
+        rectangleMode = m;
+    }
+    
 }

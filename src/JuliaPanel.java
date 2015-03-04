@@ -1,9 +1,12 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class JuliaPanel extends GeneralFractalPanel {
 
-    private Complex constant = new Complex(-0.4, 0.6);
+    private Complex constant = new Complex(0, 0);
 
     public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
@@ -24,7 +27,7 @@ public class JuliaPanel extends GeneralFractalPanel {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 int divergence = getJuliaDivergence(complexPoint, d);
-                Color pointColour = getColour(complexPoint, divergence, AdditionalPanel.COLOURING_TYPE);
+                Color pointColour = getColour(complexPoint, divergence);
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }
@@ -45,7 +48,7 @@ public class JuliaPanel extends GeneralFractalPanel {
         int count = 0; // recursions before divergence
         Complex previousComplex = z;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
+        while (modulus < MainPanel.MODULUS_LIMIT && count < MainPanel.COUNT_LIMIT) {
             previousComplex = getNext(previousComplex, d);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;
@@ -67,5 +70,9 @@ public class JuliaPanel extends GeneralFractalPanel {
     
     public void setConstant(Complex d) {
         constant = d;
+    }
+    
+    public Complex getConstant() {
+        return constant;
     }
 }

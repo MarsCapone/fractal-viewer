@@ -20,7 +20,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getColour(complexPoint, getMandelbrotDivergence(complexPoint), AdditionalPanel.COLOURING_TYPE);
+                Color pointColour = getColour(complexPoint, getMandelbrotDivergence(complexPoint));
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }
@@ -36,7 +36,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
+        while (modulus < MainPanel.MODULUS_LIMIT && count < MainPanel.COUNT_LIMIT) {
             previousComplex = getNext(previousComplex, c);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;

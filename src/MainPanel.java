@@ -3,18 +3,14 @@ import java.awt.*;
 
 public class MainPanel extends JPanel {
 
-    // preset some different font sizes
-    private final Font _bigFont = new Font(null, Font.BOLD, 20);
-    private final Font _medFont = new Font(null, Font.BOLD, 15);
-    private final Font _smallFont = new Font(null, Font.BOLD, 10);
-
     protected static JuliaPanel juliaPanel;
     protected static MandelbrotPanel mandelbrotPanel;
-
+    protected static double MODULUS_LIMIT = 2;
+    protected static int COUNT_LIMIT = 100;
     
     public MainPanel() {
         setLayout(new BorderLayout());
-        
+
         mandelbrotPanel = new MandelbrotPanel();
         Container additionalPanel = new AdditionalPanel();
         this.add(mandelbrotPanel, BorderLayout.CENTER);
@@ -24,3 +20,7 @@ public class MainPanel extends JPanel {
         juliaPanel.addMouseListener(new JuliaListener());
     }
 }
+
+//TODO Use Double buffered images
+//TODO Draw a rectangle on mouse drag
+//TODO Add more coloring methods

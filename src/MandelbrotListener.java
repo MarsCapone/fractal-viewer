@@ -32,6 +32,7 @@ public class MandelbrotListener extends FractalPanelListener {
             MainPanel.juliaPanel.setConstant(juliaConstant);
             MainPanel.juliaPanel.repaint();
         }
+        MainPanel.mandelbrotPanel.setDrawMode(false);
 
     }
 
@@ -44,4 +45,16 @@ public class MandelbrotListener extends FractalPanelListener {
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+        endDrag = mouseEvent.getPoint();
+        MainPanel.mandelbrotPanel.setDrawMode(true);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+
+    }
 }
+

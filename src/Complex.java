@@ -1,3 +1,7 @@
+import java.security.InvalidParameterException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Complex {
     
     private double realPart, imaginaryPart;
@@ -10,6 +14,18 @@ public class Complex {
     public Complex(double realPart, double imaginaryPart) {
         this.realPart = realPart;
         this.imaginaryPart = imaginaryPart;
+    }
+    
+    public Complex(String stringValue) {
+        Pattern p = Pattern.compile("((\\+?|-)\\s*\\d*\\.?\\d+)\\s*(\\+|-)\\s*(\\d*\\.?\\d+)\\s*(i|I)?");
+        Matcher m = p.matcher(stringValue);
+        if (m.matches()) {
+            this.realPart = Double.valueOf(m.group(1));
+            this.imaginaryPart = Double.valueOf(m.group(4));
+        } else {
+            throw new InvalidParameterException();
+        }
+        
     }
 
     /**
@@ -70,7 +86,12 @@ public class Complex {
         double newImaginaryPart = imaginaryPart + d.getImaginary();
         return new Complex(newRealPart, newImaginaryPart);
     }
-    
+
+    /**
+     * Raise a complex number to a power. 
+     * @param index The index.
+     * @return The the complex number to the power [index]
+     */
     public Complex pow(int index) {
         Complex base = this;
         for (int i=0; i<index; i++) {
