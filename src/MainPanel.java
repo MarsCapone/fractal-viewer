@@ -15,12 +15,21 @@ public class MainPanel extends JPanel {
         mandelbrotPanel = new MandelbrotPanel();
         juliaPanel = new JuliaPanel();
 
+        //mandelbrotPanel.paintImage();
+        //juliaPanel.paintImage();
+
         Container additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
         this.add(mandelbrotPanel, BorderLayout.CENTER);
         this.add(additionalPanel, BorderLayout.EAST);
-        
-        mandelbrotPanel.addMouseListener(new MandelbrotListener(mandelbrotPanel, juliaPanel));
-        juliaPanel.addMouseListener(new JuliaListener(juliaPanel));
+
+        MandelbrotListener mL = new MandelbrotListener(mandelbrotPanel, juliaPanel);
+        JuliaListener jL = new JuliaListener(juliaPanel);
+
+        mandelbrotPanel.addMouseListener(mL);
+        mandelbrotPanel.addMouseMotionListener(mL);
+
+        juliaPanel.addMouseListener(jL);
+        juliaPanel.addMouseMotionListener(jL);
     }
 }
 

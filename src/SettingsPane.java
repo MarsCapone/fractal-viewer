@@ -148,7 +148,7 @@ public class SettingsPane extends JPanel {
         
         JPanel types = new JPanel(new FlowLayout());
         
-        String[] colouringTypes = {"Black & White", "type4"};
+        String[] colouringTypes = {"Black & White", "Binary Decomposition", "Divergence", "log"};
         JLabel colourLabel = new JLabel("Colouring Type: ");
         final JComboBox<String> comboBox = new JComboBox<String>(colouringTypes);
         types.add(colourLabel);

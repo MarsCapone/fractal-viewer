@@ -1,15 +1,19 @@
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public abstract class GeneralFractalPanel extends JPanel {
 
-    protected boolean rectangleMode = false; // whether or not to be drawing a rectangle.
+    private boolean rectangleMode = false; // whether or not to be drawing a rectangle.
+    private Rectangle zoomLocation = new Rectangle();
+
+    protected Complex lastComplex;
 
     // set constants for easy changing
-    protected int WIDTH = 600;
-    protected int HEIGHT = 600;
+    protected int WIDTH = 400;
+    protected int HEIGHT = 400;
 
     protected static double MODULUS_LIMIT = 2;
     protected static int ITERATION_LIMIT = 100;
@@ -75,8 +79,8 @@ public abstract class GeneralFractalPanel extends JPanel {
      * @param iterations The number of iterations before divergence.
      * @return The colour that should be used for that input.
      */
-    public Color getColour(Complex startingComplex, int iterations) {
-        return getColour(startingComplex, iterations, COLOUR_TYPE);
+    public Color getColour(Complex startingComplex, Complex endingComplex, int iterations) {
+        return getColour(startingComplex, endingComplex, iterations, COLOUR_TYPE);
     }
 
     /**
@@ -87,28 +91,75 @@ public abstract class GeneralFractalPanel extends JPanel {
      *                   0: Black & White;
      * @return The colour that should be used for that input.
      */
-    public Color getColour(Complex startingComplex, int iterations, int colourType) {
+    public Color getColour(Complex startingComplex, Complex endingComplex, int iterations, int colourType) {
+        Color colour;
         switch (colourType) {
-            case 0:
+            case 0: // black and white
                 if (iterations == ITERATION_LIMIT) {
-                    return Color.BLACK;
+                    colour = Color.BLACK;
                 } else {
-                    return Color.WHITE;
+                    colour = Color.WHITE;
                 }
+                break;
+            case 1: // binary decomposition
+                if (iterations == ITERATION_LIMIT) {
+                    colour = Color.BLACK;
+                } else {
+                    if (endingComplex.getImaginary() > 0) {
+                        colour = Color.BLACK;
+                    } else {
+                        colour = Color.WHITE;
+                    }
+                }
+                break;
+            case 2: // divergence
+                if (iterations == ITERATION_LIMIT) {
+                    colour = Color.BLACK;
+                } else {
+                    int grey =  (int) ((Math.sqrt(endingComplex.modulusSquared()) * 255) / (2 * abstractRangeX)) % 255;
+                    colour = new Color(grey, grey, grey);
+                }
+                break;
+            case 3:
+                if (iterations >= ITERATION_LIMIT) {
+                    colour = Color.BLACK;
+                } else {
+                    int grey = (int) Math.abs(Math.log(Math.log(endingComplex.getReal())) * 255 / ITERATION_LIMIT);
+                    colour = new Color(grey, 255-grey, 255-grey);
+                }
+                break;
             default:
                 int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / this.getWidth());
                 int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / this.getHeight());
                 iterations = iterations * 255 / ITERATION_LIMIT;
-                return new Color(x, y, iterations);
+                colour = new Color(x, y, iterations);
+        }
+        return colour;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        paintImage();
+        g.drawImage(image, 0, 0, null);
+        System.out.println("doing a paint - this is time consuming");
+        if (rectangleMode) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.draw(zoomLocation);
         }
     }
 
-    //TODO fix this
-    public void paint(Graphics g) {
-        paintImage();
-        g.drawImage(image, 0, 0, null);
+    /*@Override
+    public void repaint() {
+        System.out.println("repaint");
+        getGraphics().drawImage(image, 0, 0, null);
+        if (rectangleMode) {
+            Graphics2D g2 = (Graphics2D) getGraphics();
+            g2.draw(zoomLocation);
+        }
+    }*/
 
-    }
+
 
     /**
      * Reset the axes to new boundaries on the imaginary plane.
@@ -252,6 +303,22 @@ public abstract class GeneralFractalPanel extends JPanel {
      */
     public void setDrawMode(boolean m) {
         rectangleMode = m;
+    }
+
+    public boolean getDrawMode() {
+        return rectangleMode;
+    }
+
+    public void setRectangle(Point start, Point end) {
+        int x = Math.min(start.x, end.x);
+        int y = Math.min(start.y, end.y);
+        int w = Math.abs(start.x - end.x);
+        int h = Math.abs(start.y - end.y);
+        zoomLocation = new Rectangle(x, y, w, h);
+    }
+
+    public Rectangle getRectangle() {
+        return zoomLocation;
     }
 
 }

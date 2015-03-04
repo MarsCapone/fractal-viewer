@@ -19,7 +19,7 @@ public class JuliaPanel extends GeneralFractalPanel {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 int divergence = getJuliaDivergence(complexPoint, d);
-                Color pointColour = getColour(complexPoint, divergence);
+                Color pointColour = getColour(complexPoint, lastComplex, divergence);
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }
@@ -45,6 +45,7 @@ public class JuliaPanel extends GeneralFractalPanel {
         double modulus = 0.0;
         while (modulus < MODULUS_LIMIT && count < ITERATION_LIMIT) {
             previousComplex = getNext(previousComplex, d);
+            lastComplex = previousComplex;
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;
         }

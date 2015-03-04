@@ -1,9 +1,11 @@
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.security.InvalidParameterException;
 
-public class MandelbrotListener extends FractalPanelListener {
+public class MandelbrotListener extends FractalPanelListener  {
 
     private MandelbrotPanel mandelbrotPanel;
     private JuliaPanel juliaPanel;
@@ -21,6 +23,7 @@ public class MandelbrotListener extends FractalPanelListener {
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         startDrag = mouseEvent.getPoint();
+        mandelbrotPanel.setDrawMode(true);
     }
 
     @Override
@@ -30,6 +33,7 @@ public class MandelbrotListener extends FractalPanelListener {
         boolean yok = Math.abs(startDrag.y - endDrag.y) >= 10;
         if (xok && yok) {
             mandelbrotPanel.zoom(startDrag, endDrag);
+            mandelbrotPanel.paintImage();
             mandelbrotPanel.repaint();
             
         } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {
@@ -37,8 +41,10 @@ public class MandelbrotListener extends FractalPanelListener {
             Complex juliaConstant = mandelbrotPanel.getComplexPoint(click);
             System.out.printf("Generating Julia Set for constant: %s \n", juliaConstant); //
             juliaPanel.setConstant(juliaConstant);
+            juliaPanel.paintImage();
             juliaPanel.repaint();
         }
+        mandelbrotPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         mandelbrotPanel.setDrawMode(false);
 
     }
@@ -55,13 +61,16 @@ public class MandelbrotListener extends FractalPanelListener {
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        endDrag = mouseEvent.getPoint();
-        mandelbrotPanel.setDrawMode(true);
+        if (mandelbrotPanel.getDrawMode()) {
+            endDrag = mouseEvent.getPoint();
+            mandelbrotPanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            //mandelbrotPanel.setRectangle(startDrag, endDrag);
+            //mandelbrotPanel.repaint(mandelbrotPanel.getRectangle());
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-
     }
 }
 

@@ -26,6 +26,7 @@ public class JuliaListener extends FractalPanelListener{
         boolean yok = Math.abs(startDrag.y - endDrag.y) >= 10;
         if (xok && yok) {
             juliaPanel.zoom(startDrag, endDrag);
+            juliaPanel.paintImage();
             juliaPanel.repaint();
         }
     }
@@ -42,7 +43,14 @@ public class JuliaListener extends FractalPanelListener{
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-
+        if (juliaPanel.getDrawMode()) {
+            endDrag = mouseEvent.getPoint();
+            System.out.println("dragging");
+            juliaPanel.setRectangle(startDrag, endDrag);
+            juliaPanel.repaint();
+        } else {
+            System.out.println("not dragging for some reason");
+        }
     }
 
     @Override
