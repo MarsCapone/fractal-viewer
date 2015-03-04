@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.DoubleBuffer;
 import java.util.HashMap;
 
 public abstract class GeneralFractalPanel extends JPanel {
@@ -13,7 +12,7 @@ public abstract class GeneralFractalPanel extends JPanel {
     protected int HEIGHT = 600;
 
     protected static double MODULUS_LIMIT = 2;
-    protected static int COUNT_LIMIT = 100;
+    protected static int ITERATION_LIMIT = 100;
 
     protected BufferedImage image;
     protected static int COLOUR_TYPE = 0;
@@ -92,7 +91,7 @@ public abstract class GeneralFractalPanel extends JPanel {
     public Color getColour(Complex startingComplex, int iterations, int colourType) {
         switch (colourType) {
             case 0:
-                if (iterations == COUNT_LIMIT) {
+                if (iterations == ITERATION_LIMIT) {
                     return Color.BLACK;
                 } else {
                     return Color.WHITE;
@@ -100,7 +99,7 @@ public abstract class GeneralFractalPanel extends JPanel {
             default:
                 int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / this.getWidth());
                 int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / this.getHeight());
-                iterations = iterations * 255 / COUNT_LIMIT;
+                iterations = iterations * 255 / ITERATION_LIMIT;
                 return new Color(x, y, iterations);
         }
     }
@@ -229,8 +228,8 @@ public abstract class GeneralFractalPanel extends JPanel {
      * The current iteration limit
      * @return The current iteration limit.
      */
-    public static double getIterationLimit() {
-        return COUNT_LIMIT;
+    public static int getIterationLimit() {
+        return (int) ITERATION_LIMIT;
     }
 
     /**
@@ -245,8 +244,8 @@ public abstract class GeneralFractalPanel extends JPanel {
      * Set the iteration limit.
      * @param limit The new modulus limit.
      */
-    public static void setIterationLimit(int limit) {
-        COUNT_LIMIT = limit;
+    public static void setIterationLimit(double limit) {
+        ITERATION_LIMIT = (int) limit;
     }
 
     /**

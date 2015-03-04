@@ -11,14 +11,13 @@ public class AdditionalPanel extends JPanel {
     /**
      * Additional Pane contains Julia set and settings.
      */
-    public AdditionalPanel() {
+    public AdditionalPanel(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
-        MainPanel.juliaPanel = new JuliaPanel();
-        MainPanel.juliaPanel.setPreferredSize(new Dimension(400, 400));
+        juliaPanel.setPreferredSize(new Dimension(400, 400));
         
-        this.add(MainPanel.juliaPanel, BorderLayout.NORTH);
-        this.add(new SettingsPane(), BorderLayout.CENTER);
+        this.add(juliaPanel, BorderLayout.NORTH);
+        this.add(new SettingsPane(mandelbrotPanel, juliaPanel), BorderLayout.CENTER);
     }
 }

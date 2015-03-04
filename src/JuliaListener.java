@@ -1,6 +1,13 @@
 import java.awt.event.MouseEvent;
 
 public class JuliaListener extends FractalPanelListener{
+
+    private JuliaPanel juliaPanel;
+
+    public JuliaListener(JuliaPanel juliaPanel) {
+        super();
+        this.juliaPanel = juliaPanel;
+    }
     
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -18,8 +25,8 @@ public class JuliaListener extends FractalPanelListener{
         boolean xok = Math.abs(startDrag.x - endDrag.x) >= 10;
         boolean yok = Math.abs(startDrag.y - endDrag.y) >= 10;
         if (xok && yok) {
-            MainPanel.juliaPanel.zoom(startDrag, endDrag);
-            MainPanel.juliaPanel.repaint();
+            juliaPanel.zoom(startDrag, endDrag);
+            juliaPanel.repaint();
         }
     }
 

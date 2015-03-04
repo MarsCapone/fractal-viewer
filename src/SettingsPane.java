@@ -4,21 +4,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SettingsPane extends JPanel {
-    
-    public SettingsPane() {
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JPanel reaxing = new JPanel(new GridLayout(3, 1));
-        reaxing.add(createJuliaConstantJumper());
-        reaxing.add(createFractalJumper(MainPanel.mandelbrotPanel, "Mandelbrot Jump: "));
-        reaxing.add(createFractalJumper(MainPanel.juliaPanel, "Julia Jump: "));
+    private MandelbrotPanel mandelbrotPanel;
+    private JuliaPanel juliaPanel;
+
+    public SettingsPane(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
+        this.mandelbrotPanel = mandelbrotPanel;
+        this.juliaPanel = juliaPanel;
+
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         add(new JLabel("Settings"));
         add(createSetResetPane());
         add(createGenerationSettings());
         add(createColouringPane());
-        add(reaxing);
+        add(createCompleteReaxingPanel());
         
+    }
+
+    /**
+     * Create panel for reaxing the mandelbrot and julia panels.
+     * @return
+     */
+    private JPanel createCompleteReaxingPanel() {
+        JPanel reaxing = new JPanel(new GridLayout(3, 1));
+        reaxing.add(createJuliaConstantJumper());
+        reaxing.add(createFractalJumper(mandelbrotPanel, "Mandelbrot Jump: "));
+        reaxing.add(createFractalJumper(juliaPanel, "Julia Jump: "));
+        return reaxing;
     }
 
     /**
@@ -41,9 +54,9 @@ public class SettingsPane extends JPanel {
 
                 System.out.println(constant);
 
-                MainPanel.juliaPanel.resetAxes();
-                MainPanel.juliaPanel.setConstant(constant);
-                MainPanel.juliaPanel.repaint();
+                juliaPanel.resetAxes();
+                juliaPanel.setConstant(constant);
+                juliaPanel.repaint();
             }
         });
 
@@ -68,14 +81,14 @@ public class SettingsPane extends JPanel {
         resetJulia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                MainPanel.juliaPanel.resetAxes();
+                juliaPanel.resetAxes();
             }
         });
 
         resetMandelbrot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                MainPanel.mandelbrotPanel.resetAxes();
+                mandelbrotPanel.resetAxes();
             }
         });
         
@@ -175,9 +188,9 @@ public class SettingsPane extends JPanel {
         iterationField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                GeneralFractalPanel.setIterationLimit(Integer.parseInt(iterationField.getText()));
-                MainPanel.mandelbrotPanel.repaint();
-                MainPanel.juliaPanel.repaint();
+                GeneralFractalPanel.setIterationLimit(Double.parseDouble(iterationField.getText()));
+                mandelbrotPanel.repaint();
+                juliaPanel.repaint();
             }
         });
         
@@ -185,8 +198,8 @@ public class SettingsPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 GeneralFractalPanel.setModulusLimit(Double.parseDouble(modulusField.getText()));
-                MainPanel.mandelbrotPanel.repaint();
-                MainPanel.juliaPanel.repaint();
+                mandelbrotPanel.repaint();
+                juliaPanel.repaint();
             }
         });
         

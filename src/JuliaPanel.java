@@ -4,10 +4,6 @@ import java.awt.image.BufferedImage;
 public class JuliaPanel extends GeneralFractalPanel {
 
     private Complex CONSTANT = new Complex(0, 0);
-
-    public JuliaPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
-        super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
-    }
     
     public JuliaPanel() {
         super();
@@ -47,7 +43,7 @@ public class JuliaPanel extends GeneralFractalPanel {
         int count = 0; // recursions before divergence
         Complex previousComplex = z;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
+        while (modulus < MODULUS_LIMIT && count < ITERATION_LIMIT) {
             previousComplex = getNext(previousComplex, d);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;

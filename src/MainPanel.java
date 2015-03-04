@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class MainPanel extends JPanel {
 
-    protected static JuliaPanel juliaPanel;
-    protected static MandelbrotPanel mandelbrotPanel;
+    private JuliaPanel juliaPanel;
+    private MandelbrotPanel mandelbrotPanel;
 
     /**
      * The panel containing everything required for the program.
@@ -13,12 +13,14 @@ public class MainPanel extends JPanel {
         setLayout(new BorderLayout());
 
         mandelbrotPanel = new MandelbrotPanel();
-        Container additionalPanel = new AdditionalPanel();
+        juliaPanel = new JuliaPanel();
+
+        Container additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
         this.add(mandelbrotPanel, BorderLayout.CENTER);
         this.add(additionalPanel, BorderLayout.EAST);
         
-        mandelbrotPanel.addMouseListener(new MandelbrotListener());
-        juliaPanel.addMouseListener(new JuliaListener());
+        mandelbrotPanel.addMouseListener(new MandelbrotListener(mandelbrotPanel, juliaPanel));
+        juliaPanel.addMouseListener(new JuliaListener(juliaPanel));
     }
 }
 

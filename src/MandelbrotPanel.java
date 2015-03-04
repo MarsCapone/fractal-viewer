@@ -4,10 +4,6 @@ import java.awt.image.BufferedImage;
 
 public class MandelbrotPanel extends GeneralFractalPanel {
 
-    public MandelbrotPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
-        super(abstractMinX, abstractRangeX, abstractMinY, abstractRangeY);
-    }
-
     public MandelbrotPanel() {
         super();
     }
@@ -36,7 +32,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT && count < COUNT_LIMIT) {
+        while (modulus < MODULUS_LIMIT && count < ITERATION_LIMIT) {
             previousComplex = getNext(previousComplex, c);
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;

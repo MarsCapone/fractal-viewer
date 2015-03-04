@@ -4,7 +4,14 @@ import java.awt.image.BufferedImage;
 import java.security.InvalidParameterException;
 
 public class MandelbrotListener extends FractalPanelListener {
-    
+
+    private MandelbrotPanel mandelbrotPanel;
+    private JuliaPanel juliaPanel;
+
+    public MandelbrotListener(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
+        this.mandelbrotPanel = mandelbrotPanel;
+        this.juliaPanel = juliaPanel;
+    }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -22,17 +29,17 @@ public class MandelbrotListener extends FractalPanelListener {
         boolean xok = Math.abs(startDrag.x - endDrag.x) >= 10;
         boolean yok = Math.abs(startDrag.y - endDrag.y) >= 10;
         if (xok && yok) {
-            MainPanel.mandelbrotPanel.zoom(startDrag, endDrag);
-            MainPanel.mandelbrotPanel.repaint();
+            mandelbrotPanel.zoom(startDrag, endDrag);
+            mandelbrotPanel.repaint();
             
         } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {
             Point click = mouseEvent.getPoint();
-            Complex juliaConstant = MainPanel.mandelbrotPanel.getComplexPoint(click);
+            Complex juliaConstant = mandelbrotPanel.getComplexPoint(click);
             System.out.printf("Generating Julia Set for constant: %s \n", juliaConstant); //
-            MainPanel.juliaPanel.setConstant(juliaConstant);
-            MainPanel.juliaPanel.repaint();
+            juliaPanel.setConstant(juliaConstant);
+            juliaPanel.repaint();
         }
-        MainPanel.mandelbrotPanel.setDrawMode(false);
+        mandelbrotPanel.setDrawMode(false);
 
     }
 
@@ -49,7 +56,7 @@ public class MandelbrotListener extends FractalPanelListener {
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         endDrag = mouseEvent.getPoint();
-        MainPanel.mandelbrotPanel.setDrawMode(true);
+        mandelbrotPanel.setDrawMode(true);
     }
 
     @Override
