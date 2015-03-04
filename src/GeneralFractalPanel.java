@@ -39,7 +39,6 @@ public abstract class GeneralFractalPanel extends JPanel {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setDoubleBuffered(true);
         this.setLayout(new FlowLayout());
-
     }
 
     /**
@@ -108,21 +107,7 @@ public abstract class GeneralFractalPanel extends JPanel {
     public void paint(Graphics g) {
         paintImage();
         g.drawImage(image, 0, 0, null);
-        
-        /*if (rectangleMode) {
-            Point start = FractalPanelListener.startDrag;
-            Point end = FractalPanelListener.endDrag;
 
-            int minX = Math.min(start.x, end.x);
-            int minY = Math.min(start.y, end.y);
-            int w = Math.abs(start.x - end.x);
-            int h = Math.abs(start.y - end.y);
-
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setColor(Color.RED);
-            g2.setStroke(new BasicStroke(1));
-            g2.drawRect(minX, minY, w, h);
-        }*/
     }
 
     /**
@@ -137,7 +122,7 @@ public abstract class GeneralFractalPanel extends JPanel {
         this.abstractMinY = aMY;
         this.abstractRangeX = aRX;
         this.abstractRangeY = aRY;
-        repaint();
+        this.repaint();
     }
 
     /**
@@ -268,5 +253,5 @@ public abstract class GeneralFractalPanel extends JPanel {
     public void setDrawMode(boolean m) {
         rectangleMode = m;
     }
-    
+
 }

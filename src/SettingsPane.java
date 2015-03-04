@@ -158,7 +158,8 @@ public class SettingsPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 GeneralFractalPanel.COLOUR_TYPE = comboBox.getSelectedIndex();
-                repaint();
+                juliaPanel.repaint();
+                mandelbrotPanel.repaint();
             }
         });
         
