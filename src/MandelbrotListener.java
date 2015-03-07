@@ -40,6 +40,7 @@ public class MandelbrotListener extends FractalPanelListener  {
             Point click = mouseEvent.getPoint();
             Complex juliaConstant = mandelbrotPanel.getComplexPoint(click);
             System.out.printf("Generating Julia Set for constant: %s \n", juliaConstant); //
+            juliaPanel.resetAxes();
             juliaPanel.setConstant(juliaConstant);
             juliaPanel.paintImage();
             juliaPanel.repaint();

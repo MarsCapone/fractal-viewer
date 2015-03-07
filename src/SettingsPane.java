@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 public class SettingsPane extends JPanel {
 
@@ -14,11 +15,18 @@ public class SettingsPane extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+        JPanel setResetPane = createSetResetPane();
+        JPanel generationPane = createGenerationSettings();
+        JPanel colourPane = createColouringPane();
+        JPanel reaxingPane = createCompleteReaxingPanel();
+        JPanel juliaFavourites = createFavouriteJuliaAdder();
+
         add(new JLabel("Settings"));
-        add(createSetResetPane());
-        add(createGenerationSettings());
-        add(createColouringPane());
-        add(createCompleteReaxingPanel());
+        add(setResetPane);
+        add(generationPane);
+        add(colourPane);
+        add(reaxingPane);
+        //add(juliaFavourites);
         
     }
 
@@ -29,8 +37,8 @@ public class SettingsPane extends JPanel {
     private JPanel createCompleteReaxingPanel() {
         JPanel reaxing = new JPanel(new GridLayout(3, 1));
         reaxing.add(createJuliaConstantJumper());
-        reaxing.add(createFractalJumper(mandelbrotPanel, "Mandelbrot Jump: "));
-        reaxing.add(createFractalJumper(juliaPanel, "Julia Jump: "));
+        reaxing.add(new FractalJumperSetting(mandelbrotPanel, "Mandelbrot Jump: "));
+        reaxing.add(new FractalJumperSetting(juliaPanel, "Julia Jump: "));
         return reaxing;
     }
 
@@ -42,6 +50,7 @@ public class SettingsPane extends JPanel {
         JPanel jumper = new JPanel(new FlowLayout());
         JLabel label = new JLabel("Julia Jump: ");
         final JTextField constantField = new JTextField(20);
+        constantField.setText(juliaPanel.getConstant().toString());
 
         jumper.add(label);
         jumper.add(constantField);
@@ -95,48 +104,6 @@ public class SettingsPane extends JPanel {
         return resetPane;
     }
 
-    /**
-     * Create a panel to jump to a specific location on a panel.
-     * @param jumpingPanel The panel to create the jumper for.
-     * @param title The title of the panel.
-     * @return A panel with jump fields.
-     */
-    private JPanel createFractalJumper(final GeneralFractalPanel jumpingPanel, String title) {
-        JPanel reaxing = new JPanel(new GridLayout(2, 1));
-        JPanel inputBoxes = new JPanel(new FlowLayout());
-        reaxing.add(new JLabel(title));
-        reaxing.add(inputBoxes);
-
-        final JTextField xCenter = new JTextField(5);
-        final JTextField yCenter = new JTextField(5);
-        final JTextField R = new JTextField(5);
-
-        ActionListener FractalAxisChange = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                double xC = Double.parseDouble(xCenter.getText());
-                double yC = Double.parseDouble(yCenter.getText());
-                double r = Double.parseDouble(R.getText());
-
-                jumpingPanel.resetAxes(xC, yC, r);
-            }
-        };
-
-        inputBoxes.add(new JLabel("X: "));
-        inputBoxes.add(xCenter);
-
-        inputBoxes.add(new JLabel("Y: "));
-        inputBoxes.add(yCenter);
-
-        inputBoxes.add(new JLabel("R: "));
-        inputBoxes.add(R);
-
-        xCenter.addActionListener(FractalAxisChange);
-        yCenter.addActionListener(FractalAxisChange);
-        R.addActionListener(FractalAxisChange);
-
-        return reaxing;
-    }
 
     /**
      * Create a panel to configure set colouring settings.
@@ -148,9 +115,11 @@ public class SettingsPane extends JPanel {
         
         JPanel types = new JPanel(new FlowLayout());
         
-        String[] colouringTypes = {"Black & White", "Binary Decomposition", "Divergence", "log"};
+        String[] colouringTypes = {"Black & White", "Binary Decomposition", "Divergence", "Fire", "Inverse Fire"};
         JLabel colourLabel = new JLabel("Colouring Type: ");
         final JComboBox<String> comboBox = new JComboBox<String>(colouringTypes);
+        comboBox.setSelectedIndex(3);
+
         types.add(colourLabel);
         types.add(comboBox);
         
@@ -211,5 +180,47 @@ public class SettingsPane extends JPanel {
         generationSettings.add(modulusField);
 
         return generationSettings;
+    }
+
+    private JPanel createFavouriteJuliaAdder() {
+        final JPanel juliaFavouriteAdder = new JPanel(new FlowLayout());
+
+        final ImageIcon[] savedSets = new ImageIcon[10];
+        final JComboBox<ImageIcon> favouriteSpace = new JComboBox<ImageIcon>();
+
+        JButton addFavourite = new JButton("Add");
+
+        addFavourite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                BufferedImage currentJuliaImage = juliaPanel.getImage();
+                //BufferedImage currentJuliaIcon = currentJuliaImage.getSubimage(currentJuliaImage.getWidth()/2, currentJuliaImage.getHeight()/2, 50, 50);
+                ImageIcon currentJuliaIcon = new ImageIcon(currentJuliaImage);
+                Complex currentJuliaConstant = juliaPanel.getConstant();
+                currentJuliaIcon.setDescription(currentJuliaConstant.toString());
+
+                savedSets[0] = currentJuliaIcon;
+
+                favouriteSpace.revalidate();
+            }
+        });
+
+        favouriteSpace.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ImageIcon icon = (ImageIcon) favouriteSpace.getSelectedItem();
+                String constantString = icon.getDescription();
+                Complex constant = new Complex(constantString);
+
+                juliaPanel.setConstant(constant);
+                juliaPanel.repaint();
+            }
+        });
+
+        juliaFavouriteAdder.add(new JLabel("Julia Set Favourites"));
+        juliaFavouriteAdder.add(favouriteSpace);
+        juliaFavouriteAdder.add(addFavourite);
+
+        return juliaFavouriteAdder;
     }
 }

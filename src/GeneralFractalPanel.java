@@ -19,7 +19,7 @@ public abstract class GeneralFractalPanel extends JPanel {
     protected static int ITERATION_LIMIT = 100;
 
     protected BufferedImage image;
-    protected static int COLOUR_TYPE = 0;
+    protected static int COLOUR_TYPE = 3;
 
     // create abstract axis values
     protected double abstractRangeY;
@@ -120,12 +120,32 @@ public abstract class GeneralFractalPanel extends JPanel {
                     colour = new Color(grey, grey, grey);
                 }
                 break;
-            case 3:
-                if (iterations >= ITERATION_LIMIT) {
+            case 3: // fire
+                if (iterations == ITERATION_LIMIT) {
+                    colour = Color.WHITE;
+                } else {
+                    int colourValue = (int) Math.floor(iterations * 255 * 3 / ITERATION_LIMIT);
+                    if (colourValue <= 255) {
+                        colour = new Color(colourValue, 0, 0);
+                    } else if (colourValue <= 255 * 2) {
+                        colour = new Color(255, colourValue % 255, 0);
+                    } else {
+                        colour = new Color(255, 255, colourValue % 255);
+                    }
+                }
+                break;
+            case 4: // inverse fire
+                if (iterations == ITERATION_LIMIT) {
                     colour = Color.BLACK;
                 } else {
-                    int grey = (int) Math.abs(Math.log(Math.log(endingComplex.getReal())) * 255 / ITERATION_LIMIT);
-                    colour = new Color(grey, 255-grey, 255-grey);
+                    int colourValue = (int) Math.floor(iterations * 255 * 3 / ITERATION_LIMIT);
+                    if (colourValue <= 255) {
+                        colour = new Color(255 - colourValue, 0, 0);
+                    } else if (colourValue <= 255 * 2) {
+                        colour = new Color(0, 255 - colourValue % 255, 255);
+                    } else {
+                        colour = new Color(0, 0, 255 - colourValue % 255);
+                    }
                 }
                 break;
             default:
@@ -319,6 +339,10 @@ public abstract class GeneralFractalPanel extends JPanel {
 
     public Rectangle getRectangle() {
         return zoomLocation;
+    }
+
+    public BufferedImage getImage() {
+        return  image;
     }
 
 }
