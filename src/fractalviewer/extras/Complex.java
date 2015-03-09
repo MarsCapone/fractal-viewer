@@ -1,3 +1,5 @@
+package fractalviewer.extras;
+
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +19,7 @@ public class Complex {
     }
 
     /**
-     * Create a new Complex number from a string that looks like a complex number.
+     * Create a new fractalviewer.extras.Complex number from a string that looks like a complex number.
      * @param stringValue To be matched it must look like " a.b + c.di "
      */
     public Complex(String stringValue) {
@@ -27,7 +29,7 @@ public class Complex {
             this.realPart = Double.valueOf(m.group(1));
             this.imaginaryPart = Double.valueOf(m.group(4));
         } else {
-            throw new InvalidParameterException("Complex number not recognised. Must be in the form \"a.b + c.di\"");
+            throw new InvalidParameterException("fractalviewer.extras.Complex number not recognised. Must be in the form \"a.b + c.di\"");
         }
         
     }

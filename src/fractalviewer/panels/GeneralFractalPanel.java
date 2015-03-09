@@ -1,3 +1,11 @@
+package fractalviewer.panels;
+
+import fractalviewer.extras.Calculations;
+import fractalviewer.extras.Complex;
+import fractalviewer.settings.FractalJumperSetting;
+import fractalviewer.settings.JuliaJumperSetting;
+import fractalviewer.settings.ReaxingSetting;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -188,15 +196,16 @@ public abstract class GeneralFractalPanel extends JPanel {
             firstPaint = false;
         }
 
-        // draw the image.
-        g.drawImage(image, 0, 0, null);
+        // draw the image and fit to panel
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
         // if dragging, draw a rectangle
         if (rectangleMode) {
             Graphics2D g2 = (Graphics2D) g;
 
+            // the rectangle should be half transparent
             AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 0.5);
-            g2.setComposite(ac);
+            g2.setComposite(ac); 
 
             g2.fill(zoomLocationRectangle);
         }
@@ -221,7 +230,7 @@ public abstract class GeneralFractalPanel extends JPanel {
         jumperSetting.setyCenter(position[1]);
         jumperSetting.setR(position[2]);
 
-        // Set Julia constant jumper box if this is a JuliaPanel
+        // Set Julia constant jumper box if this is a fractalviewer.panels.JuliaPanel
         if (this instanceof JuliaPanel) {
             JuliaPanel jP = (JuliaPanel) this;
             JuliaJumperSetting jJ = reax.getJuliaConstantJump();
@@ -439,6 +448,10 @@ public abstract class GeneralFractalPanel extends JPanel {
 
         double[] position = new double[]{xCenter, yCenter, R};
         return position;
+    }
+    
+    public static void setColourType(int colourType) {
+        COLOUR_TYPE = colourType;
     }
 
 }

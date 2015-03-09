@@ -1,3 +1,5 @@
+package fractalviewer.listeners;
+
 import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;

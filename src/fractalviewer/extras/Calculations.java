@@ -1,3 +1,4 @@
+package fractalviewer.extras;
 
 public class Calculations {
 

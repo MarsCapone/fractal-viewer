@@ -1,3 +1,8 @@
+package fractalviewer.settings;
+
+import fractalviewer.extras.Complex;
+import fractalviewer.panels.JuliaPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

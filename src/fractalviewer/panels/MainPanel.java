@@ -1,3 +1,8 @@
+package fractalviewer.panels;
+
+import fractalviewer.listeners.JuliaListener;
+import fractalviewer.listeners.MandelbrotListener;
+
 import javax.swing.*;
 import java.awt.*;
 

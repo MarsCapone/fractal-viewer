@@ -1,3 +1,9 @@
+package fractalviewer.settings;
+
+import fractalviewer.panels.GeneralFractalPanel;
+import fractalviewer.panels.JuliaPanel;
+import fractalviewer.panels.MandelbrotPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +32,7 @@ public class ColourSetting extends JPanel {
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                GeneralFractalPanel.COLOUR_TYPE = comboBox.getSelectedIndex();
+                GeneralFractalPanel.setColourType(comboBox.getSelectedIndex());
                 juliaPanel.paintImage();
                 mandelbrotPanel.paintImage();
 

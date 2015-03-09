@@ -1,3 +1,9 @@
+package fractalviewer.settings;
+
+import fractalviewer.panels.GeneralFractalPanel;
+import fractalviewer.panels.JuliaPanel;
+import fractalviewer.panels.MandelbrotPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +32,7 @@ public class GenerationSetting extends JPanel {
         // re the modulus
         final JTextField modulusField = new JTextField(5);
         modulusField.setToolTipText("The value the modulus of the complex number must be under in order to count as not having diverged.");
-        modulusField.setText(String.valueOf(GeneralFractalPanel.getModulusSquaredLimit()));
+        modulusField.setText(String.valueOf(Math.sqrt(GeneralFractalPanel.getModulusSquaredLimit())));
 
         // re the power
         final JTextField orderField = new JTextField(5);

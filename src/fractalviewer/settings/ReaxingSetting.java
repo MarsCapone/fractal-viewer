@@ -1,3 +1,8 @@
+package fractalviewer.settings;
+
+import fractalviewer.panels.JuliaPanel;
+import fractalviewer.panels.MandelbrotPanel;
+
 import javax.swing.*;
 
 public class ReaxingSetting extends JPanel {

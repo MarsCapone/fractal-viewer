@@ -1,3 +1,9 @@
+package fractalviewer.listeners;
+
+import fractalviewer.extras.Complex;
+import fractalviewer.panels.JuliaPanel;
+import fractalviewer.panels.MandelbrotPanel;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
