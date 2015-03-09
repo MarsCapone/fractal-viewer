@@ -5,8 +5,12 @@ import java.awt.event.ActionListener;
 
 public class JuliaJumperSetting extends JPanel {
 
-    static JTextField constantField;
+    JTextField constantField;
 
+    /**
+     * Create a panel to enable to jumping to specific constants for the Julia Set.
+     * @param juliaPanel The Julia Panel that will be jumped around.
+     */
     public JuliaJumperSetting(final JuliaPanel juliaPanel) {
         setLayout(new GridLayout(4, 1));
         JLabel label = new JLabel("Julia Jump: ");
@@ -16,6 +20,7 @@ public class JuliaJumperSetting extends JPanel {
         add(label);
         add(constantField);
 
+        // when changed, change the Julia panel image for the new value.
         constantField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -24,6 +29,7 @@ public class JuliaJumperSetting extends JPanel {
 
                 System.out.println(constant);
 
+                // reset the julia panel stuff
                 juliaPanel.resetAxes();
                 juliaPanel.setConstant(constant);
                 juliaPanel.paintImage();
@@ -32,11 +38,11 @@ public class JuliaJumperSetting extends JPanel {
         });
     }
 
-    public String getFieldText() {
-        return constantField.getText();
-    }
-
-    public static void setFieldText(String text) {
+    /**
+     * Set the text of the constant field.
+     * @param text The text that the constant field should display.
+     */
+    public void setFieldText(String text) {
         constantField.setText(text);
     }
 

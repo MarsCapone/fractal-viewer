@@ -98,7 +98,7 @@ public class Complex {
      */
     public Complex pow(int index) {
         Complex base = this;
-        for (int i=0; i<index; i++) {
+        for (int i=0; i<index-1; i++) {
             double newReal = (this.realPart * base.realPart) - (this.imaginaryPart * base.imaginaryPart);
             double newImaginary = (this.realPart * base.imaginaryPart) + (this.imaginaryPart * base.realPart);
             base = new Complex(newReal, newImaginary);

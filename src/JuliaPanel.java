@@ -43,7 +43,7 @@ public class JuliaPanel extends GeneralFractalPanel {
         int count = 0; // recursions before divergence
         Complex previousComplex = z;
         double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT && count < ITERATION_LIMIT) {
+        while (modulus < MODULUS_SQUARED_LIMIT && count < ITERATION_LIMIT) {
             previousComplex = getNext(previousComplex, d);
             lastComplex = previousComplex;
             modulus = Math.sqrt(previousComplex.modulusSquared());
@@ -60,7 +60,7 @@ public class JuliaPanel extends GeneralFractalPanel {
      * @return The next z value.
      */
     public Complex getNext(Complex z, Complex c) {
-        Complex zsquared = z.square();
+        Complex zsquared = z.pow(ORDER);
         return zsquared.add(c);
     }
 

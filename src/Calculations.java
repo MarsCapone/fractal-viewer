@@ -1,4 +1,5 @@
-public class GraphCalc {
+
+public class Calculations {
 
     /**
      * Get the complex number that describes and point in a panel.
@@ -17,4 +18,5 @@ public class GraphCalc {
         double imaginaryPart = (abstractMinY + (y * abstractRangeY)/maxY);
         return new Complex(realPart, imaginaryPart);
     }
+
 }

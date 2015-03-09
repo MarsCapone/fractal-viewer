@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 public class FractalJumperSetting extends JPanel {
 
+    private JTextField xCenter, yCenter, R;
+
     /**
      * Create a panel to jump to a specific location on a panel.
      * @param jumpingPanel The panel to create the jumper for.
@@ -16,9 +18,9 @@ public class FractalJumperSetting extends JPanel {
 
         JPanel entry = new JPanel(new GridLayout(4, 2));
 
-        final JTextField xCenter = new JTextField(5);
-        final JTextField yCenter = new JTextField(5);
-        final JTextField R = new JTextField(5);
+        xCenter = new JTextField(5);
+        yCenter = new JTextField(5);
+        R = new JTextField(5);
 
         ActionListener FractalAxisChange = new ActionListener() {
             @Override
@@ -48,4 +50,36 @@ public class FractalJumperSetting extends JPanel {
         R.addActionListener(FractalAxisChange);
     }
 
+    /**
+     * Set the X Center field to a formatted double.
+     * @param xC The center X coordinate.
+     */
+    public void setxCenter(double xC) {
+        xCenter.setText(getDecimalString(xC));
+    }
+
+    /**
+     * Set the Y Center field to a formatted double.
+     * @param yC The center Y coordinate.
+     */
+    public void setyCenter(double yC) {
+        yCenter.setText(getDecimalString(yC));
+    }
+
+    /**
+     * Set the "radius" field to a formatted double.
+     * @param r The "radius" - half the x axis range.
+     */
+    public void setR(double r) {
+        R.setText(getDecimalString(r));
+    }
+
+    /**
+     * Get a formatted string from a double.
+     * @param s The double to format.
+     * @return A string in the form x.yyyyy
+     */
+    private String getDecimalString(double s) {
+        return String.format("%.5f", s);
+    }
 }

@@ -6,6 +6,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
 
     public MandelbrotPanel() {
         super();
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
     /**
@@ -24,18 +25,18 @@ public class MandelbrotPanel extends GeneralFractalPanel {
 
     /**
      * Get an integer value for the divergence of a complex number when passed to the paintMandelbrotImage equation.
-     * The series diverges when the modulus of the number is greater than MODULUS_LIMIT.
+     * The series diverges when the modulus of the number is greater than MODULUS_SQUARED_LIMIT.
      * @param c The starting value to calculate the paintMandelbrotImage set from.
      * @return The number of recursions before divergence.
      */
     private int getMandelbrotDivergence(Complex c) {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
-        double modulus = 0.0;
-        while (modulus < MODULUS_LIMIT && count < ITERATION_LIMIT) {
+        double modulus_squared = 0.0;
+        while (modulus_squared < MODULUS_SQUARED_LIMIT && count < ITERATION_LIMIT) {
             previousComplex = getNext(previousComplex, c);
             lastComplex = previousComplex;
-            modulus = Math.sqrt(previousComplex.modulusSquared());
+            modulus_squared = previousComplex.modulusSquared();
             count++;
         }
         return count;
@@ -48,7 +49,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
      * @return The next paintMandelbrotImage value.
      */
     public Complex getNext(Complex z, Complex c) {
-        Complex zsquared = z.square();
+        Complex zsquared = z.pow(ORDER);
         return zsquared.add(c);
     }
 

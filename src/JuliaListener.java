@@ -17,40 +17,52 @@ public class JuliaListener extends FractalPanelListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
+        // set the start drag point
         startDrag = mouseEvent.getPoint();
+
+        // set the draw mode
         juliaPanel.setDrawMode(true);
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
+        // set the end drag point
         endDrag = mouseEvent.getPoint();
-        boolean xok = Math.abs(startDrag.x - endDrag.x) >= 10;
-        boolean yok = Math.abs(startDrag.y - endDrag.y) >= 10;
+
+        // check if the end point is OK relative to the start point
+        boolean xok = Math.abs(startDrag.x - endDrag.x) >= MIN_DRAG_SIZE;
+        boolean yok = Math.abs(startDrag.y - endDrag.y) >= MIN_DRAG_SIZE;
+
+        // if it is of legitimate size, zoom in
         if (xok && yok) {
             juliaPanel.zoom(startDrag, endDrag);
             juliaPanel.paintImage();
             juliaPanel.repaint();
         }
+
+        // stop drawing
         juliaPanel.setDrawMode(false);
     }
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
-
+        // use accurate mouse when on panel
+        juliaPanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
-
+        // use default mouse when not on panel
+        juliaPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         if (juliaPanel.getDrawMode()) {
+            // set the rectangle and draw it.
             endDrag = mouseEvent.getPoint();
-            juliaPanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
             juliaPanel.setRectangle(startDrag, endDrag);
-            juliaPanel.repaint(juliaPanel.getRectangle());
+            juliaPanel.repaint();
         }
     }
 
