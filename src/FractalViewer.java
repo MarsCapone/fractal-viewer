@@ -26,7 +26,6 @@ public class FractalViewer extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         new FractalViewer();
     }
 

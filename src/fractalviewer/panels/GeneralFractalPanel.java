@@ -420,6 +420,7 @@ public abstract class GeneralFractalPanel extends JPanel {
         return  image;
     }
 
+
     /**
      * Get the power of the fractal generation. f(z) = z^d + c
      * @return

@@ -10,6 +10,8 @@ public class MainPanel extends JPanel {
 
     private JuliaPanel juliaPanel;
     private MandelbrotPanel mandelbrotPanel;
+    
+    private AdditionalPanel additionalPanel;
 
     /**
      * The panel containing everything required for the program.
@@ -20,7 +22,7 @@ public class MainPanel extends JPanel {
         mandelbrotPanel = new MandelbrotPanel();
         juliaPanel = new JuliaPanel();
 
-        Container additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
+        additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
         this.add(mandelbrotPanel, BorderLayout.CENTER);
         this.add(additionalPanel, BorderLayout.EAST);
 
@@ -32,6 +34,27 @@ public class MainPanel extends JPanel {
 
         juliaPanel.addMouseListener(jL);
         juliaPanel.addMouseMotionListener(jL);
-
+    }
+    
+    public void swapPanels() {
+        GeneralFractalPanel currentMain = getFractalPanel();
+        GeneralFractalPanel currentAdditional = additionalPanel.getFractalPanel();
+        
+        additionalPanel.changeFractalPanel(currentMain);
+        
+        remove(currentMain);
+        add(currentAdditional, BorderLayout.CENTER);
+        
+    }
+    
+    private GeneralFractalPanel getFractalPanel() {
+        Component[] allComponents = getComponents();
+        for (Component c: allComponents) {
+            if (c instanceof GeneralFractalPanel) {
+                return (GeneralFractalPanel) c;
+            }
+        }
+        return null;
     }
 }
+
