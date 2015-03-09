@@ -23,9 +23,19 @@ public class MainPanel extends JPanel {
         juliaPanel = new JuliaPanel();
 
         additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
-        this.add(mandelbrotPanel, BorderLayout.CENTER);
-        this.add(additionalPanel, BorderLayout.EAST);
 
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mandelbrotPanel, additionalPanel);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setContinuousLayout(true);
+        splitPane.setResizeWeight(0.5);
+        splitPane.setDividerSize(5);
+
+        Dimension minimumSize = new Dimension(300, 400);
+        mandelbrotPanel.setMinimumSize(minimumSize);
+        additionalPanel.setMinimumSize(minimumSize);
+        
+        this.add(splitPane);
+        
         MandelbrotListener mL = new MandelbrotListener(mandelbrotPanel, juliaPanel);
         JuliaListener jL = new JuliaListener(juliaPanel);
 
@@ -43,7 +53,7 @@ public class MainPanel extends JPanel {
         additionalPanel.changeFractalPanel(currentMain);
         
         remove(currentMain);
-        add(currentAdditional, BorderLayout.CENTER);
+        this.add(currentAdditional, BorderLayout.CENTER);
         
     }
     

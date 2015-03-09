@@ -13,14 +13,25 @@ public class AdditionalPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
         juliaPanel.setPreferredSize(new Dimension(400, 400));
+        SettingsPane settingsPane = new SettingsPane(mandelbrotPanel, juliaPanel);
         
-        add(juliaPanel, BorderLayout.NORTH);
-        add(new SettingsPane(mandelbrotPanel, juliaPanel), BorderLayout.SOUTH);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, juliaPanel, settingsPane);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setContinuousLayout(true);
+        splitPane.setResizeWeight(0.5);
+        splitPane.setDividerSize(5);
+        
+        Dimension minimumSize = new Dimension(300, 300);
+        juliaPanel.setMinimumSize(minimumSize);
+        settingsPane.setMinimumSize(minimumSize);
+        
+        add(splitPane);
+
     }
     
     public void changeFractalPanel(GeneralFractalPanel newPanel) {
         GeneralFractalPanel currentAdditional = getFractalPanel();
-        add(newPanel, BorderLayout.NORTH);
+        this.add(newPanel, BorderLayout.NORTH);
         remove(currentAdditional);
         revalidate();
     }

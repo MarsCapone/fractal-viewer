@@ -23,7 +23,6 @@ public class SettingsPane extends JPanel {
         reaxingPane = new ReaxingSetting(mandelbrotPanel, juliaPanel);
         juliaFavourites = new JuliaFavouriteSetting(juliaPanel);
 
-        add(new JLabel("Settings"));
         add(setResetPane);
         add(generationPane);
         add(colourPane);
