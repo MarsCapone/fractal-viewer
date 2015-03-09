@@ -3,7 +3,6 @@ package fractalviewer.panels;
 import fractalviewer.extras.Complex;
 
 import java.awt.*;
-
 import java.awt.image.BufferedImage;
 
 public class MandelbrotPanel extends GeneralFractalPanel {
@@ -18,8 +17,8 @@ public class MandelbrotPanel extends GeneralFractalPanel {
      */
     public void paintImage() {
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        for (int w=0; w<WIDTH; w++) {
-            for (int h=0; h<HEIGHT; h++) {
+        for (int w = 0; w < WIDTH; w++) {
+            for (int h = 0; h < HEIGHT; h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 Color pointColour = getColour(complexPoint, lastComplex, getMandelbrotDivergence(complexPoint));
                 image.setRGB(w, h, pointColour.getRGB());
@@ -30,6 +29,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
     /**
      * Get an integer value for the divergence of a complex number when passed to the paintMandelbrotImage equation.
      * The series diverges when the modulus of the number is greater than MODULUS_SQUARED_LIMIT.
+     *
      * @param c The starting value to calculate the paintMandelbrotImage set from.
      * @return The number of recursions before divergence.
      */
@@ -48,6 +48,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
 
     /**
      * Get the next value from the paintMandelbrotImage equation.
+     *
      * @param z The complex z value.
      * @param c The complex c value.
      * @return The next paintMandelbrotImage value.

@@ -17,12 +17,13 @@ public class JuliaFavouriteSetting extends JPanel {
 
     /**
      * Create a panel to save specific Julia set generations to come back to later.
+     *
      * @param juliaPanel The Julia panel to save points from.
      */
     public JuliaFavouriteSetting(final JuliaPanel juliaPanel) {
         setLayout(new FlowLayout());
 
-        
+
         final JPanel favouriteSpace = new JPanel(new FlowLayout());
 
         JButton addFavourite = new JButton("Add Favourite");
@@ -40,7 +41,7 @@ public class JuliaFavouriteSetting extends JPanel {
 
                 // get the current important data regarding the current generation in the Julia panel.
                 final Complex currentJuliaConstant = juliaPanel.getConstant();
-                final HashMap currentJuliaAxes = juliaPanel.getAxes();
+                final HashMap<String, Double> currentJuliaAxes = juliaPanel.getAxes();
 
                 // create new button that has the scaled down image as a background.
                 final JButton fav = new JButton(new ImageIcon(miniCurrentImage));
@@ -62,19 +63,19 @@ public class JuliaFavouriteSetting extends JPanel {
                 revalidate();
             }
         });
-        
+
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     favouriteSpace.remove(lastClicked);
                 } catch (NullPointerException e) {
-                    favouriteSpace.remove(favouriteSpace.getComponentCount()-1);
+                    favouriteSpace.remove(favouriteSpace.getComponentCount() - 1);
                 }
                 favouriteSpace.revalidate();
             }
         });
-        
+
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -86,7 +87,7 @@ public class JuliaFavouriteSetting extends JPanel {
         // want to be able to scroll through favourites.
         JScrollPane scroller = new JScrollPane(favouriteSpace);
         scroller.setPreferredSize(new Dimension(200, 80));
-        
+
         JPanel buttonContainer = new JPanel();
         buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.PAGE_AXIS));
         buttonContainer.add(addFavourite);

@@ -15,8 +15,9 @@ public class SetResetSetting extends JPanel {
 
     /**
      * Create a panel to reset the mandelbrot and julia set panels.
+     *
      * @param mandelbrotPanel The Mandelbrot panel.
-     * @param juliaPanel The Julia panel.
+     * @param juliaPanel      The Julia panel.
      */
     public SetResetSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
@@ -48,7 +49,7 @@ public class SetResetSetting extends JPanel {
                 mandelbrotPanel.resetAxes();
             }
         });
-        
+
         switchPanels.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -56,7 +57,7 @@ public class SetResetSetting extends JPanel {
                 while (!(parent instanceof MainPanel) && parent != null) {
                     parent = parent.getParent();
                 }
-                if (parent instanceof MainPanel) {
+                if (parent != null) {
                     MainPanel main = (MainPanel) parent;
                     main.swapPanels();
                     main.revalidate();

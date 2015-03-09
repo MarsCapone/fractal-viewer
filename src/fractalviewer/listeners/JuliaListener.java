@@ -7,13 +7,13 @@ import java.awt.event.MouseEvent;
 
 public class JuliaListener extends FractalPanelListener {
 
-    private JuliaPanel juliaPanel;
+    private final JuliaPanel juliaPanel;
 
     public JuliaListener(JuliaPanel juliaPanel) {
         super();
         this.juliaPanel = juliaPanel;
     }
-    
+
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 

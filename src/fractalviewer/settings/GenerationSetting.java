@@ -13,8 +13,9 @@ public class GenerationSetting extends JPanel {
 
     /**
      * Create a panel containing settings regarding the generation of fractals.
+     *
      * @param mandelbrotPanel The Mandelbrot panel being used.
-     * @param juliaPanel The Julia panel being used.
+     * @param juliaPanel      The Julia panel being used.
      */
     public GenerationSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
 

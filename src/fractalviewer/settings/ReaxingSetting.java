@@ -7,13 +7,15 @@ import javax.swing.*;
 
 public class ReaxingSetting extends JPanel {
 
-    FractalJumperSetting mandelbrotJump, juliaJump;
-    JuliaJumperSetting juliaConstantJump;
+    private final FractalJumperSetting mandelbrotJump;
+    private final FractalJumperSetting juliaJump;
+    private final JuliaJumperSetting juliaConstantJump;
 
     /**
      * Create a panel to do reaxifying.
+     *
      * @param mandelbrotPanel The mandelbrot panel.
-     * @param juliaPanel The julia panel.
+     * @param juliaPanel      The julia panel.
      */
     public ReaxingSetting(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
@@ -29,6 +31,7 @@ public class ReaxingSetting extends JPanel {
 
     /**
      * Get the mandelbrot reaxing panel.
+     *
      * @return The mandelbrot reaxing panel.
      */
     public FractalJumperSetting getMandelbrotJump() {
@@ -37,6 +40,7 @@ public class ReaxingSetting extends JPanel {
 
     /**
      * Get the julia reaxing panel.
+     *
      * @return The julia reaxing panel.
      */
     public FractalJumperSetting getJuliaJump() {
@@ -45,7 +49,8 @@ public class ReaxingSetting extends JPanel {
 
     /**
      * Get the julia constant jumping panel.
-     * @return The julia constant jumpiing panel.
+     *
+     * @return The julia constant jumping panel.
      */
     public JuliaJumperSetting getJuliaConstantJump() {
         return juliaConstantJump;

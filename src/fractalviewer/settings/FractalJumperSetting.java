@@ -9,12 +9,15 @@ import java.awt.event.ActionListener;
 
 public class FractalJumperSetting extends JPanel {
 
-    private JTextField xCenter, yCenter, R;
+    private final JTextField xCenter;
+    private final JTextField yCenter;
+    private final JTextField R;
 
     /**
      * Create a panel to jump to a specific location on a panel.
+     *
      * @param jumpingPanel The panel to create the jumper for.
-     * @param title The title of the panel.
+     * @param title        The title of the panel.
      */
     public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -56,6 +59,7 @@ public class FractalJumperSetting extends JPanel {
 
     /**
      * Set the X Center field to a formatted double.
+     *
      * @param xC The center X coordinate.
      */
     public void setxCenter(double xC) {
@@ -64,6 +68,7 @@ public class FractalJumperSetting extends JPanel {
 
     /**
      * Set the Y Center field to a formatted double.
+     *
      * @param yC The center Y coordinate.
      */
     public void setyCenter(double yC) {
@@ -72,6 +77,7 @@ public class FractalJumperSetting extends JPanel {
 
     /**
      * Set the "radius" field to a formatted double.
+     *
      * @param r The "radius" - half the x axis range.
      */
     public void setR(double r) {
@@ -80,6 +86,7 @@ public class FractalJumperSetting extends JPanel {
 
     /**
      * Get a formatted string from a double.
+     *
      * @param s The double to format.
      * @return A string in the form x.yyyyy
      */

@@ -11,8 +11,9 @@ public class SettingsPane extends JPanel {
 
     /**
      * Create the main settings pane
+     *
      * @param mandelbrotPanel The mandelbrot panel being used
-     * @param juliaPanel The julia panel being used
+     * @param juliaPanel      The julia panel being used
      */
     public SettingsPane(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -28,11 +29,12 @@ public class SettingsPane extends JPanel {
         add(colourPane);
         add(reaxingPane);
         add(juliaFavourites);
-        
+
     }
 
     /**
      * Get the reset panel
+     *
      * @return The reset panel
      */
     public static JPanel getSetResetPane() {
@@ -41,6 +43,7 @@ public class SettingsPane extends JPanel {
 
     /**
      * Get the generation panel
+     *
      * @return The generation panel
      */
     public static JPanel getGenerationPane() {
@@ -49,6 +52,7 @@ public class SettingsPane extends JPanel {
 
     /**
      * Get the colour panel
+     *
      * @return The colour panel
      */
     public static JPanel getColourPane() {
@@ -57,6 +61,7 @@ public class SettingsPane extends JPanel {
 
     /**
      * Get the reaxing panel
+     *
      * @return The reaxing panel
      */
     public static JPanel getReaxingPane() {
@@ -64,8 +69,9 @@ public class SettingsPane extends JPanel {
     }
 
     /**
-     * Get the julia favouriting panel
-     * @return The julia favouriting panel
+     * Get the julia favourites panel
+     *
+     * @return The julia favourites panel
      */
     public static JPanel getJuliaFavourites() {
         return juliaFavourites;

@@ -10,10 +10,11 @@ import java.awt.event.ActionListener;
 
 public class JuliaJumperSetting extends JPanel {
 
-    JTextField constantField;
+    private final JTextField constantField;
 
     /**
      * Create a panel to enable to jumping to specific constants for the Julia Set.
+     *
      * @param juliaPanel The Julia Panel that will be jumped around.
      */
     public JuliaJumperSetting(final JuliaPanel juliaPanel) {
@@ -45,6 +46,7 @@ public class JuliaJumperSetting extends JPanel {
 
     /**
      * Set the text of the constant field.
+     *
      * @param text The text that the constant field should display.
      */
     public void setFieldText(String text) {

@@ -14,8 +14,9 @@ public class ColourSetting extends JPanel {
     /**
      * Create a colour setting panel.
      * Currently only changes colouring types.
+     *
      * @param mandelbrotPanel The mandelbrot panel being used.
-     * @param juliaPanel The julia panle being used.
+     * @param juliaPanel      The julia panel being used.
      */
     public ColourSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
         setLayout(new FlowLayout());

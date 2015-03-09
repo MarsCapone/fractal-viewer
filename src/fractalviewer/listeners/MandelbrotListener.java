@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 
 public class MandelbrotListener extends FractalPanelListener {
 
-    private MandelbrotPanel mandelbrotPanel;
-    private JuliaPanel juliaPanel;
+    private final MandelbrotPanel mandelbrotPanel;
+    private final JuliaPanel juliaPanel;
 
     public MandelbrotListener(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         this.mandelbrotPanel = mandelbrotPanel;
@@ -19,7 +19,7 @@ public class MandelbrotListener extends FractalPanelListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        
+
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MandelbrotListener extends FractalPanelListener {
             mandelbrotPanel.zoom(startDrag, endDrag);
             mandelbrotPanel.paintImage();
             mandelbrotPanel.repaint();
-            
+
         } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {
             // if it isn't generate the julia set for that point
             Point click = mouseEvent.getPoint();
@@ -59,7 +59,7 @@ public class MandelbrotListener extends FractalPanelListener {
             juliaPanel.paintImage();
             juliaPanel.repaint();
         }
-        
+
         // stop drawing
         mandelbrotPanel.setDrawMode(false);
 
