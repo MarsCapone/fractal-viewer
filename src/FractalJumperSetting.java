@@ -11,10 +11,10 @@ public class FractalJumperSetting extends JPanel {
      * @param title The title of the panel.
      */
     public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title) {
-        setLayout(new GridLayout(2, 1));
-        JPanel inputBoxes = new JPanel(new FlowLayout());
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(new JLabel(title));
-        add(inputBoxes);
+
+        JPanel entry = new JPanel(new GridLayout(4, 2));
 
         final JTextField xCenter = new JTextField(5);
         final JTextField yCenter = new JTextField(5);
@@ -28,17 +28,20 @@ public class FractalJumperSetting extends JPanel {
                 double r = Double.parseDouble(R.getText());
 
                 jumpingPanel.resetAxes(xC, yC, r);
+                jumpingPanel.paintImage();
             }
         };
 
-        inputBoxes.add(new JLabel("X: "));
-        inputBoxes.add(xCenter);
+        entry.add(new JLabel("X: "));
+        entry.add(xCenter);
 
-        inputBoxes.add(new JLabel("Y: "));
-        inputBoxes.add(yCenter);
+        entry.add(new JLabel("Y: "));
+        entry.add(yCenter);
 
-        inputBoxes.add(new JLabel("R: "));
-        inputBoxes.add(R);
+        entry.add(new JLabel("R: "));
+        entry.add(R);
+
+        add(entry);
 
         xCenter.addActionListener(FractalAxisChange);
         yCenter.addActionListener(FractalAxisChange);

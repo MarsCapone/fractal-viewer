@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -7,15 +6,16 @@ import java.util.HashMap;
 public abstract class GeneralFractalPanel extends JPanel {
 
     private boolean rectangleMode = false; // whether or not to be drawing a rectangle.
-    private Rectangle zoomLocation = new Rectangle();
+    private Rectangle zoomLocationRectangle = new Rectangle();
+    private boolean firstPaint = true;
 
     protected Complex lastComplex;
 
     // set constants for easy changing
-    protected int WIDTH = 400;
-    protected int HEIGHT = 400;
+    protected int WIDTH = 800;
+    protected int HEIGHT = 800;
 
-    protected static double MODULUS_LIMIT = 2;
+    protected static double MODULUS_LIMIT = 2.0;
     protected static int ITERATION_LIMIT = 100;
 
     protected BufferedImage image;
@@ -43,7 +43,10 @@ public abstract class GeneralFractalPanel extends JPanel {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setDoubleBuffered(true);
         this.setLayout(new FlowLayout());
+
     }
+
+
 
     /**
      * By default a Fractal Panel extends from -2 to 2 on the real axis, and -1.6 to 1.6 on the imaginary axis.
@@ -160,26 +163,30 @@ public abstract class GeneralFractalPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        paintImage();
-        g.drawImage(image, 0, 0, null);
-        System.out.println("doing a paint - this is time consuming");
-        if (rectangleMode) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.draw(zoomLocation);
-        }
+        doDrawing(g);
     }
 
-    /*@Override
-    public void repaint() {
-        System.out.println("repaint");
-        getGraphics().drawImage(image, 0, 0, null);
-        if (rectangleMode) {
-            Graphics2D g2 = (Graphics2D) getGraphics();
-            g2.draw(zoomLocation);
+    private void doDrawing(Graphics g) {
+        // on the first paint, setup the 2 initial fractals
+        if (firstPaint) {
+            paintImage();
+            System.out.println("Painting initial paint.");
+            firstPaint = false;
         }
-    }*/
 
+        // draw the image.
+        g.drawImage(image, 0, 0, null);
 
+        // if dragging, draw a rectangle
+        if (rectangleMode) {
+            Graphics2D g2 = (Graphics2D) g;
+
+            AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 0.5);
+            g2.setComposite(ac);
+
+            g2.fill(zoomLocationRectangle);
+        }
+    }
 
     /**
      * Reset the axes to new boundaries on the imaginary plane.
@@ -193,6 +200,7 @@ public abstract class GeneralFractalPanel extends JPanel {
         this.abstractMinY = aMY;
         this.abstractRangeX = aRX;
         this.abstractRangeY = aRY;
+        this.paintImage();
         this.repaint();
     }
 
@@ -269,7 +277,7 @@ public abstract class GeneralFractalPanel extends JPanel {
             // get the top most square of the selection.
             resetAxes(minX, h, minY, h);
         }
-        System.out.printf("Zooming: (%f, %f) to (%f, %f) \n", minX, maxY, maxX, minY);
+        System.out.printf("Zooming: (%f, %f) to (%f, %f) on %s \n", minX, maxY, maxX, minY, this.getClass().getName());
     }
 
     /**
@@ -334,11 +342,11 @@ public abstract class GeneralFractalPanel extends JPanel {
         int y = Math.min(start.y, end.y);
         int w = Math.abs(start.x - end.x);
         int h = Math.abs(start.y - end.y);
-        zoomLocation = new Rectangle(x, y, w, h);
+        zoomLocationRectangle = new Rectangle(x, y, w, h);
     }
 
     public Rectangle getRectangle() {
-        return zoomLocation;
+        return zoomLocationRectangle;
     }
 
     public BufferedImage getImage() {

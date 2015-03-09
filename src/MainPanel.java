@@ -15,8 +15,8 @@ public class MainPanel extends JPanel {
         mandelbrotPanel = new MandelbrotPanel();
         juliaPanel = new JuliaPanel();
 
-        //mandelbrotPanel.paintImage();
-        //juliaPanel.paintImage();
+//        mandelbrotPanel.paintImage();
+//        juliaPanel.paintImage();
 
         Container additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
         this.add(mandelbrotPanel, BorderLayout.CENTER);

@@ -18,7 +18,7 @@ public class SettingsPane extends JPanel {
         JPanel setResetPane = createSetResetPane();
         JPanel generationPane = createGenerationSettings();
         JPanel colourPane = createColouringPane();
-        JPanel reaxingPane = createCompleteReaxingPanel();
+        JPanel reaxingPane = new ReaxingSetting(mandelbrotPanel, juliaPanel);
         JPanel juliaFavourites = createFavouriteJuliaAdder();
 
         add(new JLabel("Settings"));
@@ -30,47 +30,6 @@ public class SettingsPane extends JPanel {
         
     }
 
-    /**
-     * Create panel for reaxing the mandelbrot and julia panels.
-     * @return
-     */
-    private JPanel createCompleteReaxingPanel() {
-        JPanel reaxing = new JPanel(new GridLayout(3, 1));
-        reaxing.add(createJuliaConstantJumper());
-        reaxing.add(new FractalJumperSetting(mandelbrotPanel, "Mandelbrot Jump: "));
-        reaxing.add(new FractalJumperSetting(juliaPanel, "Julia Jump: "));
-        return reaxing;
-    }
-
-    /**
-     * Create a panel that allows the jumping of a Julia Set to the Julia Set of a specific constant.
-     * @return A panel to change settings regarding the jumping to a specific Julia set.
-     */
-    private JPanel createJuliaConstantJumper() {
-        JPanel jumper = new JPanel(new FlowLayout());
-        JLabel label = new JLabel("Julia Jump: ");
-        final JTextField constantField = new JTextField(20);
-        constantField.setText(juliaPanel.getConstant().toString());
-
-        jumper.add(label);
-        jumper.add(constantField);
-
-        constantField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                String text = constantField.getText();
-                Complex constant = new Complex(text);
-
-                System.out.println(constant);
-
-                juliaPanel.resetAxes();
-                juliaPanel.setConstant(constant);
-                juliaPanel.repaint();
-            }
-        });
-
-        return jumper;
-    }
 
     /**
      * Create a panel to reset the the mandelbrot and/or julia panels to their initial view.
@@ -90,6 +49,7 @@ public class SettingsPane extends JPanel {
         resetJulia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                juliaPanel.setConstant(new Complex(0, 0));
                 juliaPanel.resetAxes();
             }
         });
@@ -127,6 +87,9 @@ public class SettingsPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 GeneralFractalPanel.COLOUR_TYPE = comboBox.getSelectedIndex();
+                juliaPanel.paintImage();
+                mandelbrotPanel.paintImage();
+
                 juliaPanel.repaint();
                 mandelbrotPanel.repaint();
             }
@@ -145,7 +108,7 @@ public class SettingsPane extends JPanel {
         JPanel generationSettings = new JPanel(new FlowLayout());
         
         JLabel iterations = new JLabel("Iterations: ");
-        JLabel modulus = new JLabel("Modulus: ");
+        final JLabel modulus = new JLabel("Modulus: ");
         
         final JTextField iterationField = new JTextField(5);
         iterationField.setToolTipText("Maximum number of iterations to attempt before a pixel counts as never diverging.");
@@ -158,7 +121,13 @@ public class SettingsPane extends JPanel {
         iterationField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                GeneralFractalPanel.setIterationLimit(Double.parseDouble(iterationField.getText()));
+                String iter = iterationField.getText();
+                GeneralFractalPanel.setIterationLimit(Double.parseDouble(iter));
+                System.out.printf("Set iteration field to %s. Calculating. Please wait...\n", iter);
+
+                mandelbrotPanel.paintImage();
+                juliaPanel.paintImage();
+
                 mandelbrotPanel.repaint();
                 juliaPanel.repaint();
             }
@@ -167,7 +136,13 @@ public class SettingsPane extends JPanel {
         modulusField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                GeneralFractalPanel.setModulusLimit(Double.parseDouble(modulusField.getText()));
+                String mod = modulusField.getText();
+                GeneralFractalPanel.setModulusLimit(Double.parseDouble(mod));
+                System.out.printf("Set modulus field to %s. Calculating. Please wait...\n", mod);
+
+                mandelbrotPanel.paintImage();
+                juliaPanel.paintImage();
+
                 mandelbrotPanel.repaint();
                 juliaPanel.repaint();
             }
@@ -194,7 +169,6 @@ public class SettingsPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 BufferedImage currentJuliaImage = juliaPanel.getImage();
-                //BufferedImage currentJuliaIcon = currentJuliaImage.getSubimage(currentJuliaImage.getWidth()/2, currentJuliaImage.getHeight()/2, 50, 50);
                 ImageIcon currentJuliaIcon = new ImageIcon(currentJuliaImage);
                 Complex currentJuliaConstant = juliaPanel.getConstant();
                 currentJuliaIcon.setDescription(currentJuliaConstant.toString());
@@ -213,6 +187,7 @@ public class SettingsPane extends JPanel {
                 Complex constant = new Complex(constantString);
 
                 juliaPanel.setConstant(constant);
+                juliaPanel.paintImage();
                 juliaPanel.repaint();
             }
         });

@@ -1,6 +1,7 @@
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class JuliaListener extends FractalPanelListener{
+public class JuliaListener extends FractalPanelListener {
 
     private JuliaPanel juliaPanel;
 
@@ -17,6 +18,7 @@ public class JuliaListener extends FractalPanelListener{
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         startDrag = mouseEvent.getPoint();
+        juliaPanel.setDrawMode(true);
     }
 
     @Override
@@ -29,6 +31,7 @@ public class JuliaListener extends FractalPanelListener{
             juliaPanel.paintImage();
             juliaPanel.repaint();
         }
+        juliaPanel.setDrawMode(false);
     }
 
     @Override
@@ -45,11 +48,9 @@ public class JuliaListener extends FractalPanelListener{
     public void mouseDragged(MouseEvent mouseEvent) {
         if (juliaPanel.getDrawMode()) {
             endDrag = mouseEvent.getPoint();
-            System.out.println("dragging");
+            juliaPanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
             juliaPanel.setRectangle(startDrag, endDrag);
-            juliaPanel.repaint();
-        } else {
-            System.out.println("not dragging for some reason");
+            juliaPanel.repaint(juliaPanel.getRectangle());
         }
     }
 

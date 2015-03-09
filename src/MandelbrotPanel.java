@@ -12,9 +12,9 @@ public class MandelbrotPanel extends GeneralFractalPanel {
      * Create mandelbrot set on Buffered Image. Pretty sure this is a good way o do things, but unsure how to display.
      */
     public void paintImage() {
-        image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-        for (int w=0; w<getWidth(); w++) {
-            for (int h=0; h<getHeight(); h++) {
+        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        for (int w=0; w<WIDTH; w++) {
+            for (int h=0; h<HEIGHT; h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 Color pointColour = getColour(complexPoint, lastComplex, getMandelbrotDivergence(complexPoint));
                 image.setRGB(w, h, pointColour.getRGB());

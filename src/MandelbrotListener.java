@@ -1,11 +1,7 @@
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.security.InvalidParameterException;
 
-public class MandelbrotListener extends FractalPanelListener  {
+public class MandelbrotListener extends FractalPanelListener {
 
     private MandelbrotPanel mandelbrotPanel;
     private JuliaPanel juliaPanel;
@@ -44,6 +40,8 @@ public class MandelbrotListener extends FractalPanelListener  {
             juliaPanel.setConstant(juliaConstant);
             juliaPanel.paintImage();
             juliaPanel.repaint();
+
+            JuliaJumperSetting.setFieldText(juliaConstant.toString());
         }
         mandelbrotPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         mandelbrotPanel.setDrawMode(false);
@@ -65,8 +63,8 @@ public class MandelbrotListener extends FractalPanelListener  {
         if (mandelbrotPanel.getDrawMode()) {
             endDrag = mouseEvent.getPoint();
             mandelbrotPanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-            //mandelbrotPanel.setRectangle(startDrag, endDrag);
-            //mandelbrotPanel.repaint(mandelbrotPanel.getRectangle());
+            mandelbrotPanel.setRectangle(startDrag, endDrag);
+            mandelbrotPanel.repaint();
         }
     }
 

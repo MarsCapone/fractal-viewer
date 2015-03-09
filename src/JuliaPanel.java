@@ -14,7 +14,7 @@ public class JuliaPanel extends GeneralFractalPanel {
      * @param d The constant for the Julia Set
      */
     public void paintJuliaImage(Complex d) {
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int w=0; w<getWidth(); w++) {
             for (int h=0; h<getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);

@@ -6,4 +6,6 @@ public abstract class FractalPanelListener implements MouseListener, MouseMotion
 
     protected static Point startDrag, endDrag;
 
+
+
 }
