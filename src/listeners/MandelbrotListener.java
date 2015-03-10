@@ -6,11 +6,14 @@ import panels.MandelbrotPanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public class MandelbrotListener extends FractalPanelListener {
 
     private final MandelbrotPanel mandelbrotPanel;
     private final JuliaPanel juliaPanel;
+
+    private double ZOOM_FRACTION = 0.7;
 
     public MandelbrotListener(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         this.mandelbrotPanel = mandelbrotPanel;
@@ -89,6 +92,21 @@ public class MandelbrotListener extends FractalPanelListener {
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+        double[] currentPosition = mandelbrotPanel.getPosition();
+        Complex newPosition = mandelbrotPanel.getComplexPoint(mouseWheelEvent.getPoint());
+        double newR;
+        int direction = mouseWheelEvent.getWheelRotation();
+        if (direction < 0) { // zoom in
+            newR = currentPosition[2] * ZOOM_FRACTION;
+        } else { // zoom out
+            newR = currentPosition[2]* ( 1 + (1-ZOOM_FRACTION));
+        }
+//        mandelbrotPanel.setDrawMode(true);
+        mandelbrotPanel.zoom(newPosition, newR);
     }
 }
 

@@ -38,6 +38,7 @@ public class MainPanel extends JPanel {
 
         mandelbrotPanel.addMouseListener(mL);
         mandelbrotPanel.addMouseMotionListener(mL);
+        mandelbrotPanel.addMouseWheelListener(mL);
 
         juliaPanel.addMouseListener(jL);
         juliaPanel.addMouseMotionListener(jL);

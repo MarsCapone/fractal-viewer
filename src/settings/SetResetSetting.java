@@ -28,9 +28,9 @@ public class SetResetSetting extends JPanel {
         JButton switchPanels = new JButton("Switch Panels (Experimental)");
 
         add(resetMandelbrot);
-        add(Box.createHorizontalGlue()); // add a spacer
-        add(switchPanels);
-        add(Box.createHorizontalGlue());
+        //add(Box.createHorizontalGlue()); // add a spacer
+        //add(switchPanels);
+        //add(Box.createHorizontalGlue());
         add(resetJulia);
 
         // reset for the julia panel

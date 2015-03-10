@@ -4,6 +4,7 @@ import panels.JuliaPanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public class JuliaListener extends FractalPanelListener {
 
@@ -72,6 +73,11 @@ public class JuliaListener extends FractalPanelListener {
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
 
     }
 }

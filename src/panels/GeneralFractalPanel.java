@@ -48,7 +48,6 @@ public abstract class GeneralFractalPanel extends JPanel {
         //this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setDoubleBuffered(true);
         this.setLayout(new FlowLayout());
-
     }
 
 
@@ -391,6 +390,24 @@ public abstract class GeneralFractalPanel extends JPanel {
             resetAxes(minX, h, minY, h);
         }
         System.out.printf("Zooming: (%f, %f) to (%f, %f) on %s \n", minX, maxY, maxX, minY, this.getClass().getName());
+    }
+
+    public void zoom(double X, double Y, double R) {
+        resetAxes(
+                X-R,
+                R*2,
+                Y-R,
+                R*2
+        );
+        System.out.printf("Zooming: (%f, %f) with R%f on %s \n", X, Y, R, this.getClass().getName());
+    }
+
+    public void zoom(Complex centre, double R) {
+        zoom(
+                centre.getReal(),
+                centre.getImaginary(),
+                R
+        );
     }
 
     /**
