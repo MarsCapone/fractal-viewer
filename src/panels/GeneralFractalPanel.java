@@ -1,10 +1,10 @@
-package fractalviewer.panels;
+package panels;
 
-import fractalviewer.extras.Calculations;
-import fractalviewer.extras.Complex;
-import fractalviewer.settings.FractalJumperSetting;
-import fractalviewer.settings.JuliaJumperSetting;
-import fractalviewer.settings.ReaxingSetting;
+import extras.Calculations;
+import extras.Complex;
+import settings.FractalJumperSetting;
+import settings.JuliaJumperSetting;
+import settings.ReaxingSetting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -288,7 +288,7 @@ public abstract class GeneralFractalPanel extends JPanel {
         jumperSetting.setyCenter(position[1]);
         jumperSetting.setR(position[2]);
 
-        // Set Julia constant jumper box if this is a fractalviewer.panels.JuliaPanel
+        // Set Julia constant jumper box if this is a panels.JuliaPanel
         if (this instanceof JuliaPanel) {
             JuliaPanel jP = (JuliaPanel) this;
             JuliaJumperSetting jJ = reax.getJuliaConstantJump();

@@ -1,6 +1,6 @@
-package fractalviewer.listeners;
+package listeners;
 
-import fractalviewer.panels.JuliaPanel;
+import panels.JuliaPanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

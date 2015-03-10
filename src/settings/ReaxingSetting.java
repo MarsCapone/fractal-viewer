@@ -1,7 +1,7 @@
-package fractalviewer.settings;
+package settings;
 
-import fractalviewer.panels.JuliaPanel;
-import fractalviewer.panels.MandelbrotPanel;
+import panels.JuliaPanel;
+import panels.MandelbrotPanel;
 
 import javax.swing.*;
 

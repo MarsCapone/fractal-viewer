@@ -1,4 +1,4 @@
-import fractalviewer.panels.MainPanel;
+import panels.MainPanel;
 
 import javax.swing.*;
 import java.awt.*;

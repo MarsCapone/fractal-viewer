@@ -1,4 +1,4 @@
-package fractalviewer.extras;
+package extras;
 
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;

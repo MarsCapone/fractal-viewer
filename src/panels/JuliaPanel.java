@@ -1,6 +1,6 @@
-package fractalviewer.panels;
+package panels;
 
-import fractalviewer.extras.Complex;
+import extras.Complex;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

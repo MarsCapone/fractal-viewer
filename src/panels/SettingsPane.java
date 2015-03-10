@@ -1,6 +1,6 @@
-package fractalviewer.panels;
+package panels;
 
-import fractalviewer.settings.*;
+import settings.*;
 
 import javax.swing.*;
 
