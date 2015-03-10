@@ -235,8 +235,8 @@ public abstract class GeneralFractalPanel extends JPanel {
      * @param g The graphics object.
      */
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         doDrawing(g);
         doCalculations();
     }

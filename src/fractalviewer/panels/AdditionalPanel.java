@@ -21,7 +21,7 @@ public class AdditionalPanel extends JPanel {
         splitPane.setResizeWeight(0.5);
         splitPane.setDividerSize(5);
 
-        Dimension minimumSize = new Dimension(300, 300);
+        Dimension minimumSize = new Dimension(200, 200);
         juliaPanel.setMinimumSize(minimumSize);
         settingsPane.setMinimumSize(minimumSize);
 

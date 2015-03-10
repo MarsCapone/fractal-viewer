@@ -1,6 +1,7 @@
 import fractalviewer.panels.MainPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class FractalViewer extends JFrame {
 
@@ -17,6 +18,8 @@ public class FractalViewer extends JFrame {
         pack();
         setResizable(true);
         setVisible(true);
+        setMinimumSize(new Dimension(500,500));
+
     }
 
     public static void main(String[] args) {

@@ -47,10 +47,13 @@ public class MainPanel extends JPanel {
         GeneralFractalPanel currentMain = getFractalPanel();
         GeneralFractalPanel currentAdditional = additionalPanel.getFractalPanel();
 
+        System.out.println(currentMain);
+        System.out.println(currentAdditional);
         additionalPanel.changeFractalPanel(currentMain);
 
         remove(currentMain);
         this.add(currentAdditional, BorderLayout.CENTER);
+        revalidate();
 
     }
 
