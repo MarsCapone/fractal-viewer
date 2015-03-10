@@ -47,7 +47,7 @@ public class MandelbrotListener extends FractalPanelListener {
         if (xok && yok) {
             // if it is zoom in
             mandelbrotPanel.zoom(startDrag, endDrag);
-            mandelbrotPanel.paintImage();
+            mandelbrotPanel.startThread();
             mandelbrotPanel.repaint();
 
         } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {

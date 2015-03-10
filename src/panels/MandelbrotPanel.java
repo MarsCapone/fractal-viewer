@@ -38,7 +38,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         Complex previousComplex = c;
         double modulus_squared = 0.0;
         while (modulus_squared < MODULUS_SQUARED_LIMIT && count < ITERATION_LIMIT) {
-            previousComplex = getNext(previousComplex, c);
+            previousComplex = getNext(previousComplex, c, FRACTAL_OPTION);
             lastComplex = previousComplex;
             modulus_squared = previousComplex.modulusSquared();
             count++;
@@ -46,16 +46,6 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         return count;
     }
 
-    /**
-     * Get the next value from the paintMandelbrotImage equation.
-     *
-     * @param z The complex z value.
-     * @param c The complex c value.
-     * @return The next paintMandelbrotImage value.
-     */
-    public Complex getNext(Complex z, Complex c) {
-        Complex zsquared = z.pow(ORDER);
-        return zsquared.add(c);
-    }
+
 
 }

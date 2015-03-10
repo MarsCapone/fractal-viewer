@@ -31,6 +31,10 @@ public abstract class GeneralFractalPanel extends JPanel {
     private Rectangle zoomLocationRectangle = new Rectangle();
     private boolean firstPaint = true;
 
+    protected static int FRACTAL_OPTION = 1;
+
+    private Thread thread;
+
     /**
      * A new Fractal Panel has an abstract axis, which is set using parameters.
      *
@@ -45,9 +49,19 @@ public abstract class GeneralFractalPanel extends JPanel {
         this.abstractRangeX = abstractRangeX;
         this.abstractRangeY = abstractRangeY;
 
-        //this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setDoubleBuffered(true);
         this.setLayout(new FlowLayout());
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                paintImage();
+            }
+        });
+    }
+
+    public void startThread() {
+        thread.run();
     }
 
 
@@ -416,13 +430,29 @@ public abstract class GeneralFractalPanel extends JPanel {
     public abstract void paintImage();
 
     /**
-     * Get the next iteration.
+     * Get the next value from the equation.
      *
-     * @param z The Z value.
-     * @param c The C value.
-     * @return The next Z value.
+     * @param z The complex z value.
+     * @param c The complex c value.
+     * @param opt The option for which set to generate.
+     * @return The next z value.
      */
-    public abstract Complex getNext(Complex z, Complex c);
+    public Complex getNext(Complex z, Complex c, int opt) {
+        Complex returnValue = new Complex(0,0);
+        switch (opt) {
+            case 1: // burning ship
+                Complex a = new Complex(Math.abs(z.getReal()), Math.abs(z.getImaginary())).pow(ORDER);
+                returnValue = a.add(c);
+                break;
+            case 2:
+                break;
+            default:
+                Complex zsquared = z.pow(ORDER);
+                returnValue = zsquared.add(c);
+                break;
+        }
+        return returnValue;
+    }
 
     /**
      * Get whether the mouse is pressed and dragging.
@@ -486,6 +516,10 @@ public abstract class GeneralFractalPanel extends JPanel {
         double R = abstractRangeX / 2;
 
         return new double[]{xCenter, yCenter, R};
+    }
+
+    public static void setFractalOption(int opt) {
+        FRACTAL_OPTION = opt;
     }
 
 }

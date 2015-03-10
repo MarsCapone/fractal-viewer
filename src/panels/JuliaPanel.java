@@ -50,25 +50,12 @@ public class JuliaPanel extends GeneralFractalPanel {
         Complex previousComplex = z;
         double modulus = 0.0;
         while (modulus < MODULUS_SQUARED_LIMIT && count < ITERATION_LIMIT) {
-            previousComplex = getNext(previousComplex, d);
+            previousComplex = getNext(previousComplex, d, FRACTAL_OPTION);
             lastComplex = previousComplex;
             modulus = Math.sqrt(previousComplex.modulusSquared());
             count++;
         }
         return count;
-    }
-
-
-    /**
-     * Get the next complex number for a Julia Set equation.
-     *
-     * @param z The z value.
-     * @param c The constant value.
-     * @return The next z value.
-     */
-    public Complex getNext(Complex z, Complex c) {
-        Complex zsquared = z.pow(ORDER);
-        return zsquared.add(c);
     }
 
     /**
