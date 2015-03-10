@@ -23,8 +23,14 @@ public class JuliaFavouriteSetting extends JPanel {
     public JuliaFavouriteSetting(final JuliaPanel juliaPanel) {
         setLayout(new FlowLayout());
 
-
         final JPanel favouriteSpace = new JPanel(new FlowLayout());
+
+        JPanel buttonContainer = new JPanel();
+        buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.PAGE_AXIS));
+
+        // want to be able to scroll through favourites.
+        final JScrollPane scroller = new JScrollPane(favouriteSpace, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroller.setPreferredSize(new Dimension(200, 100));
 
         JButton addFavourite = new JButton("Add Favourite");
         JButton delete = new JButton("Delete");
@@ -71,8 +77,11 @@ public class JuliaFavouriteSetting extends JPanel {
                     favouriteSpace.remove(lastClicked);
                 } catch (NullPointerException e) {
                     favouriteSpace.remove(favouriteSpace.getComponentCount() - 1);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Cannot delete anything. The favourites list is empty.");
                 }
                 favouriteSpace.revalidate();
+                scroller.revalidate();
             }
         });
 
@@ -84,12 +93,6 @@ public class JuliaFavouriteSetting extends JPanel {
             }
         });
 
-        // want to be able to scroll through favourites.
-        JScrollPane scroller = new JScrollPane(favouriteSpace);
-        scroller.setPreferredSize(new Dimension(200, 80));
-
-        JPanel buttonContainer = new JPanel();
-        buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.PAGE_AXIS));
         buttonContainer.add(addFavourite);
         buttonContainer.add(delete);
         buttonContainer.add(clear);
