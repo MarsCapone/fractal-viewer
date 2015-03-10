@@ -17,6 +17,7 @@ public class SettingsPane extends JPanel {
      */
     public SettingsPane(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
         JPanel settingSpace = new JPanel();
         settingSpace.setLayout(new BoxLayout(settingSpace, BoxLayout.PAGE_AXIS));

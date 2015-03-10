@@ -19,15 +19,13 @@ public class FractalJumperSetting extends JPanel {
      * @param jumpingPanel The panel to create the jumper for.
      * @param title        The title of the panel.
      */
-    public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title) {
+    public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title, boolean doLabels) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(new JLabel(title));
 
-        JPanel entry = new JPanel(new GridLayout(4, 2));
-
-        xCenter = new JTextField(5);
-        yCenter = new JTextField(5);
-        R = new JTextField(5);
+        xCenter = new JTextField(8);
+        yCenter = new JTextField(8);
+        R = new JTextField(8);
 
         ActionListener FractalAxisChange = new ActionListener() {
             @Override
@@ -41,20 +39,29 @@ public class FractalJumperSetting extends JPanel {
             }
         };
 
-        entry.add(new JLabel("X: "));
-        entry.add(xCenter);
+        if (doLabels) {
+            JPanel entry = new JPanel(new GridLayout(3, 2));
+            entry.add(new JLabel("X "), RIGHT_ALIGNMENT);
+            entry.add(xCenter);
+            entry.add(new JLabel("Y "), RIGHT_ALIGNMENT);
+            entry.add(yCenter);
+            entry.add(new JLabel("R "), RIGHT_ALIGNMENT);
+            entry.add(R);
 
-        entry.add(new JLabel("Y: "));
-        entry.add(yCenter);
-
-        entry.add(new JLabel("R: "));
-        entry.add(R);
-
-        add(entry);
+            add(entry);
+        } else {
+            add(xCenter);
+            add(yCenter);
+            add(R);
+        }
 
         xCenter.addActionListener(FractalAxisChange);
         yCenter.addActionListener(FractalAxisChange);
         R.addActionListener(FractalAxisChange);
+    }
+
+    public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title) {
+        this(jumpingPanel, title, false);
     }
 
     /**

@@ -4,6 +4,7 @@ import panels.JuliaPanel;
 import panels.MandelbrotPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ReaxingSetting extends JPanel {
 
@@ -18,10 +19,10 @@ public class ReaxingSetting extends JPanel {
      * @param juliaPanel      The julia panel.
      */
     public ReaxingSetting(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        mandelbrotJump = new FractalJumperSetting(mandelbrotPanel, "Mandelbrot Jump: ");
-        juliaJump = new FractalJumperSetting(juliaPanel, "Julia Jump: ");
+        mandelbrotJump = new FractalJumperSetting(mandelbrotPanel, "Mandelbrot", true);
+        juliaJump = new FractalJumperSetting(juliaPanel, "Julia");
         juliaConstantJump = new JuliaJumperSetting(juliaPanel);
 
         add(mandelbrotJump);

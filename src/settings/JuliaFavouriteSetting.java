@@ -21,7 +21,7 @@ public class JuliaFavouriteSetting extends JPanel {
      * @param juliaPanel The Julia panel to save points from.
      */
     public JuliaFavouriteSetting(final JuliaPanel juliaPanel) {
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
         final JPanel favouriteSpace = new JPanel(new FlowLayout());
 
@@ -52,6 +52,7 @@ public class JuliaFavouriteSetting extends JPanel {
                 // create new button that has the scaled down image as a background.
                 final JButton fav = new JButton(new ImageIcon(miniCurrentImage));
                 fav.setBorderPainted(false);
+                fav.setBorder(null);
 
                 // when clicked this button will show the saved Julia image on the main display.
                 fav.addActionListener(new ActionListener() {

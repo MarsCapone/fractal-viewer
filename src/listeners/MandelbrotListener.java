@@ -13,7 +13,7 @@ public class MandelbrotListener extends FractalPanelListener {
     private final MandelbrotPanel mandelbrotPanel;
     private final JuliaPanel juliaPanel;
 
-    private double ZOOM_FRACTION = 0.7;
+    private double ZOOM_FRACTION = 0.3;
 
     public MandelbrotListener(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
         this.mandelbrotPanel = mandelbrotPanel;
@@ -105,8 +105,16 @@ public class MandelbrotListener extends FractalPanelListener {
         } else { // zoom out
             newR = currentPosition[2]* ( 1 + (1-ZOOM_FRACTION));
         }
-//        mandelbrotPanel.setDrawMode(true);
+        mandelbrotPanel.setDrawMode(true);
+        Point s = new Point((int) (mouseWheelEvent.getX() - ((ZOOM_FRACTION * mandelbrotPanel.getWidth()) / 2)),
+                (int) (mouseWheelEvent.getY() - ((ZOOM_FRACTION * mandelbrotPanel.getHeight()) / 2)));
+        Point e =  new Point((int) (mouseWheelEvent.getX() + ((ZOOM_FRACTION * mandelbrotPanel.getWidth()) / 2)),
+                (int) (mouseWheelEvent.getY() + ((ZOOM_FRACTION * mandelbrotPanel.getHeight()) / 2)));
+        mandelbrotPanel.setRectangle(s, e);
+        mandelbrotPanel.repaint();
+
         mandelbrotPanel.zoom(newPosition, newR);
+        mandelbrotPanel.setDrawMode(false);
     }
 }
 

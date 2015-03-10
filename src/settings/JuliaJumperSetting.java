@@ -18,7 +18,8 @@ public class JuliaJumperSetting extends JPanel {
      * @param juliaPanel The Julia Panel that will be jumped around.
      */
     public JuliaJumperSetting(final JuliaPanel juliaPanel) {
-        setLayout(new GridLayout(4, 1));
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
         JLabel label = new JLabel("Julia Jump: ");
         constantField = new JTextField();
         constantField.setText(juliaPanel.getConstant().toString());

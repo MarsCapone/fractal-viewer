@@ -20,7 +20,7 @@ public class SetResetSetting extends JPanel {
      * @param juliaPanel      The Julia panel.
      */
     public SetResetSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // create the reset buttons.
         JButton resetMandelbrot = new JButton("Reset Mandelbrot");

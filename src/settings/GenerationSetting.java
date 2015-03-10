@@ -18,8 +18,7 @@ public class GenerationSetting extends JPanel {
      * @param juliaPanel      The Julia panel being used.
      */
     public GenerationSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
-
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel iterations = new JLabel("Iterations: ");
         JLabel modulus = new JLabel("Modulus: ");

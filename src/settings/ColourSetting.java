@@ -19,7 +19,7 @@ public class ColourSetting extends JPanel {
      * @param juliaPanel      The julia panel being used.
      */
     public ColourSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // Give names of the different colouring types. These will be displayed in a combobox and referenced by their index.
         String[] colouringTypes = {"Black & White", "Binary Decomposition", "Divergence", "Fire", "Inverse Fire", "Continuous"};

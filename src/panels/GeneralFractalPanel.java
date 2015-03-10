@@ -14,7 +14,7 @@ import java.util.HashMap;
 public abstract class GeneralFractalPanel extends JPanel {
 
     protected static double MODULUS_SQUARED_LIMIT = 4.0; // square of the modulus to use.
-    protected static int ITERATION_LIMIT = 100; // max number of iterations to do.
+    protected static int ITERATION_LIMIT = 50; // max number of iterations to do.
     protected static int ORDER = 2; // the power used in set generation
     private static int COLOUR_TYPE = 3; // start the colour type as the fire setting
     // set constants for easy changing
