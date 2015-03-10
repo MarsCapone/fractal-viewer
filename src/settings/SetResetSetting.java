@@ -1,9 +1,10 @@
 package settings;
 
 import extras.Complex;
-import panels.JuliaPanel;
+import extras.SetAlgorithms;
+import panels.BigPanel;
 import panels.MainPanel;
-import panels.MandelbrotPanel;
+import panels.SmallPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,15 +17,17 @@ public class SetResetSetting extends JPanel {
     /**
      * Create a panel to reset the mandelbrot and julia set panels.
      *
-     * @param mandelbrotPanel The Mandelbrot panel.
-     * @param juliaPanel      The Julia panel.
+     * @param bigPanel The Mandelbrot panel.
+     * @param smallPanel      The Julia panel.
      */
-    public SetResetSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
+    public SetResetSetting(final BigPanel bigPanel, final SmallPanel smallPanel) {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // create the reset buttons.
-        JButton resetMandelbrot = new JButton("Reset Mandelbrot");
-        JButton resetJulia = new JButton("Reset Julia");
+        JButton resetMandelbrot = new JButton("Reset Big");
+        JButton resetJulia = new JButton("Reset Small");
+        final JComboBox<String> setType = new JComboBox<String>(SetAlgorithms.getSetTypes());
+        
         JButton switchPanels = new JButton("Switch Panels (Experimental)");
 
         add(resetMandelbrot);
@@ -32,13 +35,15 @@ public class SetResetSetting extends JPanel {
         //add(switchPanels);
         //add(Box.createHorizontalGlue());
         add(resetJulia);
+        add(Box.createHorizontalGlue());
+        add(setType);
 
         // reset for the julia panel
         resetJulia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                juliaPanel.setConstant(new Complex(0, 0));
-                juliaPanel.resetAxes();
+                smallPanel.setConstant(Complex.ZERO);
+                smallPanel.resetAxes();
             }
         });
 
@@ -46,7 +51,26 @@ public class SetResetSetting extends JPanel {
         resetMandelbrot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                mandelbrotPanel.resetAxes();
+                bigPanel.resetAxes();
+            }
+        });
+
+        // change the set type and change button labels
+        setType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int fractalOption = setType.getSelectedIndex();
+                SetAlgorithms.setFractalOption(fractalOption);
+
+                smallPanel.setConstant(Complex.ZERO);
+                smallPanel.resetAxes();
+                bigPanel.resetAxes();
+
+                smallPanel.paintImage();
+                bigPanel.paintImage();
+
+                smallPanel.repaint();
+                bigPanel.repaint();
             }
         });
 

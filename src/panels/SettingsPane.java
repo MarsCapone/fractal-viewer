@@ -7,15 +7,15 @@ import javax.swing.*;
 
 public class SettingsPane extends JPanel {
 
-    private static JPanel generationPane, colourPane, reaxingPane, juliaFavourites, setResetPane;
+    private static JPanel generationPane, colourPane, reaxingPane, juliaFavourites, setResetPane, constantJump;
 
     /**
      * Create the main settings pane
      *
-     * @param mandelbrotPanel The mandelbrot panel being used
-     * @param juliaPanel      The julia panel being used
+     * @param bigPanel The mandelbrot panel being used
+     * @param smallPanel      The julia panel being used
      */
-    public SettingsPane(MandelbrotPanel mandelbrotPanel, JuliaPanel juliaPanel) {
+    public SettingsPane(BigPanel bigPanel, SmallPanel smallPanel) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
@@ -26,15 +26,17 @@ public class SettingsPane extends JPanel {
         scroller.setPreferredSize(this.getPreferredSize());
 
 
-        setResetPane = new SetResetSetting(mandelbrotPanel, juliaPanel);
-        generationPane = new GenerationSetting(mandelbrotPanel, juliaPanel);
-        colourPane = new ColourSetting(mandelbrotPanel, juliaPanel);
-        reaxingPane = new ReaxingSetting(mandelbrotPanel, juliaPanel);
-        juliaFavourites = new JuliaFavouriteSetting(juliaPanel);
+        setResetPane = new SetResetSetting(bigPanel, smallPanel);
+        generationPane = new GenerationSetting(bigPanel, smallPanel);
+        colourPane = new ColourSetting(bigPanel, smallPanel);
+        reaxingPane = new ReaxingSetting(bigPanel, smallPanel);
+        juliaFavourites = new SmallFavouriteSetting(smallPanel);
+        constantJump = new SmallJumperSetting(smallPanel);
 
         settingSpace.add(setResetPane);
         settingSpace.add(generationPane);
         settingSpace.add(colourPane);
+        settingSpace.add(constantJump);
         settingSpace.add(reaxingPane);
         settingSpace.add(juliaFavourites);
 
@@ -82,7 +84,16 @@ public class SettingsPane extends JPanel {
      *
      * @return The julia favourites panel
      */
-    public static JPanel getJuliaFavourites() {
+    public static JPanel getFavourites() {
         return juliaFavourites;
+    }
+
+    /**
+     * Get the julia constant jumping panel.
+     *
+     * @return The julia constant jumping panel.
+     */
+    public static JPanel getConstantJump() {
+        return constantJump;
     }
 }

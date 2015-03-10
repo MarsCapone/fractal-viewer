@@ -26,6 +26,11 @@ Allows user to resize viewing panes accordingly.
 * Scrollbar for Settings panel allows user to make Settings pane even
 smaller without loss of functionality.
 * Various colouring schemes permitted.
+* Ability to generate different fractal types. All settings regarding this
+feature are found in `SetAlgorithms.java` which also includes full 
+documentation.
+* Ability to use the mouse middle button to scroll zoom. This works best 
+with a mechanical mouse.
 
 ##Broken extensions
 

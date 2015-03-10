@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class Complex {
 
+    public static Complex ZERO = new Complex(0, 0);
     private double realPart, imaginaryPart;
 
     /**
@@ -115,5 +116,15 @@ public class Complex {
             base = new Complex(newReal, newImaginary);
         }
         return base;
+    }
+
+    public Complex mult(double i) {
+        return new Complex(realPart * i, imaginaryPart * i);
+    }
+
+    public Complex mult(Complex j) {
+        double newReal = (this.realPart * j.getReal()) - (this.imaginaryPart * j.getImaginary());
+        double newImag = (this.realPart * j.getImaginary()) + (this.imaginaryPart * j.getReal());
+        return new Complex(newReal, newImag);
     }
 }

@@ -1,7 +1,7 @@
 package settings;
 
 import extras.Complex;
-import panels.JuliaPanel;
+import panels.SmallPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,16 +11,16 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 
-public class JuliaFavouriteSetting extends JPanel {
+public class SmallFavouriteSetting extends JPanel {
 
     private JButton lastClicked;
 
     /**
      * Create a panel to save specific Julia set generations to come back to later.
      *
-     * @param juliaPanel The Julia panel to save points from.
+     * @param smallPanel The Julia panel to save points from.
      */
-    public JuliaFavouriteSetting(final JuliaPanel juliaPanel) {
+    public SmallFavouriteSetting(final SmallPanel smallPanel) {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         final JPanel favouriteSpace = new JPanel(new FlowLayout());
@@ -40,14 +40,14 @@ public class JuliaFavouriteSetting extends JPanel {
         addFavourite.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                BufferedImage currentJuliaImage = juliaPanel.getImage();
+                BufferedImage currentJuliaImage = smallPanel.getImage();
 
                 // get a scaled down version of the current image.
                 Image miniCurrentImage = currentJuliaImage.getScaledInstance(70, 70, 10);
 
                 // get the current important data regarding the current generation in the Julia panel.
-                final Complex currentJuliaConstant = juliaPanel.getConstant();
-                final HashMap<String, Double> currentJuliaAxes = juliaPanel.getAxes();
+                final Complex currentJuliaConstant = smallPanel.getConstant();
+                final HashMap<String, Double> currentJuliaAxes = smallPanel.getAxes();
 
                 // create new button that has the scaled down image as a background.
                 final JButton fav = new JButton(new ImageIcon(miniCurrentImage));
@@ -59,10 +59,10 @@ public class JuliaFavouriteSetting extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         lastClicked = fav;
-                        juliaPanel.setConstant(currentJuliaConstant);
-                        juliaPanel.resetAxes(currentJuliaAxes);
-                        juliaPanel.paintImage();
-                        juliaPanel.repaint();
+                        smallPanel.setConstant(currentJuliaConstant);
+                        smallPanel.resetAxes(currentJuliaAxes);
+                        smallPanel.paintImage();
+                        smallPanel.repaint();
                     }
                 });
 
@@ -82,6 +82,7 @@ public class JuliaFavouriteSetting extends JPanel {
                     System.out.println("Cannot delete anything. The favourites list is empty.");
                 }
                 favouriteSpace.revalidate();
+                favouriteSpace.repaint();
                 scroller.revalidate();
             }
         });
@@ -90,6 +91,7 @@ public class JuliaFavouriteSetting extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 favouriteSpace.removeAll();
+                favouriteSpace.repaint();
                 favouriteSpace.revalidate();
             }
         });

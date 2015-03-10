@@ -1,28 +1,27 @@
 package settings;
 
 import extras.Complex;
-import panels.JuliaPanel;
+import panels.SmallPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JuliaJumperSetting extends JPanel {
+public class SmallJumperSetting extends JPanel {
 
     private final JTextField constantField;
 
     /**
      * Create a panel to enable to jumping to specific constants for the Julia Set.
      *
-     * @param juliaPanel The Julia Panel that will be jumped around.
+     * @param smallPanel The Julia Panel that will be jumped around.
      */
-    public JuliaJumperSetting(final JuliaPanel juliaPanel) {
+    public SmallJumperSetting(final SmallPanel smallPanel) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JLabel label = new JLabel("Julia Jump: ");
+        JLabel label = new JLabel("Constant Jump: ");
         constantField = new JTextField();
-        constantField.setText(juliaPanel.getConstant().toString());
+        constantField.setText(smallPanel.getConstant().toString());
 
         add(label);
         add(constantField);
@@ -37,10 +36,10 @@ public class JuliaJumperSetting extends JPanel {
                 System.out.println(constant);
 
                 // reset the julia panel stuff
-                juliaPanel.resetAxes();
-                juliaPanel.setConstant(constant);
-                juliaPanel.paintImage();
-                juliaPanel.repaint();
+                smallPanel.resetAxes();
+                smallPanel.setConstant(constant);
+                smallPanel.paintImage();
+                smallPanel.repaint();
             }
         });
     }

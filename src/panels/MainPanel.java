@@ -1,7 +1,7 @@
 package panels;
 
-import listeners.JuliaListener;
-import listeners.MandelbrotListener;
+import listeners.BigPanelListener;
+import listeners.SmallPanelListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,37 +16,38 @@ public class MainPanel extends JPanel {
     public MainPanel() {
         setLayout(new BorderLayout());
 
-        MandelbrotPanel mandelbrotPanel = new MandelbrotPanel();
-        JuliaPanel juliaPanel = new JuliaPanel();
+        BigPanel bigPanel = new BigPanel();
+        SmallPanel smallPanel = new SmallPanel();
 
-        additionalPanel = new AdditionalPanel(mandelbrotPanel, juliaPanel);
+        additionalPanel = new AdditionalPanel(bigPanel, smallPanel);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mandelbrotPanel, additionalPanel);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bigPanel, additionalPanel);
         splitPane.setOneTouchExpandable(true);
         splitPane.setContinuousLayout(true);
         splitPane.setResizeWeight(0.5);
         splitPane.setDividerSize(5);
 
         Dimension minimumSize = new Dimension(300, 400);
-        mandelbrotPanel.setMinimumSize(minimumSize);
+        bigPanel.setMinimumSize(minimumSize);
         additionalPanel.setMinimumSize(minimumSize);
 
         this.add(splitPane);
 
-        MandelbrotListener mL = new MandelbrotListener(mandelbrotPanel, juliaPanel);
-        JuliaListener jL = new JuliaListener(juliaPanel);
+        BigPanelListener mL = new BigPanelListener(bigPanel, smallPanel);
+        SmallPanelListener jL = new SmallPanelListener(smallPanel);
 
-        mandelbrotPanel.addMouseListener(mL);
-        mandelbrotPanel.addMouseMotionListener(mL);
-        mandelbrotPanel.addMouseWheelListener(mL);
+        bigPanel.addMouseListener(mL);
+        bigPanel.addMouseMotionListener(mL);
+        bigPanel.addMouseWheelListener(mL);
 
-        juliaPanel.addMouseListener(jL);
-        juliaPanel.addMouseMotionListener(jL);
+        smallPanel.addMouseListener(jL);
+        smallPanel.addMouseMotionListener(jL);
+        smallPanel.addMouseWheelListener(jL);
     }
 
     public void swapPanels() {
-        GeneralFractalPanel currentMain = getFractalPanel();
-        GeneralFractalPanel currentAdditional = additionalPanel.getFractalPanel();
+        FractalPanel currentMain = getFractalPanel();
+        FractalPanel currentAdditional = additionalPanel.getFractalPanel();
 
         System.out.println(currentMain);
         System.out.println(currentAdditional);
@@ -58,11 +59,11 @@ public class MainPanel extends JPanel {
 
     }
 
-    private GeneralFractalPanel getFractalPanel() {
+    private FractalPanel getFractalPanel() {
         Component[] allComponents = getComponents();
         for (Component c : allComponents) {
-            if (c instanceof GeneralFractalPanel) {
-                return (GeneralFractalPanel) c;
+            if (c instanceof FractalPanel) {
+                return (FractalPanel) c;
             }
         }
         return null;

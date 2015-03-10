@@ -1,13 +1,14 @@
 package panels;
 
 import extras.Complex;
+import extras.SetAlgorithms;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class MandelbrotPanel extends GeneralFractalPanel {
+public class BigPanel extends FractalPanel {
 
-    public MandelbrotPanel() {
+    public BigPanel() {
         super();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
@@ -20,7 +21,7 @@ public class MandelbrotPanel extends GeneralFractalPanel {
         for (int w = 0; w < getWidth(); w++) {
             for (int h = 0; h < getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getColour(complexPoint, lastComplex, getMandelbrotDivergence(complexPoint));
+                Color pointColour = getColour(complexPoint, lastComplex, getBigPanelDivergence(complexPoint));
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }
@@ -33,12 +34,12 @@ public class MandelbrotPanel extends GeneralFractalPanel {
      * @param c The starting value to calculate the paintMandelbrotImage set from.
      * @return The number of recursions before divergence.
      */
-    private int getMandelbrotDivergence(Complex c) {
+    private int getBigPanelDivergence(Complex c) {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
         double modulus_squared = 0.0;
         while (modulus_squared < MODULUS_SQUARED_LIMIT && count < ITERATION_LIMIT) {
-            previousComplex = getNext(previousComplex, c, FRACTAL_OPTION);
+            previousComplex = SetAlgorithms.getNext(previousComplex, c);
             lastComplex = previousComplex;
             modulus_squared = previousComplex.modulusSquared();
             count++;

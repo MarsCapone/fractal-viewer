@@ -1,6 +1,6 @@
 package settings;
 
-import panels.GeneralFractalPanel;
+import panels.FractalPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class FractalJumperSetting extends JPanel {
      * @param jumpingPanel The panel to create the jumper for.
      * @param title        The title of the panel.
      */
-    public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title, boolean doLabels) {
+    public FractalJumperSetting(final FractalPanel jumpingPanel, String title, boolean doLabels) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(new JLabel(title));
 
@@ -60,7 +60,7 @@ public class FractalJumperSetting extends JPanel {
         R.addActionListener(FractalAxisChange);
     }
 
-    public FractalJumperSetting(final GeneralFractalPanel jumpingPanel, String title) {
+    public FractalJumperSetting(final FractalPanel jumpingPanel, String title) {
         this(jumpingPanel, title, false);
     }
 

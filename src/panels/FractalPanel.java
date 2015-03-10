@@ -2,20 +2,20 @@ package panels;
 
 import extras.Calculations;
 import extras.Complex;
+import extras.SetAlgorithms;
 import settings.FractalJumperSetting;
-import settings.JuliaJumperSetting;
 import settings.ReaxingSetting;
+import settings.SmallJumperSetting;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public abstract class GeneralFractalPanel extends JPanel {
+public abstract class FractalPanel extends JPanel {
 
     protected static double MODULUS_SQUARED_LIMIT = 4.0; // square of the modulus to use.
     protected static int ITERATION_LIMIT = 50; // max number of iterations to do.
-    protected static int ORDER = 2; // the power used in set generation
     private static int COLOUR_TYPE = 3; // start the colour type as the fire setting
     // set constants for easy changing
     protected final int WIDTH = 800;
@@ -31,10 +31,6 @@ public abstract class GeneralFractalPanel extends JPanel {
     private Rectangle zoomLocationRectangle = new Rectangle();
     private boolean firstPaint = true;
 
-    protected static int FRACTAL_OPTION = 1;
-
-    private Thread thread;
-
     /**
      * A new Fractal Panel has an abstract axis, which is set using parameters.
      *
@@ -43,7 +39,7 @@ public abstract class GeneralFractalPanel extends JPanel {
      * @param abstractMinY   The minimum value on the imaginary axis.
      * @param abstractRangeY The range of the imaginary axis.
      */
-    public GeneralFractalPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
+    public FractalPanel(double abstractMinX, double abstractRangeX, double abstractMinY, double abstractRangeY) {
         this.abstractMinX = abstractMinX;
         this.abstractMinY = abstractMinY;
         this.abstractRangeX = abstractRangeX;
@@ -51,24 +47,12 @@ public abstract class GeneralFractalPanel extends JPanel {
 
         this.setDoubleBuffered(true);
         this.setLayout(new FlowLayout());
-
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                paintImage();
-            }
-        });
     }
-
-    public void startThread() {
-        thread.run();
-    }
-
 
     /**
      * By default a Fractal Panel extends from -2 to 2 on the real axis, and -1.6 to 1.6 on the imaginary axis.
      */
-    public GeneralFractalPanel() {
+    public FractalPanel() {
         this(-2.0, 4.0, -1.6, 3.2);
     }
 
@@ -106,24 +90,6 @@ public abstract class GeneralFractalPanel extends JPanel {
      */
     public static void setIterationLimit(double limit) {
         ITERATION_LIMIT = (int) limit;
-    }
-
-    /**
-     * Get the power of the fractal generation. f(z) = z^d + c
-     *
-     * @return The order of the fractal generation.
-     */
-    public static int getOrder() {
-        return ORDER;
-    }
-
-    /**
-     * Set the order of the fractal generation. f(z) = z^d + c
-     *
-     * @param d The power to raise Z to.
-     */
-    public static void setOrder(int d) {
-        ORDER = d;
     }
 
     public static void setColourType(int colourType) {
@@ -291,7 +257,7 @@ public abstract class GeneralFractalPanel extends JPanel {
         ReaxingSetting reax = (ReaxingSetting) SettingsPane.getReaxingPane();
 
         FractalJumperSetting jumperSetting;
-        if (this instanceof MandelbrotPanel) {
+        if (this instanceof BigPanel) {
             jumperSetting = reax.getMandelbrotJump();
         } else {
             jumperSetting = reax.getJuliaJump();
@@ -302,9 +268,9 @@ public abstract class GeneralFractalPanel extends JPanel {
         jumperSetting.setR(position[2]);
 
         // Set Julia constant jumper box if this is a panels.JuliaPanel
-        if (this instanceof JuliaPanel) {
-            JuliaPanel jP = (JuliaPanel) this;
-            JuliaJumperSetting jJ = reax.getJuliaConstantJump();
+        if (this instanceof SmallPanel) {
+            SmallPanel jP = (SmallPanel) this;
+            SmallJumperSetting jJ = (SmallJumperSetting) SettingsPane.getConstantJump();
             jJ.setFieldText(jP.getConstant().toString());
         }
     }
@@ -403,7 +369,7 @@ public abstract class GeneralFractalPanel extends JPanel {
             // get the top most square of the selection.
             resetAxes(minX, h, minY, h);
         }
-        System.out.printf("Zooming: (%f, %f) to (%f, %f) on %s \n", minX, maxY, maxX, minY, this.getClass().getName());
+        System.out.printf("Zooming: (%f, %f) to (%f, %f) for type %s \n", minX, maxY, maxX, minY, SetAlgorithms.getType());
     }
 
     public void zoom(double X, double Y, double R) {
@@ -413,7 +379,7 @@ public abstract class GeneralFractalPanel extends JPanel {
                 Y-R,
                 R*2
         );
-        System.out.printf("Zooming: (%f, %f) with R%f on %s \n", X, Y, R, this.getClass().getName());
+        System.out.printf("Zooming: (%f, %f) with R=%f for type %s \n", X, Y, R, SetAlgorithms.getType());
     }
 
     public void zoom(Complex centre, double R) {
@@ -428,31 +394,6 @@ public abstract class GeneralFractalPanel extends JPanel {
      * Paint the pixels in the buffered image.
      */
     public abstract void paintImage();
-
-    /**
-     * Get the next value from the equation.
-     *
-     * @param z The complex z value.
-     * @param c The complex c value.
-     * @param opt The option for which set to generate.
-     * @return The next z value.
-     */
-    public Complex getNext(Complex z, Complex c, int opt) {
-        Complex returnValue = new Complex(0,0);
-        switch (opt) {
-            case 1: // burning ship
-                Complex a = new Complex(Math.abs(z.getReal()), Math.abs(z.getImaginary())).pow(ORDER);
-                returnValue = a.add(c);
-                break;
-            case 2:
-                break;
-            default:
-                Complex zsquared = z.pow(ORDER);
-                returnValue = zsquared.add(c);
-                break;
-        }
-        return returnValue;
-    }
 
     /**
      * Get whether the mouse is pressed and dragging.
@@ -487,15 +428,6 @@ public abstract class GeneralFractalPanel extends JPanel {
     }
 
     /**
-     * Get the zoom location rectangle of a drag.
-     *
-     * @return The rectangle.
-     */
-    public Rectangle getRectangle() {
-        return zoomLocationRectangle;
-    }
-
-    /**
      * Get the current buffered image.
      *
      * @return The image on which the fractals are being drawn.
@@ -518,8 +450,5 @@ public abstract class GeneralFractalPanel extends JPanel {
         return new double[]{xCenter, yCenter, R};
     }
 
-    public static void setFractalOption(int opt) {
-        FRACTAL_OPTION = opt;
-    }
 
 }

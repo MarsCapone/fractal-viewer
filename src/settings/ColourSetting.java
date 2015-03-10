@@ -1,8 +1,8 @@
 package settings;
 
-import panels.GeneralFractalPanel;
-import panels.JuliaPanel;
-import panels.MandelbrotPanel;
+import panels.BigPanel;
+import panels.FractalPanel;
+import panels.SmallPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,10 +15,10 @@ public class ColourSetting extends JPanel {
      * Create a colour setting panel.
      * Currently only changes colouring types.
      *
-     * @param mandelbrotPanel The mandelbrot panel being used.
-     * @param juliaPanel      The julia panel being used.
+     * @param bigPanel The mandelbrot panel being used.
+     * @param smallPanel      The julia panel being used.
      */
-    public ColourSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
+    public ColourSetting(final BigPanel bigPanel, final SmallPanel smallPanel) {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // Give names of the different colouring types. These will be displayed in a combobox and referenced by their index.
@@ -33,14 +33,16 @@ public class ColourSetting extends JPanel {
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                GeneralFractalPanel.setColourType(comboBox.getSelectedIndex());
-                juliaPanel.paintImage();
-                mandelbrotPanel.paintImage();
+                FractalPanel.setColourType(comboBox.getSelectedIndex());
+                smallPanel.paintImage();
+                bigPanel.paintImage();
 
-                juliaPanel.repaint();
-                mandelbrotPanel.repaint();
+                smallPanel.repaint();
+                bigPanel.repaint();
             }
         });
+
+
     }
 }
 

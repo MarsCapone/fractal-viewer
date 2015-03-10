@@ -1,8 +1,9 @@
 package settings;
 
-import panels.GeneralFractalPanel;
-import panels.JuliaPanel;
-import panels.MandelbrotPanel;
+import extras.SetAlgorithms;
+import panels.BigPanel;
+import panels.FractalPanel;
+import panels.SmallPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +15,10 @@ public class GenerationSetting extends JPanel {
     /**
      * Create a panel containing settings regarding the generation of fractals.
      *
-     * @param mandelbrotPanel The Mandelbrot panel being used.
-     * @param juliaPanel      The Julia panel being used.
+     * @param bigPanel The Mandelbrot panel being used.
+     * @param smallPanel      The Julia panel being used.
      */
-    public GenerationSetting(final MandelbrotPanel mandelbrotPanel, final JuliaPanel juliaPanel) {
+    public GenerationSetting(final BigPanel bigPanel, final SmallPanel smallPanel) {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel iterations = new JLabel("Iterations: ");
@@ -27,31 +28,31 @@ public class GenerationSetting extends JPanel {
         // re the max iterations
         final JTextField iterationField = new JTextField(5);
         iterationField.setToolTipText("Maximum number of iterations to attempt before a pixel counts as never diverging.");
-        iterationField.setText(String.valueOf(GeneralFractalPanel.getIterationLimit()));
+        iterationField.setText(String.valueOf(FractalPanel.getIterationLimit()));
 
         // re the modulus
         final JTextField modulusField = new JTextField(5);
         modulusField.setToolTipText("The value the modulus of the complex number must be under in order to count as not having diverged.");
-        modulusField.setText(String.valueOf(Math.sqrt(GeneralFractalPanel.getModulusSquaredLimit())));
+        modulusField.setText(String.valueOf(Math.sqrt(FractalPanel.getModulusSquaredLimit())));
 
         // re the power
         final JTextField orderField = new JTextField(5);
         orderField.setToolTipText("The order of the Multibrot set.");
-        orderField.setText(String.valueOf(GeneralFractalPanel.getOrder()));
+        orderField.setText(String.valueOf(SetAlgorithms.getOrder()));
 
         // update the max iterations
         iterationField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String iter = iterationField.getText();
-                GeneralFractalPanel.setIterationLimit(Double.parseDouble(iter));
+                FractalPanel.setIterationLimit(Double.parseDouble(iter));
                 System.out.printf("Set iteration field to %s. Calculating. Please wait...\n", iter);
 
-                mandelbrotPanel.paintImage();
-                juliaPanel.paintImage();
+                bigPanel.paintImage();
+                smallPanel.paintImage();
 
-                mandelbrotPanel.repaint();
-                juliaPanel.repaint();
+                bigPanel.repaint();
+                smallPanel.repaint();
             }
         });
 
@@ -60,14 +61,14 @@ public class GenerationSetting extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String mod = modulusField.getText();
-                GeneralFractalPanel.setModulusSquaredLimit(Math.pow(Double.parseDouble(mod), 2));
+                FractalPanel.setModulusSquaredLimit(Math.pow(Double.parseDouble(mod), 2));
                 System.out.printf("Set modulus field to %s. Calculating. Please wait...\n", mod);
 
-                mandelbrotPanel.paintImage();
-                juliaPanel.paintImage();
+                bigPanel.paintImage();
+                smallPanel.paintImage();
 
-                mandelbrotPanel.repaint();
-                juliaPanel.repaint();
+                bigPanel.repaint();
+                smallPanel.repaint();
             }
         });
 
@@ -76,14 +77,14 @@ public class GenerationSetting extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String order = orderField.getText();
-                GeneralFractalPanel.setOrder(Integer.valueOf(order));
+                SetAlgorithms.setOrder(Integer.valueOf(order));
                 System.out.printf("Setting order to %s. Calculating. Please wait...\n", order);
 
-                mandelbrotPanel.paintImage();
-                juliaPanel.paintImage();
+                bigPanel.paintImage();
+                smallPanel.paintImage();
 
-                mandelbrotPanel.repaint();
-                juliaPanel.repaint();
+                bigPanel.repaint();
+                smallPanel.repaint();
             }
         });
 
