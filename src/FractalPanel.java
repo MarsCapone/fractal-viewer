@@ -46,62 +46,14 @@ public abstract class FractalPanel extends JPanel {
         this(-2.0, 4.0, -2.0, 4.0);
     }
 
-    /**
-     * Get the current modulus limit.
-     *
-     * @return The current modulus limit.
-     */
-    public static double getModulusSquaredLimit() {
-        return MODULUS_SQUARED_LIMIT;
-    }
+    /* ------------------- Abstract methods ------------------- */
 
     /**
-     * Set the modulus limit.
-     *
-     * @param limit The new modulus limit.
+     * Paint the pixels in the buffered image.
      */
-    public static void setModulusSquaredLimit(double limit) {
-        MODULUS_SQUARED_LIMIT = limit;
-    }
+    public abstract void paintImage();
 
-    /**
-     * The current iteration limit
-     *
-     * @return The current iteration limit.
-     */
-    public static int getIterationLimit() {
-        return ITERATION_LIMIT;
-    }
-
-    /**
-     * Set the iteration limit. Set from double to avoid user error.
-     *
-     * @param limit The new modulus limit.
-     */
-    public static void setIterationLimit(double limit) {
-        ITERATION_LIMIT = (int) limit;
-    }
-
-    /**
-     * Get the complex number corresponding to a point on a JPanel axis.
-     *
-     * @param x The x value on the JPanel axis.
-     * @param y The y value on the JPanel axis.
-     * @return A complex number with real and imaginary values translated from a JPanel point.
-     */
-    public Complex getComplexPoint(int x, int y) {
-        return Calculations.getComplexPoint(x, y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
-    }
-
-    /**
-     * Get the complex number corresponding to a point on the JPanel axis.
-     *
-     * @param p The point on a JPanel
-     * @return The complex number on the imaginary plane.
-     */
-    public Complex getComplexPoint(Point p) {
-        return getComplexPoint(p.x, p.y);
-    }
+    /* ------------------- Drawing and Painting ------------------- */
 
     /**
      * Paint the panels.
@@ -170,6 +122,9 @@ public abstract class FractalPanel extends JPanel {
         }
     }
 
+    /* ------------------- Reaxing methods ------------------- */
+
+
     /**
      * Reset the axes to new boundaries on the imaginary plane.
      *
@@ -222,20 +177,6 @@ public abstract class FractalPanel extends JPanel {
     }
 
     /**
-     * Get a map that can be fed into resetAxes(HashMap m).
-     *
-     * @return A map that can be used in resetAxes(HashMap m).
-     */
-    public HashMap<String, Double> getAxes() {
-        HashMap<String, Double> axes = new HashMap<String, Double>();
-        axes.put("minX", abstractMinX);
-        axes.put("minY", abstractMinY);
-        axes.put("maxX", abstractMinX + abstractRangeX);
-        axes.put("maxY", abstractMinY + abstractRangeY);
-        return axes;
-    }
-
-    /**
      * Zoom the image to an area in the Mandelbrot set.
      *
      * @param startDrag The point where the mouse starts dragging.
@@ -285,10 +226,21 @@ public abstract class FractalPanel extends JPanel {
         );
     }
 
+    /* ------------------- Setters and Getters -------------------- */
+
     /**
-     * Paint the pixels in the buffered image.
+     * Get a map that can be fed into resetAxes(HashMap m).
+     *
+     * @return A map that can be used in resetAxes(HashMap m).
      */
-    public abstract void paintImage();
+    public HashMap<String, Double> getAxes() {
+        HashMap<String, Double> axes = new HashMap<String, Double>();
+        axes.put("minX", abstractMinX);
+        axes.put("minY", abstractMinY);
+        axes.put("maxX", abstractMinX + abstractRangeX);
+        axes.put("maxY", abstractMinY + abstractRangeY);
+        return axes;
+    }
 
     /**
      * Get whether the mouse is pressed and dragging.
@@ -353,5 +305,63 @@ public abstract class FractalPanel extends JPanel {
         return abstractRangeY;
     }
 
+    /**
+     * Get the complex number corresponding to a point on a JPanel axis.
+     *
+     * @param x The x value on the JPanel axis.
+     * @param y The y value on the JPanel axis.
+     * @return A complex number with real and imaginary values translated from a JPanel point.
+     */
+    public Complex getComplexPoint(int x, int y) {
+        return Calculations.getComplexPoint(x, y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
+    }
+
+    /**
+     * Get the complex number corresponding to a point on the JPanel axis.
+     *
+     * @param p The point on a JPanel
+     * @return The complex number on the imaginary plane.
+     */
+    public Complex getComplexPoint(Point p) {
+        return getComplexPoint(p.x, p.y);
+    }
+
+    /* ----------------- Static Getters and Setters ----------------- */
+
+    /**
+     * Get the current modulus limit.
+     *
+     * @return The current modulus limit.
+     */
+    public static double getModulusSquaredLimit() {
+        return MODULUS_SQUARED_LIMIT;
+    }
+
+    /**
+     * Set the modulus limit.
+     *
+     * @param limit The new modulus limit.
+     */
+    public static void setModulusSquaredLimit(double limit) {
+        MODULUS_SQUARED_LIMIT = limit;
+    }
+
+    /**
+     * The current iteration limit
+     *
+     * @return The current iteration limit.
+     */
+    public static int getIterationLimit() {
+        return ITERATION_LIMIT;
+    }
+
+    /**
+     * Set the iteration limit. Set from double to avoid user error.
+     *
+     * @param limit The new modulus limit.
+     */
+    public static void setIterationLimit(double limit) {
+        ITERATION_LIMIT = (int) limit;
+    }
 
 }
