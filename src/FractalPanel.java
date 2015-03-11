@@ -44,7 +44,7 @@ public abstract class FractalPanel extends JPanel {
      * By default a Fractal Panel extends from -2 to 2 on the real axis, and -1.6 to 1.6 on the imaginary axis.
      */
     public FractalPanel() {
-        this(-2.0, 4.0, -1.6, 3.2);
+        this(-2.0, 4.0, -2.0, 4.0);
     }
 
     /**

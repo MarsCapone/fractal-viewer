@@ -87,6 +87,11 @@ public class BigPanelListener extends FractalPanelListener {
             newR = currentPosition[2] * ZOOM_FRACTION;
         } else { // zoom out
             newR = currentPosition[2]* ( 1 + (1-ZOOM_FRACTION));
+            if (newR > MAX_R) {
+                newR = 2;
+                newPosition = Complex.ZERO;
+                System.out.println("Zoomed out too far, resetting to normal.");
+            }
         }
 
         bigPanel.zoom(newPosition, newR);

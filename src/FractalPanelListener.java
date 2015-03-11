@@ -6,6 +6,7 @@ public abstract class FractalPanelListener implements MouseListener, MouseMotion
     protected static Point startDrag, endDrag;
     protected final int MIN_DRAG_SIZE = 3;
     protected double ZOOM_FRACTION = 0.3;
+    protected double MAX_R = 20;
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
