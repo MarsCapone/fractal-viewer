@@ -1,17 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class FractalViewer extends JFrame {
+public class InteractiveFractalExplorer extends JFrame {
 
     /**
      * Create a new Fractal Viewer. This is what is called to start the program.
      */
-    public FractalViewer() {
+    public InteractiveFractalExplorer() {
 
-        setTitle("Fractal Viewer");
+        setTitle("Interactive Fractal Explorer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new MainPanel());
-        //setMaximumSize(new Dimension(1200, 800));
 
         pack();
         setResizable(true);
@@ -27,7 +26,7 @@ public class FractalViewer extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new FractalViewer();
+        new InteractiveFractalExplorer();
     }
 
 }
