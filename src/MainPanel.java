@@ -41,27 +41,36 @@ public class MainPanel extends JPanel {
     }
 
     public void swapPanels() {
-        FractalPanel currentMain = getFractalPanel();
-        FractalPanel currentAdditional = additionalPanel.getFractalPanel();
+        try {
+            FractalPanel currentMain = getFractalPanel();
+            FractalPanel currentAdditional = additionalPanel.getFractalPanel();
 
-        System.out.println(currentMain);
-        System.out.println(currentAdditional);
-        additionalPanel.changeFractalPanel(currentMain);
+            System.out.println(currentMain);
+            System.out.println(currentAdditional);
+            additionalPanel.changeFractalPanel(currentMain);
 
-        remove(currentMain);
-        this.add(currentAdditional, BorderLayout.CENTER);
-        revalidate();
+            remove(currentMain);
+            this.add(currentAdditional, BorderLayout.CENTER);
+            revalidate();
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
-    private FractalPanel getFractalPanel() {
+    public FractalPanel getFractalPanel() {
         Component[] allComponents = getComponents();
         for (Component c : allComponents) {
-            if (c instanceof FractalPanel) {
-                return (FractalPanel) c;
+            Container e = (Container) c;
+            for (Component d: e.getComponents()) {
+                if (e instanceof BigPanel) {
+                    return (BigPanel) e;
+                } else if (e instanceof SmallPanel) {
+                    return (SmallPanel) e;
+                }
             }
         }
-        return null;
+        throw new NullPointerException("Big Fractal Panel cannot be found.");
     }
 }
 

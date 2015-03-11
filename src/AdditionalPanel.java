@@ -28,20 +28,37 @@ public class AdditionalPanel extends JPanel {
 
     }
 
+    /**
+     * Swap the current small panel with a new panel.
+     * @param newPanel The new panel to show instead of the current small panel.
+     */
     public void changeFractalPanel(FractalPanel newPanel) {
-        FractalPanel currentAdditional = getFractalPanel();
-        this.add(newPanel, BorderLayout.NORTH);
-        remove(currentAdditional);
-        revalidate();
+        try {
+            FractalPanel currentAdditional = getFractalPanel();
+            this.add(newPanel, BorderLayout.NORTH);
+            remove(currentAdditional);
+            revalidate();
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
+    /**
+     * Get the current panel which shows a fractal.
+     * @return The current fractal panel.
+     */
     public FractalPanel getFractalPanel() {
         Component[] allComponents = getComponents();
         for (Component c : allComponents) {
-            if (c instanceof FractalPanel) {
-                return (FractalPanel) c;
+            Container e = (Container) c;
+            for (Component d: e.getComponents()) {
+                if (e instanceof BigPanel) {
+                    return (BigPanel) e;
+                } else if (e instanceof SmallPanel) {
+                    return (SmallPanel) e;
+                }
             }
         }
-        return null;
+        throw new NullPointerException("Small Fractal Panel cannot be found.");
     }
 }

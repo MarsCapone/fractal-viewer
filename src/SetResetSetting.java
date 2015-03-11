@@ -23,9 +23,10 @@ public class SetResetSetting extends JPanel {
         JButton switchPanels = new JButton("Switch Panels (Experimental)");
 
         add(resetMandelbrot);
-        //add(Box.createHorizontalGlue()); // add a spacer
-        //add(switchPanels);
+        // UNCOMMENT next 2 lines to add the experimental swap panels feature.
         //add(Box.createHorizontalGlue());
+        //add(switchPanels);
+        add(Box.createHorizontalGlue());
         add(resetJulia);
         add(Box.createHorizontalGlue());
         add(setType);
@@ -66,6 +67,7 @@ public class SetResetSetting extends JPanel {
             }
         });
 
+        // switch the big and small panels
         switchPanels.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

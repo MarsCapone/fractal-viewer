@@ -5,14 +5,15 @@ import java.util.HashMap;
 
 public abstract class FractalPanel extends JPanel {
 
+    /* --- Easy change constants --- */
     protected static double MODULUS_SQUARED_LIMIT = 4.0; // square of the modulus to use.
     protected static int ITERATION_LIMIT = 50; // max number of iterations to do.
-    // set constants for easy changing
     protected final int WIDTH = 800;
     protected final int HEIGHT = 800;
     protected Complex lastComplex;
     protected BufferedImage image;
-    // create abstract axis values
+
+    /* --- Other constants --- */
     private double abstractRangeY;
     private double abstractRangeX;
     private double abstractMinY;
@@ -20,6 +21,8 @@ public abstract class FractalPanel extends JPanel {
     private boolean rectangleMode = false; // whether or not to be drawing a rectangle.
     private Rectangle zoomLocationRectangle = new Rectangle();
     private boolean firstPaint = true;
+
+    /* --- Constructors --- */
 
     /**
      * A new Fractal Panel has an abstract axis, which is set using parameters.
@@ -46,14 +49,14 @@ public abstract class FractalPanel extends JPanel {
         this(-2.0, 4.0, -2.0, 4.0);
     }
 
-    /* ------------------- Abstract methods ------------------- */
+    /* --- Abstract methods --- */
 
     /**
      * Paint the pixels in the buffered image.
      */
     public abstract void paintImage();
 
-    /* ------------------- Drawing and Painting ------------------- */
+    /* --- Drawing and Painting --- */
 
     /**
      * Paint the panels.
@@ -122,7 +125,7 @@ public abstract class FractalPanel extends JPanel {
         }
     }
 
-    /* ------------------- Reaxing methods ------------------- */
+    /* --- Reaxing methods --- */
 
 
     /**
@@ -226,7 +229,7 @@ public abstract class FractalPanel extends JPanel {
         );
     }
 
-    /* ------------------- Setters and Getters -------------------- */
+    /* --- Setters and Getters --- */
 
     /**
      * Get a map that can be fed into resetAxes(HashMap m).
@@ -326,7 +329,7 @@ public abstract class FractalPanel extends JPanel {
         return getComplexPoint(p.x, p.y);
     }
 
-    /* ----------------- Static Getters and Setters ----------------- */
+    /* --- Static Getters and Setters --- */
 
     /**
      * Get the current modulus limit.
