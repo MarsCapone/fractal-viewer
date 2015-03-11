@@ -1,5 +1,3 @@
-package extras;
-
 /*
  * Using SetAlgorithms
  * ===================

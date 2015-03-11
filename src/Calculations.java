@@ -1,5 +1,3 @@
-package extras;
-
 public class Calculations {
 
     /**

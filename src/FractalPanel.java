@@ -1,12 +1,3 @@
-package panels;
-
-import extras.Calculations;
-import extras.Complex;
-import extras.SetAlgorithms;
-import settings.FractalJumperSetting;
-import settings.ReaxingSetting;
-import settings.SmallJumperSetting;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;

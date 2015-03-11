@@ -1,8 +1,6 @@
-package settings;
-
-import panels.BigPanel;
-import panels.FractalPanel;
-import panels.SmallPanel;
+import BigPanel;
+import FractalPanel;
+import SmallPanel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,3 @@
-package extras;
-
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,8 +1,3 @@
-package listeners;
-
-import extras.Complex;
-import panels.SmallPanel;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -79,13 +74,6 @@ public class SmallPanelListener extends FractalPanelListener {
         } else { // zoom out
             newR = currentPosition[2] * (1 + (1 - ZOOM_FRACTION));
         }
-        smallPanel.setDrawMode(true);
-        Point s = new Point((int) (mouseWheelEvent.getX() - ((ZOOM_FRACTION * smallPanel.getWidth()) / 2)),
-                (int) (mouseWheelEvent.getY() - ((ZOOM_FRACTION * smallPanel.getHeight()) / 2)));
-        Point e = new Point((int) (mouseWheelEvent.getX() + ((ZOOM_FRACTION * smallPanel.getWidth()) / 2)),
-                (int) (mouseWheelEvent.getY() + ((ZOOM_FRACTION * smallPanel.getHeight()) / 2)));
-        smallPanel.setRectangle(s, e);
-        smallPanel.repaint();
 
         smallPanel.zoom(newPosition, newR);
         smallPanel.setDrawMode(false);

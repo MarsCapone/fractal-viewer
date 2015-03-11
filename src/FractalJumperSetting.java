@@ -1,6 +1,4 @@
-package settings;
-
-import panels.FractalPanel;
+import FractalPanel;
 
 import javax.swing.*;
 import java.awt.*;

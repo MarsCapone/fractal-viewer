@@ -1,11 +1,3 @@
-package settings;
-
-import extras.Complex;
-import extras.SetAlgorithms;
-import panels.BigPanel;
-import panels.MainPanel;
-import panels.SmallPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

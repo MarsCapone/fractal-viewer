@@ -1,10 +1,3 @@
-package settings;
-
-import extras.SetAlgorithms;
-import panels.BigPanel;
-import panels.FractalPanel;
-import panels.SmallPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,8 +1,3 @@
-package panels;
-
-import listeners.BigPanelListener;
-import listeners.SmallPanelListener;
-
 import javax.swing.*;
 import java.awt.*;
 

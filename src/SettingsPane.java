@@ -1,7 +1,3 @@
-package panels;
-
-import settings.*;
-
 import javax.swing.*;
 
 

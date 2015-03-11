@@ -1,8 +1,3 @@
-package settings;
-
-import extras.Complex;
-import panels.SmallPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

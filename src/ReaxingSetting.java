@@ -1,8 +1,3 @@
-package settings;
-
-import panels.BigPanel;
-import panels.SmallPanel;
-
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,8 +1,3 @@
-package panels;
-
-import extras.Complex;
-import extras.SetAlgorithms;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
