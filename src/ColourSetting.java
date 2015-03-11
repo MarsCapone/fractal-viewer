@@ -16,10 +16,10 @@ public class ColourSetting extends JPanel {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // Give names of the different colouring types. These will be displayed in a combobox and referenced by their index.
-        String[] colouringTypes = {"Black & White", "Binary Decomposition", "Divergence", "Fire", "Inverse Fire", "Continuous"};
+        String[] colouringTypes = SetColours.getColourTypes();
         JLabel colourLabel = new JLabel("Colouring Type: ");
         final JComboBox<String> comboBox = new JComboBox<String>(colouringTypes);
-        comboBox.setSelectedIndex(3); // the default colour scheme is the "Fire" scheme.
+        comboBox.setSelectedIndex(4); // the default colour scheme is the "Fire" scheme.
 
         add(colourLabel);
         add(comboBox);
@@ -27,7 +27,7 @@ public class ColourSetting extends JPanel {
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                FractalPanel.setColourType(comboBox.getSelectedIndex());
+                SetColours.setColourOption(comboBox.getSelectedIndex());
                 smallPanel.paintImage();
                 bigPanel.paintImage();
 

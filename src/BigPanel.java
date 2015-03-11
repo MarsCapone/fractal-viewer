@@ -16,7 +16,7 @@ public class BigPanel extends FractalPanel {
         for (int w = 0; w < getWidth(); w++) {
             for (int h = 0; h < getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
-                Color pointColour = getColour(complexPoint, lastComplex, getBigPanelDivergence(complexPoint));
+                Color pointColour = SetColours.getColour(complexPoint, lastComplex, getBigPanelDivergence(complexPoint), this);
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }

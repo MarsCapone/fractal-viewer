@@ -109,97 +109,6 @@ public abstract class FractalPanel extends JPanel {
     }
 
     /**
-     * Get a colour for a pixel, based on the the number of iterations and/or the starting complex number.
-     * Use the constant COLOUR_TYPE to define which colouring algorithm is used.
-     *
-     * @param startingComplex The complex number that started the calculation for that pixel.
-     * @param iterations      The number of iterations before divergence.
-     * @return The colour that should be used for that input.
-     */
-    public Color getColour(Complex startingComplex, Complex endingComplex, int iterations) {
-        return getColour(startingComplex, endingComplex, iterations, COLOUR_TYPE);
-    }
-
-    /**
-     * Get a colour for a pixel, based on the the number of iterations and/or the starting complex number.
-     *
-     * @param startingComplex The complex number that started the calculation for that pixel.
-     * @param iterations      The number of iterations before divergence.
-     * @param colourType      The colouring method that should be used.
-     *                        0: Black & White;
-     * @return The colour that should be used for that input.
-     */
-    public Color getColour(Complex startingComplex, Complex endingComplex, int iterations, int colourType) {
-        Color colour;
-        switch (colourType) {
-            case 0: // black and white
-                if (iterations == ITERATION_LIMIT) {
-                    colour = Color.BLACK;
-                } else {
-                    colour = Color.WHITE;
-                }
-                break;
-            case 1: // binary decomposition
-                if (iterations == ITERATION_LIMIT) {
-                    colour = Color.BLACK;
-                } else {
-                    if (endingComplex.getImaginary() > 0) {
-                        colour = Color.BLACK;
-                    } else {
-                        colour = Color.WHITE;
-                    }
-                }
-                break;
-            case 2: // divergence
-                if (iterations == ITERATION_LIMIT) {
-                    colour = Color.BLACK;
-                } else {
-                    int grey = (int) ((Math.sqrt(endingComplex.modulusSquared()) * 255) / (2 * abstractRangeX)) % 255;
-                    colour = new Color(grey, grey, grey);
-                }
-                break;
-            case 3: // fire
-                if (iterations == ITERATION_LIMIT) {
-                    colour = Color.WHITE;
-                } else {
-                    int colourValue = (int) Math.floor(iterations * 255 * 3 / ITERATION_LIMIT);
-                    if (colourValue <= 255) {
-                        colour = new Color(colourValue, 0, 0);
-                    } else if (colourValue <= 255 * 2) {
-                        colour = new Color(255, colourValue % 255, 0);
-                    } else {
-                        colour = new Color(255, 255, colourValue % 255);
-                    }
-                }
-                break;
-            case 4: // inverse fire
-                if (iterations == ITERATION_LIMIT) {
-                    colour = Color.BLACK;
-                } else {
-                    int colourValue = (int) Math.floor(iterations * 255 * 3 / ITERATION_LIMIT);
-                    if (colourValue <= 255) {
-                        colour = new Color(255 - colourValue, 0, 0);
-                    } else if (colourValue <= 255 * 2) {
-                        colour = new Color(0, 255 - colourValue % 255, 255);
-                    } else {
-                        colour = new Color(0, 0, 255 - colourValue % 255);
-                    }
-                }
-                break;
-            case 5: // smooth colouring - currently not working
-                double c = ITERATION_LIMIT - Math.log(Math.log(iterations) / Math.log(MODULUS_SQUARED_LIMIT));
-                colour = new Color((int) Math.floor(c));
-                break;
-            default:
-                int x = (int) ((startingComplex.pow(2).getReal() * abstractRangeX) / this.getWidth());
-                int y = (int) ((startingComplex.pow(2).getImaginary() * abstractRangeY) / this.getHeight());
-                iterations = iterations * 255 / ITERATION_LIMIT;
-                colour = new Color(x, y, iterations);
-        }
-        return colour;
-    }
-
-    /**
      * Paint the panels.
      *
      * @param g The graphics object.
@@ -439,6 +348,14 @@ public abstract class FractalPanel extends JPanel {
         double R = abstractRangeX / 2;
 
         return new double[]{xCenter, yCenter, R};
+    }
+
+    public double getXRange() {
+        return abstractRangeX;
+    }
+
+    public double getYRange() {
+        return abstractRangeY;
     }
 
 

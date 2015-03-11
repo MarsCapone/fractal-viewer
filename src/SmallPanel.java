@@ -20,7 +20,7 @@ public class SmallPanel extends FractalPanel {
             for (int h = 0; h < getHeight(); h++) {
                 Complex complexPoint = getComplexPoint(w, h);
                 int divergence = getSmallPanelDivergence(complexPoint, d);
-                Color pointColour = getColour(complexPoint, lastComplex, divergence);
+                Color pointColour = SetColours.getColour(complexPoint, lastComplex, divergence, this);
                 image.setRGB(w, h, pointColour.getRGB());
             }
         }
