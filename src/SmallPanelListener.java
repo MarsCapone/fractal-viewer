@@ -83,4 +83,11 @@ public class SmallPanelListener extends FractalPanelListener {
         smallPanel.zoom(newPosition, newR);
         smallPanel.setDrawMode(false);
     }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() >= 2) {
+            new MaximizedFractalView(smallPanel);
+        }
+    }
 }

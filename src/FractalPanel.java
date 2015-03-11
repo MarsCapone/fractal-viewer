@@ -7,7 +7,6 @@ public abstract class FractalPanel extends JPanel {
 
     protected static double MODULUS_SQUARED_LIMIT = 4.0; // square of the modulus to use.
     protected static int ITERATION_LIMIT = 50; // max number of iterations to do.
-    private static int COLOUR_TYPE = 3; // start the colour type as the fire setting
     // set constants for easy changing
     protected final int WIDTH = 800;
     protected final int HEIGHT = 800;
@@ -81,10 +80,6 @@ public abstract class FractalPanel extends JPanel {
      */
     public static void setIterationLimit(double limit) {
         ITERATION_LIMIT = (int) limit;
-    }
-
-    public static void setColourType(int colourType) {
-        COLOUR_TYPE = colourType;
     }
 
     /**

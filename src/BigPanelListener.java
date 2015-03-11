@@ -97,5 +97,12 @@ public class BigPanelListener extends FractalPanelListener {
         bigPanel.zoom(newPosition, newR);
         bigPanel.setDrawMode(false);
     }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() >= 2) {
+            new MaximizedFractalView(bigPanel);
+        }
+    }
 }
 
