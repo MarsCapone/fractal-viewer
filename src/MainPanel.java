@@ -64,9 +64,9 @@ public class MainPanel extends JPanel {
             Container e = (Container) c;
             for (Component d: e.getComponents()) {
                 if (e instanceof BigPanel) {
-                    return (BigPanel) e;
+                    return (BigPanel) d;
                 } else if (e instanceof SmallPanel) {
-                    return (SmallPanel) e;
+                    return (SmallPanel) d;
                 }
             }
         }

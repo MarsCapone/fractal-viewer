@@ -22,7 +22,7 @@ public class AdditionalPanel extends JPanel {
 
         Dimension minimumSize = new Dimension(200, 200);
         smallPanel.setMinimumSize(minimumSize);
-        settingsPane.setMinimumSize(minimumSize);
+        settingsPane.setMinimumSize(new Dimension(200, 100));
 
         add(splitPane);
 
@@ -53,9 +53,9 @@ public class AdditionalPanel extends JPanel {
             Container e = (Container) c;
             for (Component d: e.getComponents()) {
                 if (e instanceof BigPanel) {
-                    return (BigPanel) e;
+                    return (BigPanel) d;
                 } else if (e instanceof SmallPanel) {
-                    return (SmallPanel) e;
+                    return (SmallPanel) d;
                 }
             }
         }
