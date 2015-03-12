@@ -5,6 +5,7 @@ public class ReaxingSetting extends JPanel {
 
     private final FractalJumperSetting mandelbrotJump;
     private final FractalJumperSetting juliaJump;
+    private final RotationSetting rotator;
 
     /**
      * Create a panel to do reaxifying.
@@ -17,9 +18,12 @@ public class ReaxingSetting extends JPanel {
 
         mandelbrotJump = new FractalJumperSetting(bigPanel, "Big", true);
         juliaJump = new FractalJumperSetting(smallPanel, "Small");
+        rotator = new RotationSetting(bigPanel, smallPanel);
 
         add(mandelbrotJump);
         add(juliaJump);
+        // UNCOMMENT TO ADD ROTATOR (BROKEN)
+        //add(rotator);
     }
 
     /**
@@ -40,5 +44,7 @@ public class ReaxingSetting extends JPanel {
         return juliaJump;
     }
 
-
+    public RotationSetting getRotator() {
+        return rotator;
+    }
 }

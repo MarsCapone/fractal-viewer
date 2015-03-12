@@ -34,5 +34,7 @@ with a mechanical mouse.
 
 ##Broken extensions
 
-* ability to swap view (swap Mandelbrot and Julia panels) but keep any previous
+* Ability to swap view (swap Mandelbrot and Julia panels) but keep any previous
 saved states.
+* Functionality for rotation exists. But other things break. To enable, uncomment 
+line in ReaxingSettings and in Calculations.

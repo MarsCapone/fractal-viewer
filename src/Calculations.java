@@ -13,10 +13,23 @@ public class Calculations {
      * @param abstractMinY   The minimum Y value on the abstract imaginary axis
      * @return A complex number. The point on the complex plane of the point in the panel.
      */
-    public static Complex getComplexPoint(int x, int y, int maxX, int maxY, double abstractRangeX, double abstractMinX, double abstractRangeY, double abstractMinY) {
+    public static Complex getComplexPoint(int x, int y, int maxX, int maxY, double abstractRangeX, double abstractMinX, double abstractRangeY, double abstractMinY, double rotation) {
+        //UNCOMMENT THINGS TO IMPLEMENT ROTATION. BUT THIS BREAKS THINGS.
+
+        //rotation = Math.toRadians(rotation);
+
         double realPart = abstractMinX + (x * abstractRangeX) / maxX;
         double imaginaryPart = (abstractMinY + (y * abstractRangeY) / maxY);
+
+        //double rotReal = realPart * Math.cos(rotation) - imaginaryPart * Math.sin(rotation);
+        //double rotImag = realPart * Math.sin(rotation) - imaginaryPart * Math.cos(rotation);
+
         return new Complex(realPart, imaginaryPart);
+        //return new Complex(rotReal, rotImag)
+    }
+
+    public static Complex getComplexPoint(int x, int y, int maxX, int maxY, double abstractRangeX, double abstractMinX, double abstractRangeY, double abstractMinY) {
+        return getComplexPoint(x, y, maxX, maxY, abstractRangeX, abstractMinX, abstractRangeY, abstractMinY, 0);
     }
 
 }

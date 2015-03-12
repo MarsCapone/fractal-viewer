@@ -21,6 +21,7 @@ public abstract class FractalPanel extends JPanel {
     private boolean rectangleMode = false; // whether or not to be drawing a rectangle.
     private Rectangle zoomLocationRectangle = new Rectangle();
     private boolean firstPaint = true;
+    private int FRACTAL_ROTATION = 0;
 
     /* --- Constructors --- */
 
@@ -316,7 +317,7 @@ public abstract class FractalPanel extends JPanel {
      * @return A complex number with real and imaginary values translated from a JPanel point.
      */
     public Complex getComplexPoint(int x, int y) {
-        return Calculations.getComplexPoint(x, y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY);
+        return Calculations.getComplexPoint(x, y, this.getWidth(), this.getHeight(), abstractRangeX, abstractMinX, abstractRangeY, abstractMinY, FRACTAL_ROTATION);
     }
 
     /**
@@ -327,6 +328,10 @@ public abstract class FractalPanel extends JPanel {
      */
     public Complex getComplexPoint(Point p) {
         return getComplexPoint(p.x, p.y);
+    }
+
+    public void setFractalRotation(int rotation) {
+        FRACTAL_ROTATION = rotation;
     }
 
     /* --- Static Getters and Setters --- */
@@ -366,5 +371,7 @@ public abstract class FractalPanel extends JPanel {
     public static void setIterationLimit(double limit) {
         ITERATION_LIMIT = (int) limit;
     }
+
+
 
 }
