@@ -25,7 +25,8 @@ in the generation formula "`f(Z) = Z^d + c`".
 Allows user to resize viewing panes accordingly.
 * Scrollbar for Settings panel allows user to make Settings pane even
 smaller without loss of functionality.
-* Various colouring schemes permitted.
+* Various colouring schemes permitted. Colour schemes set from 
+`SetColours.java`.
 * Ability to generate different fractal types. All settings regarding this
 feature are found in `SetAlgorithms.java` which also includes full 
 documentation.
