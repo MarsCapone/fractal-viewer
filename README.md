@@ -39,3 +39,6 @@ with a mechanical mouse.
 saved states.
 * Functionality for rotation exists. But other things break. To enable, uncomment 
 line in ReaxingSettings and in Calculations.
+* Double click to maximise, window. For some reason panels get deleted when 
+closed after being maximised. To enable, change `MAXIMISE` to `true` in 
+`FractalPanelListenener.java`.

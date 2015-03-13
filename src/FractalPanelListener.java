@@ -8,6 +8,12 @@ public abstract class FractalPanelListener implements MouseListener, MouseMotion
     protected double ZOOM_FRACTION = 0.3;
     protected double MAX_R = 20;
 
+    protected static boolean MAXIMISE = false;
+
+    public void setMaximising(boolean m) {
+        MAXIMISE = m;
+    }
+
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 

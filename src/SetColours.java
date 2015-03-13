@@ -2,8 +2,7 @@ import java.awt.*;
 
 public class SetColours {
 
-    private static String[] colourTypes = {"Black and White", "Grayscale", "Divergence", "Binary Decomposition", "Fire", "Inverse Fire"};
-            ;
+    private static String[] colourTypes = {"Black and White", "Grayscale", "Divergence", "Binary Decomposition", "Fire", "Inverse Fire", "Continuous-ish"};
     private static int COLOUR_OPTION = 4;
     private static int ITERATION_LIMIT = 0;
 
@@ -70,7 +69,7 @@ public class SetColours {
         }
     }
 
-    private static Color getGrayscale(int iterations, Complex startingComplex, FractalPanel panel) {
+    private static Color getGrayscale(int iterations, FractalPanel panel) {
         iterations = iterations * 255 / ITERATION_LIMIT;
         return new Color(iterations, iterations, iterations);
     }
@@ -81,7 +80,7 @@ public class SetColours {
             case 0:
                 return getBlackWhite(iterations);
             case 1:
-                return getGrayscale(iterations, startingComplex, panel);
+                return getGrayscale(iterations, panel);
             case 2:
                 return getDivergence(iterations, endingComplex, panel);
             case 3:
@@ -90,9 +89,20 @@ public class SetColours {
                 return getFire(iterations);
             case 5:
                 return getInverseFire(iterations);
+            case 6:
+                return getContinuous(iterations, endingComplex);
             default:
                 return getBlackWhite(iterations);
         }
+    }
+
+    public static Color getContinuous(int iterations, Complex endingCompex) {
+        if (iterations >= ITERATION_LIMIT) {
+            return Color.BLACK;
+        } else {
+                float hue = (float) ((iterations + 1) - (Math.log(Math.log(Math.sqrt(endingCompex.modulusSquared()))) / Math.log(2)));
+                return new Color(Color.HSBtoRGB(hue/ITERATION_LIMIT, (float) 1, (float) 1));
+            }
     }
 
     public static Color getColour(Complex startingComplex, Complex endingComplex, int iterations, FractalPanel panel) {

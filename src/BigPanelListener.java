@@ -100,7 +100,7 @@ public class BigPanelListener extends FractalPanelListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() >= 2) {
+        if (mouseEvent.getClickCount() >= 2 && MAXIMISE) {
             new MaximizedFractalView(bigPanel);
         }
     }
