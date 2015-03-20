@@ -11,6 +11,7 @@ public class InteractiveFractalExplorer extends JFrame {
         setTitle("Interactive Fractal Explorer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new MainPanel());
+        setExtendedState(MAXIMIZED_BOTH);
 
         pack();
         setResizable(true);

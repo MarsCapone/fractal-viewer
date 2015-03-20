@@ -71,4 +71,8 @@ public class SmallPanel extends FractalPanel {
     public void setConstant(Complex d) {
         CONSTANT = d;
     }
+
+    public Image getScaledImage() {
+        return image.getScaledInstance(70, 70, 10);
+    }
 }

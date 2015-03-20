@@ -18,7 +18,7 @@ public class SettingsPane extends JPanel {
         JPanel settingSpace = new JPanel();
         settingSpace.setLayout(new BoxLayout(settingSpace, BoxLayout.PAGE_AXIS));
 
-        JScrollPane scroller = new JScrollPane(settingSpace, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroller = new JScrollPane(settingSpace, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroller.setPreferredSize(this.getPreferredSize());
 
 

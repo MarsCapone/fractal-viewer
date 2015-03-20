@@ -4,6 +4,8 @@ import java.awt.event.MouseWheelEvent;
 
 public class BigPanelListener extends FractalPanelListener {
 
+    private static final boolean AUTO_GENERATE_SMALL = false;
+
     private final BigPanel bigPanel;
     private final SmallPanel smallPanel;
 
@@ -38,16 +40,20 @@ public class BigPanelListener extends FractalPanelListener {
             bigPanel.repaint();
 
         } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {
-            // if it isn't generate the julia set for that point
-            Point click = mouseEvent.getPoint();
-            Complex juliaConstant = bigPanel.getComplexPoint(click);
-            System.out.printf("Generating Small Panel for constant: %s \n", juliaConstant);
+            if (AUTO_GENERATE_SMALL) {
+                SmallFavouriteSetting.addNewFavourite(smallPanel.getScaledImage());
+            } else {
+                // if it isn't generate the julia set for that point
+                Point click = mouseEvent.getPoint();
+                Complex juliaConstant = bigPanel.getComplexPoint(click);
+                //System.out.printf("Generating Small Panel for constant: %s \n", juliaConstant);
 
-            // repaint the julia set
-            smallPanel.resetAxes();
-            smallPanel.setConstant(juliaConstant);
-            smallPanel.paintImage();
-            smallPanel.repaint();
+                // repaint the julia set
+                smallPanel.resetAxes();
+                smallPanel.setConstant(juliaConstant);
+                smallPanel.paintImage();
+                smallPanel.repaint();
+            }
         }
 
         // stop drawing
@@ -102,6 +108,22 @@ public class BigPanelListener extends FractalPanelListener {
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() >= 2 && MAXIMISE) {
             new MaximizedFractalView(bigPanel);
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+        if (AUTO_GENERATE_SMALL) {
+            // if it isn't generate the julia set for that point
+            Point click = mouseEvent.getPoint();
+            Complex juliaConstant = bigPanel.getComplexPoint(click);
+            //System.out.printf("Generating Small Panel for constant: %s \n", juliaConstant);
+
+            // repaint the julia set
+            smallPanel.resetAxes();
+            smallPanel.setConstant(juliaConstant);
+            smallPanel.paintImage();
+            smallPanel.repaint();
         }
     }
 }

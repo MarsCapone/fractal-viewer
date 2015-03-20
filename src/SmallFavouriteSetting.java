@@ -8,7 +8,9 @@ import java.util.HashMap;
 
 public class SmallFavouriteSetting extends JPanel {
 
-    private JButton lastClicked;
+    private static JButton lastClicked;
+    private static JPanel favouriteSpace;
+    private static SmallPanel smallPanel;
 
     /**
      * Create a panel to save specific Julia set generations to come back to later.
@@ -18,16 +20,17 @@ public class SmallFavouriteSetting extends JPanel {
     public SmallFavouriteSetting(final SmallPanel smallPanel) {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        final JPanel favouriteSpace = new JPanel(new FlowLayout());
+        favouriteSpace = new JPanel(new FlowLayout());
+        this.smallPanel = smallPanel;
 
         JPanel buttonContainer = new JPanel();
         buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.PAGE_AXIS));
 
         // want to be able to scroll through favourites.
         final JScrollPane scroller = new JScrollPane(favouriteSpace, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroller.setPreferredSize(new Dimension(200, 100));
+        scroller.setPreferredSize(new Dimension(300, 100));
 
-        JButton addFavourite = new JButton("Add Favourite");
+        final JButton addFavourite = new JButton("Add Favourite");
         JButton delete = new JButton("Delete");
         JButton clear = new JButton("Clear");
 
@@ -35,34 +38,11 @@ public class SmallFavouriteSetting extends JPanel {
         addFavourite.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                BufferedImage currentJuliaImage = smallPanel.getImage();
 
                 // get a scaled down version of the current image.
-                Image miniCurrentImage = currentJuliaImage.getScaledInstance(70, 70, 10);
+                Image miniCurrentImage = smallPanel.getScaledImage();
 
-                // get the current important data regarding the current generation in the Julia panel.
-                final Complex currentJuliaConstant = smallPanel.getConstant();
-                final HashMap<String, Double> currentJuliaAxes = smallPanel.getAxes();
-
-                // create new button that has the scaled down image as a background.
-                final JButton fav = new JButton(new ImageIcon(miniCurrentImage));
-                fav.setBorderPainted(false);
-                fav.setBorder(null);
-
-                // when clicked this button will show the saved Julia image on the main display.
-                fav.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        lastClicked = fav;
-                        smallPanel.setConstant(currentJuliaConstant);
-                        smallPanel.resetAxes(currentJuliaAxes);
-                        smallPanel.paintImage();
-                        smallPanel.repaint();
-                    }
-                });
-
-                favouriteSpace.add(fav);
-                revalidate();
+                addNewFavourite(miniCurrentImage);
             }
         });
 
@@ -98,4 +78,36 @@ public class SmallFavouriteSetting extends JPanel {
         add(scroller);
         add(buttonContainer);
     }
+
+    public static JButton getFavouriteButton(Image icon) {
+        // get the current important data regarding the current generation in the Julia panel.
+        final Complex currentJuliaConstant = smallPanel.getConstant();
+        final HashMap<String, Double> currentJuliaAxes = smallPanel.getAxes();
+
+        // create new button that has the scaled down image as a background.
+        final JButton fav = new JButton(new ImageIcon(icon));
+        fav.setBorderPainted(false);
+        fav.setBorder(null);
+
+        // when clicked this button will show the saved Julia image on the main display.
+        fav.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                lastClicked = fav;
+                smallPanel.setConstant(currentJuliaConstant);
+                smallPanel.resetAxes(currentJuliaAxes);
+                smallPanel.paintImage();
+                smallPanel.repaint();
+            }
+        });
+
+        return fav;
+    }
+
+    public static void addNewFavourite(Image image) {
+        JButton newButton = getFavouriteButton(image);
+        favouriteSpace.add(newButton);
+        favouriteSpace.revalidate();
+    }
+
 }
