@@ -52,11 +52,16 @@ public class SetAlgorithms {
     }
 
     private static Complex nextPhoenix(Complex z, Complex c) {
+        c = new Complex("0.56667 - 0.5i");
         PREVIOUS_Z = z;
         Complex p1 = z.pow(ORDER);
         Complex p2 = new Complex(p1.getReal() + c.getReal(), p1.getImaginary());
         Complex p3 = new Complex(PREVIOUS_Z.getReal() * c.getImaginary(), PREVIOUS_Z.getImaginary() * c.getImaginary());
-        return p2.add(p3);
+
+        double real = z.pow(ORDER).getReal() + c.getReal() + (c.getImaginary()*PREVIOUS_Z.getReal());
+        double imag = z.pow(ORDER).getImaginary() + (c.getImaginary()*PREVIOUS_Z.getImaginary());
+
+        return new Complex(real, imag);
     }
 
     /**
