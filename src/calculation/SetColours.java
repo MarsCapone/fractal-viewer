@@ -1,3 +1,7 @@
+package calculation;
+
+import panel.FractalPanel;
+
 import java.awt.*;
 
 public class SetColours {

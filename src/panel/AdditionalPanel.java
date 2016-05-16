@@ -1,3 +1,7 @@
+package panel;
+
+import panel.settings.SettingsPane;
+
 import javax.swing.*;
 import java.awt.*;
 

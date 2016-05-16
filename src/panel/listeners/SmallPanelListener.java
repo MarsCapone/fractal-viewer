@@ -1,3 +1,9 @@
+package panel.listeners;
+
+import panel.MaximizedFractalView;
+import panel.SmallPanel;
+import calculation.*;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;

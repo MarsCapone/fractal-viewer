@@ -1,3 +1,5 @@
+import panel.MainPanel;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,3 +1,8 @@
+package panel;
+
+import calculation.SetAlgorithms;
+import panel.FractalPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

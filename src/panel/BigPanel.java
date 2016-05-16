@@ -1,5 +1,8 @@
+package panel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import calculation.*;
 
 public class BigPanel extends FractalPanel {
 
@@ -33,7 +36,7 @@ public class BigPanel extends FractalPanel {
         int count = 0; // the number of recursions before divergence
         Complex previousComplex = c;
         double modulus_squared = 0.0;
-        while (modulus_squared < MODULUS_SQUARED_LIMIT && count < ITERATION_LIMIT) {
+        while (modulus_squared < FractalPanel.MODULUS_SQUARED_LIMIT && count < FractalPanel.ITERATION_LIMIT) {
             previousComplex = SetAlgorithms.getNext(previousComplex, c);
             lastComplex = previousComplex;
             modulus_squared = previousComplex.modulusSquared();

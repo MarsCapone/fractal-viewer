@@ -1,5 +1,8 @@
+package panel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import calculation.*;
 
 public class SmallPanel extends FractalPanel {
 

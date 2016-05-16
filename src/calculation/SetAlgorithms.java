@@ -1,12 +1,12 @@
-/*
- * Using SetAlgorithms
+package calculation;/*
+ * Using calculation.SetAlgorithms
  * ===================
  * 
  * This class determines which fractals are generated and how.
  * 
  * The names of the different types of fractals should be in setTypes.
  * 
- * There are private static methods returning Complex and accepting a 
+ * There are private static methods returning calculation.Complex and accepting a
  * previous z and c value, which determine the algorithm for fractal 
  * generation. 
  */

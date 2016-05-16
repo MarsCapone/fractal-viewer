@@ -1,3 +1,5 @@
+package calculation;
+
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +32,7 @@ public class Complex {
             this.realPart = Double.valueOf(m.group(1));
             this.imaginaryPart = Double.valueOf(m.group(4));
         } else {
-            throw new InvalidParameterException("Complex number not recognised. Must be in the form \"a.b + c.di\"");
+            throw new InvalidParameterException("calculation.Complex number not recognised. Must be in the form \"a.b + c.di\"");
         }
 
     }

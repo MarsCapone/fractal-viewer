@@ -1,3 +1,8 @@
+package panel.settings;
+
+import panel.*;
+import calculation.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

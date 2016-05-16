@@ -1,3 +1,8 @@
+package panel.settings;
+
+import panel.BigPanel;
+import panel.SmallPanel;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

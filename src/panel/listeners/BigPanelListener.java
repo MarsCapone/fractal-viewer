@@ -1,3 +1,9 @@
+package panel.listeners;
+
+import panel.*;
+import panel.settings.*;
+import calculation.*;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -17,7 +23,7 @@ public class BigPanelListener extends FractalPanelListener {
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         // set the starting drag point
-        startDrag = mouseEvent.getPoint();
+        FractalPanelListener.startDrag = mouseEvent.getPoint();
 
         // set the ending drag point
         bigPanel.setDrawMode(true);
@@ -26,20 +32,20 @@ public class BigPanelListener extends FractalPanelListener {
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         // end the dragging
-        endDrag = mouseEvent.getPoint();
+        FractalPanelListener.endDrag = mouseEvent.getPoint();
 
         // check if the area is of legitimate size
-        boolean xok = Math.abs(startDrag.x - endDrag.x) >= MIN_DRAG_SIZE;
-        boolean yok = Math.abs(startDrag.y - endDrag.y) >= MIN_DRAG_SIZE;
+        boolean xok = Math.abs(FractalPanelListener.startDrag.x - FractalPanelListener.endDrag.x) >= MIN_DRAG_SIZE;
+        boolean yok = Math.abs(FractalPanelListener.startDrag.y - FractalPanelListener.endDrag.y) >= MIN_DRAG_SIZE;
 
 
         if (xok && yok) {
             // if it is zoom in
-            bigPanel.zoom(startDrag, endDrag);
+            bigPanel.zoom(FractalPanelListener.startDrag, FractalPanelListener.endDrag);
             bigPanel.paintImage();
             bigPanel.repaint();
 
-        } else if (startDrag.x == endDrag.x && startDrag.y == endDrag.y) {
+        } else if (FractalPanelListener.startDrag.x == FractalPanelListener.endDrag.x && FractalPanelListener.startDrag.y == FractalPanelListener.endDrag.y) {
             if (AUTO_GENERATE_SMALL) {
                 SmallFavouriteSetting.addNewFavourite(smallPanel.getScaledImage());
             } else {
@@ -77,8 +83,8 @@ public class BigPanelListener extends FractalPanelListener {
     public void mouseDragged(MouseEvent mouseEvent) {
         if (bigPanel.getDrawMode()) {
             // draw the rectangle
-            endDrag = mouseEvent.getPoint();
-            bigPanel.setRectangle(startDrag, endDrag);
+            FractalPanelListener.endDrag = mouseEvent.getPoint();
+            bigPanel.setRectangle(FractalPanelListener.startDrag, FractalPanelListener.endDrag);
             bigPanel.repaint();
         }
     }
@@ -106,7 +112,7 @@ public class BigPanelListener extends FractalPanelListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() >= 2 && MAXIMISE) {
+        if (mouseEvent.getClickCount() >= 2 && FractalPanelListener.MAXIMISE) {
             new MaximizedFractalView(bigPanel);
         }
     }

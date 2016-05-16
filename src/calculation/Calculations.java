@@ -1,3 +1,5 @@
+package calculation;
+
 public class Calculations {
 
     /**
@@ -25,7 +27,7 @@ public class Calculations {
         //double rotImag = realPart * Math.sin(rotation) - imaginaryPart * Math.cos(rotation);
 
         return new Complex(realPart, imaginaryPart);
-        //return new Complex(rotReal, rotImag)
+        //return new calculation.Complex(rotReal, rotImag)
     }
 
     public static Complex getComplexPoint(int x, int y, int maxX, int maxY, double abstractRangeX, double abstractMinX, double abstractRangeY, double abstractMinY) {

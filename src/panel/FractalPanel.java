@@ -1,7 +1,12 @@
+package panel;
+
+import panel.settings.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import calculation.*;
 
 public abstract class FractalPanel extends JPanel {
 
