@@ -1,15 +1,15 @@
-#COMP1206 Coursework
+# Fractal Viewer and Explorer
 
-##Completed Sections
+*Generate and explore fractals - A Java 7 Application*
 
-* Part 1
-* Part 2
-* Part 3
-* Part 4
-* Part 5
-* Part 6
+##Running
 
-##Extensions 
+```
+java -jar fractal-viewer.jar
+```
+
+
+##Features 
 
 * Ability to jump to specific areas on either set. Controls available are:
     * (X,Y,R) values for Mandelbrot and Julia Sets, where X and Y are the 
@@ -26,9 +26,9 @@ Allows user to resize viewing panes accordingly.
 * Scrollbar for Settings panel allows user to make Settings pane even
 smaller without loss of functionality.
 * Various colouring schemes permitted. Colour schemes set from 
-`SetColours.java`.
+`calculation.SetColours.java`.
 * Ability to generate different fractal types. All settings regarding this
-feature are found in `SetAlgorithms.java` which also includes full 
+feature are found in `calculation.SetAlgorithms.java` which also includes full 
 documentation.
 * Ability to use the mouse middle button to scroll zoom. This works best 
 with a mechanical mouse.
@@ -38,7 +38,7 @@ with a mechanical mouse.
 * Ability to swap view (swap Mandelbrot and Julia panels) but keep any previous
 saved states.
 * Functionality for rotation exists. But other things break. To enable, uncomment 
-line in ReaxingSettings and in Calculations.
+line in ReaxingSettings and in calculation.Calculations.
 * Double click to maximise, window. For some reason panels get deleted when 
 closed after being maximised. To enable, change `MAXIMISE` to `true` in 
 `FractalPanelListenener.java`.
