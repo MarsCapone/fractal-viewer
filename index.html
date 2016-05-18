@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Fractal-viewer by MarsCapone</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Fractal-viewer</h1>
+        <p>A Java7 Fractal Viewer and Explorer</p>
+
+        <p class="view"><a href="https://github.com/MarsCapone/fractal-viewer">View the Project on GitHub <small>MarsCapone/fractal-viewer</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/MarsCapone/fractal-viewer/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/MarsCapone/fractal-viewer/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/MarsCapone/fractal-viewer">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="fractal-viewer-and-explorer" class="anchor" href="#fractal-viewer-and-explorer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fractal Viewer and Explorer</h1>
+
+<p><em>Generate and explore fractals - A Java 7 Application</em></p>
+
+<h2>
+<a id="running" class="anchor" href="#running" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running</h2>
+
+<pre><code>java -jar fractal-viewer.jar
+</code></pre>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Ability to jump to specific areas on either set. Controls available are:
+
+<ul>
+<li>(X,Y,R) values for Mandelbrot and Julia Sets, where X and Y are the 
+coordinated for the centre of the JPanel. R is the radius of the view 
+(the zoom)</li>
+<li>Julia Set Constant setter, allows the user to jump to a Julia Set of
+a specific constant. The checking for acceptable inputs is fairly
+permissive. It has this Regular Expression:
+<code>"\s*((\+?|-)\s*\d*\.?\d+)\s*(\+|-)\s*(\d*\.?\d+)\s*(i|I)?\s*"</code>
+</li>
+</ul>
+</li>
+<li>Ability to set the order of the Multibrot set. i.e The ability to set 'd'
+in the generation formula "<code>f(Z) = Z^d + c</code>".</li>
+<li>JSplitPanes for the main windows (Mandelbrot set, Julia Set and Settings).
+Allows user to resize viewing panes accordingly.</li>
+<li>Scrollbar for Settings panel allows user to make Settings pane even
+smaller without loss of functionality.</li>
+<li>Various colouring schemes permitted. Colour schemes set from 
+<code>calculation.SetColours.java</code>.</li>
+<li>Ability to generate different fractal types. All settings regarding this
+feature are found in <code>calculation.SetAlgorithms.java</code> which also includes full 
+documentation.</li>
+<li>Ability to use the mouse middle button to scroll zoom. This works best 
+with a mechanical mouse.</li>
+</ul>
+
+<h2>
+<a id="broken-extensions" class="anchor" href="#broken-extensions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Broken extensions</h2>
+
+<ul>
+<li>Ability to swap view (swap Mandelbrot and Julia panels) but keep any previous
+saved states.</li>
+<li>Functionality for rotation exists. But other things break. To enable, uncomment 
+line in ReaxingSettings and in calculation.Calculations.</li>
+<li>Double click to maximise, window. For some reason panels get deleted when 
+closed after being maximised. To enable, change <code>MAXIMISE</code> to <code>true</code> in 
+<code>FractalPanelListenener.java</code>.</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/MarsCapone">MarsCapone</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
